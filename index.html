@@ -14,185 +14,149 @@
             --neon2:#ff7a18; /* Orange */
             --btn-bg:#101623;
             --btn-fg:#ecf3ff;
+            --glass: rgba(10,14,22,.55);
+            --border: rgba(255,255,255,.08);
         }
 
-        /* Reset & Base */
         *{box-sizing:border-box}
         html,body{height:100%}
         body{
             margin:0;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
             color:var(--fg);
             background:var(--bg);
             line-height:1.6;
         }
 
-        /* Hero Section */
+        /* ====== NAVBAR ====== */
+        .skip-link{
+            position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+        }
+        .skip-link:focus{
+            left:16px; top:12px; width:auto; height:auto; padding:10px 14px; background:#000; border-radius:10px; z-index:9999;
+        }
+
+        .navbar-wrap{
+            position:sticky; top:0; z-index:1000;
+            backdrop-filter: blur(10px) saturate(120%);
+            background:linear-gradient(180deg, var(--glass), rgba(10,14,22,.20));
+            border-bottom:1px solid var(--border);
+        }
+        .navbar{
+            max-width:1200px; margin:0 auto; padding:12px 18px;
+            display:flex; align-items:center; gap:16px; justify-content:space-between;
+        }
+        .brand{
+            display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--fg); font-weight:800; letter-spacing:.3px;
+        }
+        .brand .logo-dot{
+            width:12px; height:12px; border-radius:999px;
+            background:radial-gradient(circle at 40% 40%, var(--neon1), transparent 60%);
+            box-shadow:0 0 16px var(--neon1), 0 0 2px var(--neon1) inset;
+        }
+        .nav{
+            display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+        }
+        .nav a{
+            --pad:10px;
+            padding:8px var(--pad);
+            border-radius:10px;
+            color:var(--fg); text-decoration:none; font-weight:600; font-size:0.98rem;
+            position:relative;
+        }
+        .nav a:hover{ filter:saturate(1.08) }
+        .nav a::after{
+            content:""; position:absolute; left:10px; right:10px; bottom:4px; height:2px;
+            background: linear-gradient(90deg, var(--neon1), var(--neon2));
+            opacity:0; transform: scaleX(.6); transform-origin:center; transition: .18s ease;
+            border-radius:2px;
+        }
+        .nav a:hover::after{ opacity:.9; transform: scaleX(1) }
+        .nav a[aria-current="page"]{
+            background: rgba(255,255,255,.04);
+            border:1px solid var(--border);
+        }
+        .nav a[aria-current="page"]::after{ opacity:1; transform:scaleX(1) }
+
+        /* Mobile menu */
+        .menu-toggle{
+            appearance:none; background:transparent; border:1px solid var(--border); color:var(--fg);
+            padding:10px 12px; border-radius:10px; display:none; align-items:center; gap:8px; font-weight:700; cursor:pointer;
+        }
+        .menu-toggle svg{ display:block }
+        @media (max-width:960px){
+            .menu-toggle{ display:flex }
+            .nav{ display:none; width:100%; flex-direction:column; align-items:flex-start; padding:10px 4px }
+            .nav.open{ display:flex }
+            .nav a{ width:100% }
+        }
+
+        /* ====== HERO (dein bestehender Bereich) ====== */
         .hero{
             position:relative;
             min-height:100dvh;
             display:grid;
             place-items:center;
-            overflow:hidden;
-            isolation:isolate; /* damit Overlay/Glows sauber übereinander liegen */
+            overflow:hidden; isolation:isolate;
         }
-
-        /* Hintergrund-Video/Bild */
-        .hero__media{
-            position:absolute;
-            inset:0;
-            z-index:-2;
-        }
-        .hero__video,
-        .hero__image{
-            position:absolute;
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            inset:0;
+        .hero__media{ position:absolute; inset:0; z-index:-2; }
+        .hero__video,.hero__image{
+            position:absolute; width:100%; height:100%; object-fit:cover; inset:0;
             filter:saturate(1.05) contrast(1.05) brightness(.9);
         }
-
-        /* Dunkles Overlay + dezenter Farbverlauf */
         .hero::after{
-            content:"";
-            position:absolute; inset:0;
+            content:""; position:absolute; inset:0; z-index:-1;
             background:
                     radial-gradient(1200px 500px at 20% 10%, color-mix(in oklab, var(--neon1) 20%, transparent) 0%, transparent 60%),
                     radial-gradient(1200px 500px at 80% 90%, color-mix(in oklab, var(--neon2) 18%, transparent) 0%, transparent 60%),
                     linear-gradient(180deg, rgba(6,8,12,.65), rgba(6,8,12,.85) 28%, rgba(6,8,12,.95) 100%);
-            z-index:-1;
         }
-
-        /* Content Card mit Neon-Kante */
         .hero__panel{
             width:min(1080px, 92vw);
             padding: clamp(20px, 4vw, 48px);
             backdrop-filter:saturate(120%) blur(6px);
             background:linear-gradient(180deg, rgba(12,16,24,.46), rgba(12,16,24,.30));
             border:1px solid rgba(255,255,255,.07);
-            border-radius:24px;
-            position:relative;
-            box-shadow:
-                    0 10px 30px rgba(0,0,0,.35),
-                    0 0 0 1px rgba(255,255,255,.04) inset;
+            border-radius:24px; position:relative;
+            box-shadow:0 10px 30px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.04) inset;
         }
-        /* Neon-Accent Top */
         .hero__panel::before{
-            content:"";
-            position:absolute; inset:-1px;
-            border-radius:inherit;
-            padding:1px;
-            background:
-                    linear-gradient(135deg, color-mix(in oklab, var(--neon1) 60%, transparent), color-mix(in oklab, var(--neon2) 60%, transparent));
-            -webkit-mask:
-                    linear-gradient(#000 0 0) content-box,
-                    linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity:.45;
-            filter:blur(.4px);
-            pointer-events:none;
-            animation: pulse 5.5s ease-in-out infinite;
+            content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px;
+            background:linear-gradient(135deg, color-mix(in oklab, var(--neon1) 60%, transparent), color-mix(in oklab, var(--neon2) 60%, transparent));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity:.45; filter:blur(.4px); pointer-events:none; animation:pulse 5.5s ease-in-out infinite;
         }
+        @keyframes pulse{ 0%,100%{opacity:.35} 50%{opacity:.6} }
+        .eyebrow{ display:inline-flex; gap:.6ch; align-items:center; font-size: clamp(.78rem, .76rem + .2vw, .95rem);
+            letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 .75rem 0; }
+        .eyebrow .dot{ width:.5rem; height:.5rem; border-radius:999px; background:radial-gradient(circle at 40% 40%, var(--neon1), transparent 60%); box-shadow:0 0 18px var(--neon1), 0 0 2px var(--neon1) inset; }
+        h1{ font-size: clamp(2rem, 1.35rem + 3.2vw, 4rem); line-height:1.1; margin:.1rem 0 .6rem 0; font-weight:800; letter-spacing:.01em; text-wrap:balance; text-shadow:0 1px 0 rgba(0,0,0,.3); }
+        .sub{ font-size: clamp(1.05rem, .98rem + .6vw, 1.35rem); color:var(--muted); margin:0 0 1.2rem 0; text-wrap:pretty; }
+        .credit{ font-size: clamp(.95rem, .88rem + .25vw, 1.05rem); color:var(--fg); margin:0 0 1.6rem 0; }
 
-        @keyframes pulse{
-            0%,100%{opacity:.35}
-            50%{opacity:.6}
-        }
-
-        .eyebrow{
-            display:inline-flex;
-            gap:.6ch;
-            align-items:center;
-            font-size: clamp(.78rem, .76rem + .2vw, .95rem);
-            letter-spacing:.08em;
-            text-transform:uppercase;
-            color:var(--muted);
-            margin:0 0 .75rem 0;
-        }
-        .eyebrow .dot{
-            width:.5rem; height:.5rem; border-radius:999px;
-            background:radial-gradient(circle at 40% 40%, var(--neon1), transparent 60%);
-            box-shadow:0 0 18px var(--neon1), 0 0 2px var(--neon1) inset;
-        }
-
-        h1{
-            font-size: clamp(2rem, 1.35rem + 3.2vw, 4rem);
-            line-height:1.1;
-            margin:.1rem 0 .6rem 0;
-            font-weight:800;
-            letter-spacing:.01em;
-            text-wrap:balance;
-            text-shadow:0 1px 0 rgba(0,0,0,.3);
-        }
-        .sub{
-            font-size: clamp(1.05rem, .98rem + .6vw, 1.35rem);
-            color:var(--muted);
-            margin:0 0 1.2rem 0;
-            text-wrap:pretty;
-        }
-        .credit{
-            font-size: clamp(.95rem, .88rem + .25vw, 1.05rem);
-            color:var(--fg);
-            margin:0 0 1.6rem 0;
-        }
-
-        /* CTAs */
-        .actions{
-            display:flex; flex-wrap:wrap; gap:12px;
-        }
+        .actions{ display:flex; flex-wrap:wrap; gap:12px; }
         .btn{
-            appearance:none; border:0; cursor:pointer;
-            padding:14px 20px;
-            border-radius:14px;
-            font-weight:700;
-            text-decoration:none;
-            display:inline-flex; align-items:center; gap:.6rem;
-            background:linear-gradient(180deg, color-mix(in oklab, var(--neon1) 22%, var(--btn-bg)), var(--btn-bg));
-            color:var(--btn-fg);
-            box-shadow:
-                    0 10px 22px rgba(0,0,0,.35),
-                    0 0 22px color-mix(in oklab, var(--neon1) 42%, transparent);
+            appearance:none; border:0; cursor:pointer; padding:14px 20px; border-radius:14px;
+            font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:.6rem;
+            background:linear-gradient(180deg, color-mix(in oklab, var(--neon1) 22%, var(--btn-bg)), var(--btn-bg)); color:var(--btn-fg);
+            box-shadow:0 10px 22px rgba(0,0,0,.35), 0 0 22px color-mix(in oklab, var(--neon1) 42%, transparent);
             transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
         }
         .btn:hover{ transform: translateY(-1px); filter:saturate(1.06) }
         .btn:active{ transform: translateY(0) scale(.99) }
-        .btn--ghost{
-            background:transparent;
-            border:1px solid rgba(255,255,255,.14);
-            box-shadow:none;
-            color:var(--fg);
-        }
+        .btn--ghost{ background:transparent; border:1px solid var(--border); box-shadow:none; color:var(--fg); }
 
-        /* Scroll Indicator */
-        .scroll-hint{
-            position:absolute; left:50%; bottom:18px; translate:-50% 0;
-            font-size:.9rem; color:var(--muted);
-            display:flex; align-items:center; gap:.6rem;
-            opacity:.85;
-            user-select:none;
-        }
-        .mouse{
-            width:20px; height:30px; border:2px solid var(--muted); border-radius:12px; position:relative;
-        }
-        .wheel{
-            position:absolute; left:50%; top:6px; width:2px; height:6px; background:var(--muted); border-radius:1px; translate:-50% 0;
-            animation: wheel 1.8s ease-in-out infinite;
-        }
-        @keyframes wheel{
-            0%{opacity:.1; transform: translateY(0)}
-            35%{opacity:1; transform: translateY(6px)}
-            100%{opacity:0; transform: translateY(10px)}
-        }
+        .scroll-hint{ position:absolute; left:50%; bottom:18px; translate:-50% 0; font-size:.9rem; color:var(--muted);
+            display:flex; align-items:center; gap:.6rem; opacity:.85; user-select:none; }
+        .mouse{ width:20px; height:30px; border:2px solid var(--muted); border-radius:12px; position:relative; }
+        .wheel{ position:absolute; left:50%; top:6px; width:2px; height:6px; background:var(--muted); border-radius:1px; translate:-50% 0; animation: wheel 1.8s ease-in-out infinite; }
+        @keyframes wheel{ 0%{opacity:.1; transform: translateY(0)} 35%{opacity:1; transform: translateY(6px)} 100%{opacity:0; transform: translateY(10px)} }
 
-        /* Accessiblity: Motion reduzieren */
         @media (prefers-reduced-motion: reduce){
             .hero__panel::before, .wheel{ animation:none }
             .btn, .btn:hover, .btn:active{ transition:none }
         }
-
-        /* Mobile Tuning */
         @media (max-width:520px){
             .actions{gap:10px}
             .btn{padding:12px 16px}
@@ -200,33 +164,54 @@
     </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- ====== NAVBAR ====== -->
+<div class="navbar-wrap" role="navigation" aria-label="Hauptnavigation">
+    <div class="navbar">
+        <a class="brand" href="index.html">
+            <span class="logo-dot" aria-hidden="true"></span>
+            AI for Tunnel Safety
+        </a>
+
+        <button class="menu-toggle" aria-expanded="false" aria-controls="nav">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+            Menü
+        </button>
+
+        <nav id="nav" class="nav">
+            <a href="index.html">Start</a>
+            <a href="projekt.html">Projekt</a>
+            <a href="technik.html">Technik</a>
+            <a href="auszeichnungen.html">Auszeichnungen</a>
+            <a href="vortraege.html">Vorträge</a>
+            <a href="aktuelles.html">Aktuelles</a>
+            <a href="ueber-mich.html">Über mich</a>
+            <a href="kontakt.html">Kontakt</a>
+        </nav>
+    </div>
+</div>
+
+<!-- ====== HERO ====== -->
 <header class="hero" role="banner" aria-label="AI for Tunnel Safety – Hero">
-    <!-- Media-Layer: Video mit Poster und Bild-Fallback -->
     <div class="hero__media" aria-hidden="true">
-        <video class="hero__video"
-               autoplay muted playsinline loop
-               preload="metadata"
-               poster="assets/tunnel.jpg">
+        <video class="hero__video" autoplay muted playsinline loop preload="metadata" poster="assets/tunnel.jpg">
             <source src="assets/tunnel.webm" type="video/webm">
             <source src="assets/tunnel.mp4" type="video/mp4">
         </video>
     </div>
 
-    <!-- Content -->
     <div class="hero__panel">
         <div class="eyebrow"><span class="dot" aria-hidden="true"></span> KI · Computer Vision · Sicherheit</div>
         <h1>AI for Tunnel Safety</h1>
         <p class="sub">Echtzeit-Erkennung von Einsatzfahrzeugen im Tunnel – eine KI, die Leben rettet.</p>
-        <p class="credit">Ein einzigartiges KI-System zur automatischen Erkennung von Einsatzfahrzeugen in Autobahntunneln – entwickelt, trainiert und umgesetzt von <strong>Alina Nessel</strong>.</p>
-
+        <p class="credit">Ein einzigartiges KI-System zur automatischen Erkennung von Einsatzfahrzeugen in Autobahntunneln – entwickelt, trainiert und umgesetzt von <strong>Chefin</strong>.</p>
         <div class="actions">
-            <!-- Passe den Link an: zu deiner Projektseite (z. B. project.html oder #projekt) -->
-            <a class="btn" href="project.html" aria-label="Mehr über das Projekt lesen">
-                <!-- kleiner Pfeil als Inline-SVG -->
+            <a class="btn" href="projekt.html" aria-label="Mehr über das Projekt lesen">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4l1.41 1.41L8.83 10H20v2H8.83l4.58 4.59L12 18l-8-8 8-8z"/></svg>
                 Mehr über das Projekt
             </a>
-            <a class="btn btn--ghost" href="#kontakt">Kontakt</a>
+            <a class="btn btn--ghost" href="kontakt.html">Kontakt</a>
         </div>
     </div>
 
@@ -236,8 +221,8 @@
     </div>
 </header>
 
-<!-- Dummy-Abschnitte für Scroll-Ziel; später mit Inhalt füllen -->
-<main>
+<!-- ====== CONTENT PLACEHOLDER ====== -->
+<main id="main">
     <section id="projekt" style="min-height:80dvh; padding:48px 6vw;">
         <h2 style="margin-top:0">Projektüberblick</h2>
         <p>Hier kommt deine Projektbeschreibung, Architektur, Trainingsdaten, Metriken (Precision/Recall), Edge-Deployment usw.</p>
@@ -246,12 +231,35 @@
     <section id="kontakt" style="min-height:60dvh; padding:48px 6vw; background:#0f1522; border-top:1px solid rgba(255,255,255,.06)">
         <h2 style="margin-top:0">Kontakt</h2>
         <p>E-Mail: <a href="mailto:alina.nessel@outlook.com">alina.nessel@outlook.com</a></p>
-        <p>Telefonnummer: <a href="tel:+436603420777">+436603420777</a></p>
+        <p>Telefonnummer: <a href="tel:+436603420777">+43 660 3420777</a></p>
     </section>
 </main>
 
 <script>
-    // Wenn Video-Autoplay blockiert wird: Video pausieren und auf Bild-Fallback setzen
+    // Mobile-Menü toggeln
+    (function(){
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('nav');
+        if(!btn || !nav) return;
+        btn.addEventListener('click', () => {
+            const open = nav.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+        });
+    })();
+
+    // Aktiven Menüpunkt markieren (per URL)
+    (function(){
+        const links = document.querySelectorAll('#nav a');
+        const path = location.pathname.split('/').pop() || 'index.html';
+        links.forEach(a => {
+            const href = a.getAttribute('href');
+            if (href === path || (path === '' && href === 'index.html')) {
+                a.setAttribute('aria-current', 'page');
+            }
+        });
+    })();
+
+    // Video-Autoplay fallback
     (function(){
         const video = document.querySelector('.hero__video');
         if(!video) return;
