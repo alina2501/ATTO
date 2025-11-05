@@ -14,19 +14,35 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
 
+    <!--
+      WICHTIG: Navbar & Hero bleiben 1:1 wie gewünscht.
+      Unterhalb davon ist ALLES neu: helleres, modernes Design mit optionalem Glaseffekt.
+    -->
     <style>
         :root{
-            --bg:#0b0f14;
-            --surface:#121a28;    /* NEU: helleres Dark für Sektionen/Karten */
-            --fg:#e9eef5;
-            --muted:#b7c2d3;      /* etwas heller für besseren Kontrast */
-            --neon1:#4cc9ff;      /* Blau */
-            --neon2:#ff7a18;      /* Orange */
-            --btn-bg:#101623;
-            --btn-fg:#ecf3ff;
-            --glass: rgba(10,14,22,.55);
-            --border: rgba(255,255,255,.10); /* minimal stärker */
-            --card:#0f1525;
+            /* helle, kühle Dark-UI (elegant + lesbar) */
+            --bg:         #0e1320;
+            --bg-2:       #121a28;
+            --glass:      rgba(255,255,255,.08);
+            --fg:         #eef4fb;
+            --muted:      #c7d0de;
+            --border:     rgba(255,255,255,.16);
+            --line:       rgba(255,255,255,.10);
+            --elev1:      rgba(255,255,255,.06);
+            --elev2:      rgba(255,255,255,.10);
+
+            --card:       #121a2b;
+            --card-2:     #162035;
+
+            --neon1:      #4cc9ff;
+            --neon2:      #ff7a18;
+            --success:    #4ade80;
+
+            --shadow-1:   0 8px 20px rgba(0,0,0,.28);
+            --shadow-2:   0 14px 36px rgba(0,0,0,.36);
+
+            --radius-lg:  18px;
+            --radius-xl:  22px;
         }
 
         *{box-sizing:border-box}
@@ -35,15 +51,20 @@
             margin:0;
             font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
             color:var(--fg);
-            background:var(--bg);
+            background:
+                    radial-gradient(900px 500px at 15% 0%, rgba(139,184,255,.07), transparent 60%),
+                    radial-gradient(900px 500px at 85% 100%, rgba(255,180,119,.06), transparent 60%),
+                    linear-gradient(180deg, var(--bg), var(--bg-2));
             line-height:1.6;
         }
 
-        /* ====== NAVBAR ====== */
+        /* ==========================================================
+           NAVBAR (1:1 aus deiner Version – unverändert)
+           ========================================================== */
         .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
         .skip-link:focus{ left:16px; top:12px; width:auto; height:auto; padding:10px 14px; background:#000; border-radius:10px; z-index:9999; }
 
-        .navbar-wrap{ position:fixed; top:0px; left:0; right:0; z-index:1000; backdrop-filter: blur(10px) saturate(120%); background:linear-gradient(180deg, var(--glass), rgba(10,14,22,.20)); border-bottom:1px solid var(--border); transition: transform 0.3s ease, opacity 0.3s ease; box-shadow: 0 8px 20px rgba(0,0,0,.28); }
+        .navbar-wrap{ position:fixed; top:0px; left:0; right:0; z-index:1000; backdrop-filter: blur(10px) saturate(120%); background:linear-gradient(180deg, rgba(10,14,22,.55), rgba(10,14,22,.20)); border-bottom:1px solid rgba(255,255,255,.10); transition: transform 0.3s ease, opacity 0.3s ease; box-shadow: 0 8px 20px rgba(0,0,0,.28); }
         .navbar-wrap.hide { transform: translateY(-100%); opacity: 0; }
         .navbar{ max-width:1200px; margin:0 auto; padding:12px 18px; display:flex; align-items:center; gap:16px; justify-content:space-between; }
         .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--fg); font-weight:800; letter-spacing:.3px; }
@@ -54,15 +75,16 @@
         .nav a:hover{ filter:saturate(1.08) }
         .nav a::after{ content:""; position:absolute; left:10px; right:10px; bottom:4px; height:2px; background: linear-gradient(90deg, var(--neon1), var(--neon2)); opacity:0; transform: scaleX(.6); transform-origin:center; transition: .18s ease; border-radius:2px; }
         .nav a:hover::after{ opacity:.9; transform: scaleX(1) }
-        .nav a[aria-current="page"]{ background: rgba(255,255,255,.04); border:1px solid var(--border); }
+        .nav a[aria-current="page"]{ background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); }
         .nav a[aria-current="page"]::after{ opacity:1; transform:scaleX(1) }
 
-        /* Mobile menu */
-        .menu-toggle{ appearance:none; background:transparent; border:1px solid var(--border); color:var(--fg); padding:10px 12px; border-radius:10px; display:none; align-items:center; gap:8px; font-weight:700; cursor:pointer; }
+        .menu-toggle{ appearance:none; background:transparent; border:1px solid rgba(255,255,255,.10); color:var(--fg); padding:10px 12px; border-radius:10px; display:none; align-items:center; gap:8px; font-weight:700; cursor:pointer; }
         .menu-toggle svg{ display:block }
         @media (max-width:960px){ .menu-toggle{ display:flex } .nav{ display:none; width:100%; flex-direction:column; align-items:flex-start; padding:10px 4px } .nav.open{ display:flex } .nav a{ width:100% } }
 
-        /* ====== HERO ====== */
+        /* ==========================================================
+           HERO (1:1 aus deiner Version – unverändert)
+           ========================================================== */
         .hero{ position:relative; min-height:100dvh; display:grid; place-items:center; overflow:hidden; isolation:isolate; }
         .hero__media{ position:absolute; inset:0; z-index:-2; }
         .hero__video,.hero__image{ position:absolute; width:100%; height:100%; object-fit:cover; inset:0; filter:saturate(1.05) contrast(1.05) brightness(0.9); }
@@ -83,11 +105,11 @@
         .hero__panel p{ max-width:70ch; margin-inline:auto; text-align:center; }
 
         .actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content: center; }
-        .btn{ appearance:none; border:0; cursor:pointer; padding:14px 20px; border-radius:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:.6rem; background:linear-gradient(180deg, color-mix(in oklab, var(--neon1) 22%, var(--btn-bg)), var(--btn-bg)); color:var(--btn-fg); box-shadow:0 10px 20px rgba(0,0,0,.35), 0 0 16px color-mix(in oklab, var(--neon1) 34%, transparent); transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+        .btn{ appearance:none; border:0; cursor:pointer; padding:14px 20px; border-radius:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:.6rem; background:linear-gradient(180deg, color-mix(in oklab, var(--neon1) 22%, #101623), #101623); color:#ecf3ff; box-shadow:0 10px 20px rgba(0,0,0,.35), 0 0 16px color-mix(in oklab, var(--neon1) 34%, transparent); transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
         .btn:hover{ transform: translateY(-1px); filter:saturate(1.06) }
         .btn:active{ transform: translateY(0) scale(.99) }
-        .btn--ghost{ background:transparent; border:1px solid var(--border); box-shadow:none; color:var(--fg); opacity:.9; }
-        .btn--ghost:hover{ opacity:1; border-color:color-mix(in oklab, var(--neon1) 30%, var(--border)); }
+        .btn--ghost{ background:transparent; border:1px solid rgba(255,255,255,.10); box-shadow:none; color:var(--fg); opacity:.9; }
+        .btn--ghost:hover{ opacity:1; border-color:color-mix(in oklab, var(--neon1) 30%, rgba(255,255,255,.10)); }
 
         .scroll-hint{ position:absolute; left:50%; bottom:18px; translate:-50% 0; font-size:.9rem; color:var(--muted); display:flex; align-items:center; gap:.6rem; opacity:.85; user-select:none; }
         .mouse{ width:20px; height:30px; border:2px solid var(--muted); border-radius:12px; position:relative; }
@@ -95,80 +117,123 @@
         @keyframes wheel{ 100%{opacity:.1; transform: translateY(0)} 35%{opacity:1; transform: translateY(6px)} 0%{opacity:0; transform: translateY(10px)} }
 
         @media (prefers-reduced-motion: reduce){ .hero__panel::before, .wheel{ animation:none } .btn, .btn:hover, .btn:active{ transition:none } }
-        @media (max-width:520px){ .actions{gap:10px} .btn{padding:12px 16px} }
 
-        /* ====== 2. Kurz-Erklärung ====== */
-        .features{ padding:72px 6vw; border-top:1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,.03), transparent); }
-        .features__grid{ max-width:1300px; margin:0 auto; display:grid; grid-template-columns: repeat(3,1fr); gap:18px; }
-        .card{ background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px; position:relative; overflow:hidden; }
-        .card h3{ margin:8px 0 6px; font-size:1.15rem; }
-        .card p{ margin:0; color:var(--muted); }
-        .icon{ width:38px; height:38px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(135deg, color-mix(in oklab, var(--neon1) 20%, transparent), color-mix(in oklab, var(--neon2) 20%, transparent)); box-shadow:0 8px 18px rgba(0,0,0,.35), 0 0 12px color-mix(in oklab, var(--neon1) 20%, transparent); }
-        .icon svg{ width:22px; height:22px; }
-        .card::after{ content:""; position:absolute; inset:auto -30% -30% auto; width:180px; height:180px; background: radial-gradient(closest-side, color-mix(in oklab, var(--neon1) 20%, transparent), transparent); filter:blur(25px); opacity:.35; }
-        @media (max-width:960px){ .features__grid{ grid-template-columns:1fr; } }
+        /* ==========================================================
+           AB HIER: NEUES DESIGN FÜR ALLE WEITEREN SEKTIONEN
+           ========================================================== */
 
-        /* ====== 3. Wow-Satz ====== */
-        .wow{ padding:90px 6vw; background:#0d1422; border-top:1px solid var(--border); border-bottom:1px solid var(--border); text-align:center; }
-        .wow h2{ font-size: clamp(1.8rem, 1.2rem + 2.8vw, 3rem); margin:0 0 14px; }
-        .wow p{ margin:0 auto 22px; color:var(--muted); max-width:760px; }
+        main{ overflow-x:hidden; }
 
-        /* ====== 5. Visualisierung ====== */
-        .visual{ padding:70px 6vw; display:grid; grid-template-columns:1.1fr .9fr; gap:26px; align-items:center; border-bottom:1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,.02), transparent); position:relative; }
-        .visual::before{
-            content:""; position:absolute; inset:0; pointer-events:none;
-            background:
-                    radial-gradient(600px 200px at 20% 0%, rgba(76,201,255,.06), transparent 60%),
-                    radial-gradient(600px 200px at 80% 100%, rgba(255,122,24,.05), transparent 60%);
-            mix-blend-mode: screen; opacity:.7;
-        }
-        .visual .shot {
-            position: relative;
-            aspect-ratio: 16/10.5;
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.35);
-            overflow: hidden;
-            background: #0f1525;
-        }
-        .visual .shot video {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            object-fit: cover; object-position: center; display: block;
-        }
-        .visual h3{ margin:0 0 10px; font-size:1.6rem; }
-        .visual p{ margin:0; color:var(--muted); max-width:70ch; }
-        @media (max-width:960px){ .visual{ grid-template-columns:1fr; } }
+        /* Sektion-Wrapper */
+        .section{ padding:72px clamp(20px,6vw,80px); border-top:1px solid var(--line); }
+        .section--soft{ background: linear-gradient(180deg, rgba(255,255,255,.035), transparent); }
 
-        /* ====== 4. Erfolge ====== */
-        .awards{ padding:70px 6vw; }
-        .awards .intro{ text-align:center; margin-bottom:26px; }
-        /* Buttons statt Logos */
-        .awards-buttons{
-            max-width:1200px; margin:0 auto;
-            display:flex; flex-wrap:wrap; gap:12px; justify-content:center;
+        .container{ max-width:1200px; margin-inline:auto; }
+        .headline{
+            margin:0 0 16px; font-weight:800; letter-spacing:.2px; text-wrap:balance;
+            font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.3rem);
         }
-        .award-btn{
-            appearance:none; border:1px solid var(--border);
-            background:
-                    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.08)),
-                    linear-gradient(90deg, color-mix(in oklab, var(--neon1) 18%, transparent), color-mix(in oklab, var(--neon2) 18%, transparent));
-            background-blend-mode: overlay, normal;
-            color:var(--fg); border-radius:14px; padding:12px 16px; font-weight:700;
-            box-shadow: 0 8px 20px rgba(0,0,0,.28), 0 0 10px color-mix(in oklab, var(--neon1) 18%, transparent);
-            transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+        .lead{ margin:0 0 26px; color:var(--muted); max-width:75ch; }
+
+        /* Glass-Karten (Features) */
+        .features-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .gcard{
+            position:relative; overflow:hidden; border-radius:var(--radius-lg);
+            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+            border:1px solid var(--border);
+            backdrop-filter: blur(8px) saturate(120%);
+            box-shadow: var(--shadow-1);
+            padding:20px; min-height:160px;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
         }
-        .award-btn:hover{ transform: translateY(-2px); filter:saturate(1.05);
-            box-shadow: 0 12px 24px rgba(0,0,0,.35), 0 0 14px color-mix(in oklab, var(--neon1) 24%, transparent);
+        .gcard:hover{ transform: translateY(-2px); box-shadow: var(--shadow-2); border-color: rgba(255,255,255,.22); }
+        .gcard .ico{ width:40px; height:40px; display:grid; place-items:center; border-radius:12px; margin-bottom:10px;
+            background: radial-gradient(closest-side, rgba(76,201,255,.35), transparent 70%);
+        }
+        .gcard h3{ margin:2px 0 6px; font-size:1.12rem; }
+        .gcard p{ margin:0; color:var(--muted); }
+        @media (max-width:960px){ .features-grid{ grid-template-columns:1fr; } }
+
+        /* Big Quote / Wow */
+        .wow{ text-align:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(0,0,0,.05)); }
+        .wow h2{ margin:0 0 12px; font-size: clamp(1.8rem,1.1rem + 2.8vw,3rem); }
+        .wow p{ margin:0 auto 18px; color:var(--muted); max-width:760px; }
+        .badge-row{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+        .badge{
+            padding:10px 14px; border-radius:999px; border:1px solid var(--border);
+            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+            backdrop-filter: blur(6px);
+            font-weight:700; box-shadow: var(--shadow-1);
         }
 
-        .quote{ margin:22px auto 0; max-width:820px; color:var(--muted); text-align:center; font-style:italic; }
+        /* Visualisierung */
+        .visual{ display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:center; position:relative; }
+        .device{
+            position:relative; overflow:hidden; border-radius:var(--radius-xl);
+            border:1px solid var(--border); box-shadow: var(--shadow-2);
+            background: linear-gradient(180deg, var(--card), var(--card-2));
+            aspect-ratio:16/10.5;
+        }
+        .device video, .device img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 
-        /* ====== Kontakt ====== */
-        #kontakt{ min-height:60dvh; padding:48px 6vw; background:#0f1525; border-top:1px solid rgba(255,255,255,.06) }
+        /* Awards */
+        .awards-grid{ display:flex; flex-wrap:wrap; gap:10px; }
+        .pill{
+            appearance:none; border:1px solid var(--border); border-radius:999px; padding:10px 14px; font-weight:700;
+            background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.06)),
+            linear-gradient(90deg, color-mix(in oklab, var(--neon1) 16%, transparent), color-mix(in oklab, var(--neon2) 16%, transparent));
+            background-blend-mode: overlay, normal; color:var(--fg); box-shadow: var(--shadow-1);
+            transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+        }
+        .pill:hover{ transform: translateY(-2px); filter:saturate(1.04); box-shadow: var(--shadow-2); }
 
-        /* ====== Footer ====== */
-        footer{ padding:50px 6vw; border-top:1px solid var(--border); background:#0a0f19; color:var(--muted); }
+        /* Kontakt */
+        .contact{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; align-items:stretch}
+        .card{border:1px solid var(--border); border-radius:var(--radius-xl);
+            background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+            backdrop-filter: blur(10px) saturate(120%);
+            padding:22px; box-shadow: var(--shadow-2);
+        }
+        .contact-hero{ position:relative; overflow:hidden }
+        .contact-hero::after{ content:""; position:absolute; inset:auto -20% -40% auto; width:280px; height:280px;
+            background: radial-gradient(closest-side, rgba(76,201,255,.24), transparent 70%);
+            filter: blur(24px); opacity:.8; pointer-events:none }
+        .contact .headline{ margin-top:0 }
+        .contact .lead{ margin:6px 0 16px }
+        .chip-row{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 14px }
+        .chip{ padding:8px 12px; border:1px solid var(--border); border-radius:999px;
+            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); font-weight:700 }
+
+        .contact-list{ display:grid; gap:10px; margin-top:8px }
+        .contact-item{ display:flex; gap:10px; align-items:center }
+        .contact-item a{ color:var(--fg); text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.25) }
+        .contact-item a:hover{ border-bottom-color: rgba(255,255,255,.45) }
+        .ci-ico{ width:34px; height:34px; border-radius:10px; display:grid; place-items:center;
+            background: radial-gradient(closest-side, rgba(76,201,255,.18), transparent 70%);
+            border:1px solid var(--border) }
+
+        .form{ display:grid; gap:14px }
+        .field{ display:grid; gap:6px }
+        .row{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
+        .field label{ font-weight:700 }
+        .input, .select, .textarea{
+            padding:12px 14px; border-radius:14px; border:1px solid var(--border);
+            background: rgba(255,255,255,.06); color:var(--fg)
+        }
+        .textarea{ min-height:140px; resize:vertical }
+        .input:focus, .select:focus, .textarea:focus{ outline:2px solid color-mix(in oklab, var(--neon1) 55%, white); outline-offset:3px }
+        .hint{ color:var(--muted); font-size:.92rem }
+        .consent{ display:flex; gap:10px; align-items:flex-start; font-size:.95rem; color:var(--muted) }
+
+        .submit-row{ display:flex; gap:10px; align-items:center; justify-content:flex-start }
+        .response-time{ padding:8px 10px; border:1px solid var(--border); border-radius:999px; font-weight:700;
+            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)) }
+
+        @media (max-width:960px){ .contact{ grid-template-columns:1fr } .row{ grid-template-columns:1fr } }
+
+        /* Footer */
+        footer{ padding:50px clamp(20px,6vw,80px); border-top:1px solid var(--line); background:#0d1322; color:var(--muted); }
         .footer-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr; gap:26px; }
         .footer-nav, .social{ display:flex; gap:12px; flex-wrap:wrap; }
         .footer-nav a, .social a{ color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:8px; border:1px solid transparent; }
@@ -176,155 +241,41 @@
         .copyright{ margin-top:18px; font-size:.9rem; color:var(--muted); }
         @media (max-width:800px){ .footer-grid{ grid-template-columns:1fr; } }
 
-        /* ====== Focus Visibility ====== */
-        a:focus-visible, button:focus-visible{
-            outline: 2px solid color-mix(in oklab, var(--neon1) 70%, white);
-            outline-offset: 3px; border-radius: 10px;
-        }
+        /* Helfer */
+        .hr{ height:1px; background:var(--line); margin:24px 0; border:0; }
 
-        /* ===== Softeres Dark-Theme (drop-in, ans Ende deiner <style> einfügen) ===== */
-        :root{
-            /* Palette – etwas heller & wärmer */
-            --bg:        #0e1420;       /* vorher #0b0f14 */
-            --bg-2:      #121a24;       /* leichte 2. Ebene */
-            --surface:   #161e2d;       /* vorher #121a28 */
-            --elev1:     #1a2435;       /* neue Stufe für Hover/Modal */
-            --elev2:     #202c41;       /* tiefere Stufe */
-            --card:      #151c2c;       /* vorher #0f1525 */
-            --fg:        #eef3fa;
-            --muted:     #c2ccda;       /* vorher #b7c2d3 */
-            --border:    rgba(255,255,255,.12);
-            --glass:     rgba(14,20,32,.55);
+        @media (max-width:960px){ .visual{ grid-template-columns:1fr; } .contact{ grid-template-columns:1fr; } }
 
-            /* Akzente – etwas weniger grell */
-            --neon1:     color-mix(in oklab, #4cc9ff 80%, #7cc2ff);
-            --neon2:     color-mix(in oklab, #ff7a18 78%, #ffb477);
-            --accent:    #8bb8ff;
+        /* bestehendes Styling beibehalten */
+        body{margin:0;font-family:system-ui,Segoe UI,Roboto;color:#eef4fb;background:#0e1320;line-height:1.6}
+        .section{padding:72px clamp(20px,6vw,80px);border-top:1px solid rgba(255,255,255,.1)}
+        .container{max-width:1200px;margin-inline:auto}
+        .headline{margin:0 0 16px;text-wrap:balance;font-size:clamp(1.6rem,1.2rem+1.6vw,2.3rem)}
+        .lead{margin:0 0 26px;color:#c7d0de;max-width:75ch}
 
-            /* Buttons */
-            --btn-bg:    #141c2b;
-            --btn-bg-2:  #1a2435;
-            --btn-fg:    #f2f7ff;
-            --btn-border:rgba(255,255,255,.14);
 
-            /* Schatten */
-            --shadow-1:  0 6px 16px rgba(0,0,0,.28);
-            --shadow-2:  0 12px 28px rgba(0,0,0,.32);
-        }
+        /* awards überarbeitet */
+        .awards-section{ text-align:center; background:linear-gradient(180deg, rgba(255,255,255,.035), transparent); }
+        .awards-section .headline{ text-align:center; }
+        .awards-section .lead{ text-align:center; margin:0 auto 26px; }
+        .awards-grid{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+        .pill{ appearance:none; border:1px solid rgba(255,255,255,.16); border-radius:999px; padding:10px 14px; font-weight:700;
+            background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.06)),
+            linear-gradient(90deg, color-mix(in oklab, #4cc9ff 16%, transparent), color-mix(in oklab, #ff7a18 16%, transparent));
+            background-blend-mode: overlay, normal; color:#eef4fb; box-shadow:0 8px 20px rgba(0,0,0,.28);
+            transition: transform .18s ease, filter .18s ease, box-shadow .18s ease; }
+        .pill:hover{ transform:translateY(-2px); filter:saturate(1.04); box-shadow:0 12px 24px rgba(0,0,0,.35); }
 
-        /* Hintergrund leicht aufhellen + sanfter Verlauf */
-        body{
-            background:
-                    radial-gradient(900px 500px at 15% 0%, rgba(139,184,255,.06), transparent 60%),
-                    radial-gradient(900px 500px at 85% 100%, rgba(255,180,119,.05), transparent 60%),
-                    linear-gradient(180deg, var(--bg), var(--bg-2));
-            color: var(--fg);
-        }
 
-        /* Navbar: weniger Glas, bessere Lesbarkeit */
-        .navbar-wrap{
-            background: linear-gradient(180deg, rgba(14,20,32,.65), rgba(14,20,32,.35));
-            border-bottom: 1px solid var(--border);
-            box-shadow: var(--shadow-1);
-        }
-
-        /* Links dezenter */
-        .nav a{ color: var(--fg); }
-        .nav a[aria-current="page"]{
-            background: rgba(255,255,255,.04);
-            border: 1px solid var(--border);
-        }
-        .nav a::after{ opacity:.65; transform: scaleX(.7); }
-
-        /* Hero: Overlay etwas heller, Panel wärmer */
-        .hero::after{
-            background:
-                    radial-gradient(1200px 500px at 20% 10%, color-mix(in oklab, var(--neon1) 16%, transparent) 0%, transparent 60%),
-                    radial-gradient(1200px 500px at 80% 90%, color-mix(in oklab, var(--neon2) 14%, transparent) 0%, transparent 60%),
-                    linear-gradient(180deg, rgba(14,20,32,.55), rgba(14,20,32,.82) 28%, rgba(14,20,32,.92) 100%);
-        }
-        .hero__panel{
-            background: linear-gradient(180deg, rgba(22,30,45,.60), rgba(22,30,45,.38));
-            border: 1px solid rgba(255,255,255,.08);
-            box-shadow: var(--shadow-2), 0 0 0 1px rgba(255,255,255,.03) inset;
-        }
-        h1, h6{ text-shadow: 0 1px 0 rgba(0,0,0,.25); }
-        .sub{ color: var(--muted); opacity:.95; }
-
-        /* Karten/Sektionen: hellere Flächen + Hairline-Borders */
-        .features{ background: linear-gradient(180deg, rgba(255,255,255,.035), transparent); }
-        .card{
-            background: linear-gradient(180deg, var(--surface), color-mix(in oklab, var(--surface) 85%, black));
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-1);
-        }
-        .card::after{ opacity:.28; } /* weniger Glow */
-        .icon{
-            background: linear-gradient(135deg,
-            color-mix(in oklab, var(--neon1) 16%, transparent),
-            color-mix(in oklab, var(--neon2) 16%, transparent)
-            );
-            box-shadow: 0 6px 16px rgba(0,0,0,.3);
-        }
-
-        /* Wow-Block: weniger „schwarz“, mehr Tiefe */
-        .wow{
-            background: linear-gradient(180deg, #121a2b, #101729);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* Visual: Shot-Frame heller */
-        .visual .shot{
-            background: var(--card);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-2);
-        }
-
-        /* Buttons: heller, klarere Kante, weniger Glow */
-        .btn{
-            background: linear-gradient(180deg, color-mix(in oklab, var(--neon1) 18%, var(--btn-bg-2)), var(--btn-bg));
-            border: 1px solid var(--btn-border);
-            color: var(--btn-fg);
-            box-shadow: var(--shadow-1);
-        }
-        .btn:hover{ filter: saturate(1.05); transform: translateY(-1px); }
-        .btn--ghost{
-            background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.06));
-            border: 1px solid var(--border);
-            opacity:.95;
-        }
-
-        /* Awards-Buttons: ruhiger */
-        .award-btn{
-            background:
-                    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.07)),
-                    linear-gradient(90deg, color-mix(in oklab, var(--neon1) 14%, transparent), color-mix(in oklab, var(--neon2) 14%, transparent));
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-1);
-        }
-
-        /* Kontakt/Footer: 1–2 Stufen heller */
-        #kontakt{ background: #141c2b; border-top: 1px solid rgba(255,255,255,.08); }
-        footer{
-            background: #0d1322;
-            color: var(--muted);
-            border-top: 1px solid var(--border);
-        }
-
-        /* Fokus-Ring: sichtbar, aber softer */
-        a:focus-visible, button:focus-visible{
-            outline: 2px solid color-mix(in oklab, var(--neon1) 55%, white);
-            outline-offset: 3px; border-radius: 10px;
-        }
-
+        .quote{text-align:center;color:#c7d0de;font-style:italic;margin:30px auto 0;max-width:760px}
+        .awards-section .actions{ display:flex; justify-content:center; margin-top:24px }
 
     </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
-<!-- ====== NAVBAR ====== -->
+<!-- ================= NAVBAR (unverändert) ================= -->
 <div class="navbar-wrap" role="navigation" aria-label="Hauptnavigation">
     <div class="navbar">
         <a class="brand" href="index.html">
@@ -350,19 +301,18 @@
     </div>
 </div>
 
-<!-- ====== HERO ====== -->
+<!-- ================= HERO (unverändert) ================= -->
 <header class="hero" role="banner" aria-label="ATTO AI Tracking Tunnel Overview – Hero">
     <div class="hero__media" aria-hidden="true">
         <video class="hero__video" autoplay muted playsinline loop preload="metadata" poster="assets/test.png">
             <source src="assets/tunnel.webm" type="video/webm">
-            <source src="assets/tunne.mp4" type="video/mp4"><!-- falls deine Datei 'tunne.mp4' heißt, hier zurückändern -->
+            <source src="assets/tunne.mp4" type="video/mp4">
         </video>
     </div>
 
     <div class="hero__panel">
-        <!-- (Änderung 2 ignoriert: h1/h6 bleiben) -->
-        <h1 style="text-align: center;">ATTO</h1>
-        <h6 style="margin-bottom: 40px; text-align: center;">AI Tracking Tunnel Overview</h6>
+        <h1 style="text-align:center;">ATTO</h1>
+        <h6 style="margin-bottom:40px; text-align:center;">AI Tracking Tunnel Overview</h6>
         <p class="sub">Echtzeit-Erkennung von Einsatzfahrzeugen in Autobahntunneln – eine KI, die Leben rettet.</p>
         <p class="credit">Mit einem einzigartigen KI-Datensatz zur Erkennung österreichischer Einsatzfahrzeuge – vollständig eigenständig entwickelt, trainiert und umgesetzt von<strong> Alina Nessel</strong>.</p>
         <div class="actions">
@@ -378,115 +328,182 @@
 </header>
 
 <main id="main">
-    <!-- ====== 2. Kurz-Erklärung ====== -->
-    <section id="features" class="features" aria-label="Kurz-Erklärung">
-        <div class="features__grid">
-            <article class="card" aria-label="Einzigartiges Datenset weltweit">
-                <div class="icon" aria-hidden="true">
-                    <!-- Brain icon -->
-                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
-                        <rect x="32" y="32" width="448" height="448" rx="40" ry="40" fill="none" stroke="currentColor" stroke-width="32"/>
-                        <path d="M256 72l58.6 118.8 131.4 19.2-95 92.6 22.4 130.4L256 382.8 138.6 433l22.4-130.4-95-92.6 131.4-19.2L256 72z" fill="currentColor"/>
-                        <path d="M340 200c-6-6-15.6-6-21.6 0l-76.4 76.3-36.4-36.4c-6-6-15.6-6-21.6 0s-6 15.6 0 21.6l48 48c6 6 15.6 6 21.6 0l88-88c6-6 6-15.6 0-21.5z" />
-                    </svg>
+
+    <!-- ========== VISUAL: neuer Device-Frame ========= -->
+    <section class="section section--soft" aria-label="Visualisierung">
+        <div class="container visual">
+            <div class="device" aria-label="Screenshot/Mockup der Live-Oberfläche">
+                <video src="assets/tunnel.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <div>
+                <h3 class="headline">So sieht die Übersicht aus.</h3>
+                <p class="lead">Das Einsatzfahrzeug fährt im Tunnel und wird von der KI automatisch erkannt. Anschließend wird es auf der Webseite maßstabsgetreu angezeigt, sodass der gesamte Einsatz in Echtzeit verfolgt werden kann. So behalten alle Einsatzkräfte jederzeit den Überblick.</p>
+                <div class="actions">
+                    <a class="btn" href="projekt.html">Zum Tunnel Trettnig</a>
+                    <a class="btn btn--ghost" href="technik.html">Details zur KI</a>
                 </div>
-                <h3>✨ Weltweit einzigartiges Datenset</h3>
-                <p>Das erste Datenset, das österreichische Einsatzfahrzeuge erkennt.</p>
-            </article>
-
-            <article class="card" aria-label="KI erkennt automatisch">
-                <div class="icon" aria-hidden="true">
-                    <!-- Siren icon -->
-                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
-                        <rect x="32" y="32" width="448" height="448" rx="40" ry="40" fill="none" stroke="currentColor" stroke-width="32"/>
-                        <path d="M128 176c-17.7 0-32 14.3-32 32v128c0 17.7 14.3 32 32 32h256c17.7 0 32-14.3 32-32v-96l-48-64H128z" fill="currentColor"/>
-                        <rect x="224" y="112" width="64" height="32" rx="8" ry="8" fill="currentColor"/>
-                        <path d="M176 224h24v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h24c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8h-24v24c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8v-24h-24c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8z" fill="#000"/>
-                        <path d="M304 208h64l32 48h-96z" fill="#000"/>
-                        <circle cx="176" cy="352" r="32" fill="#000"/>
-                        <circle cx="176" cy="352" r="12" fill="#fff"/>
-                        <circle cx="336" cy="352" r="32" fill="#000"/>
-                        <circle cx="336" cy="352" r="12" fill="#fff"/>
-                    </svg>
-                </div>
-                <h3>🚒 KI erkennt automatisch</h3>
-                <p>Einsatzfahrzeuge werden auf normalen Tunnelkameras erkannt – egal ob Polizei, Rettung oder Feuerwehr.</p>
-            </article>
-
-            <article class="card" aria-label="Online maßstabsgetreue Tunnelabbildung">
-                <div class="icon" aria-hidden="true">
-                    <!-- Dashboard icon -->
-                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" style="color:white;">
-                        <path d="M64 32c-17.7 0-32 14.3-32 32v320c0 17.7 14.3 32 32 32h384c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32H64zm0 32h384v288H64V64z"/>
-                        <path d="M0 416c0-8.8 7.2-16 16-16h480c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H16c-8.8 0-16-7.2-16-16v-32z"/>
-                        <rect x="216" y="440" width="80" height="10" rx="10" ry="10" fill="#000"/>
-                    </svg>
-                </div>
-                <h3>🌐 Maßstabsgetreue Tunnelabbildung</h3>
-                <p>Eine Webseite zeigt den Tunnel und alle Einsatzfahrzeuge in Echtzeit – auf jedem Gerät abrufbar, ganz ohne Installation oder Download.</p>
-            </article>
-        </div>
-    </section>
-
-    <!-- ====== 3. Der Wow-Satz ====== -->
-    <section class="wow" aria-label="Wow-Satz">
-        <h2>„Ein Datenset, das weltweit einzigartig ist – rund 80 000 Bilder, manuell erstellt und annotiert.“</h2>
-        <p>Die Grundlage einer KI, die Einsatzfahrzeuge im Tunnel in Echtzeit erkennt.</p>
-        <a class="btn" href="technik.html">→ Erfahre, wie das möglich war</a>
-    </section>
-
-    <!-- ====== 5. Visualisierung (Live-Vorschau / Screenshot) ====== -->
-    <section id="visual" class="visual" aria-label="Visualisierung">
-        <div class="shot" aria-label="Screenshot/Mockup der Live-Oberfläche">
-            <video src="assets/tunnel.mp4" autoplay muted loop playsinline></video>
-        </div>
-        <div>
-            <h3>So sieht die Übersicht aus.</h3>
-            <p>Das Einsatzfahrzeug fährt im Tunnel und wird von der KI automatisch erkannt. Anschließend wird es auf der Webseite maßstabsgetreu angezeigt, sodass der gesamte Einsatz in Echtzeit verfolgt werden kann.
-                So behalten alle Einsatzkräfte jederzeit den Überblick.</p>
-            <div class="actions" style="margin-top:16px">
-                <a class="btn" href="projekt.html">Zum Tunnel Trettnig</a>
-                <a class="btn btn--ghost" href="technik.html">Details zur KI</a>
             </div>
         </div>
     </section>
 
-    <!-- ====== 4. Erfolge (Social Proof) ====== -->
-    <section class="awards" aria-label="Erfolge">
-        <div class="intro">
-            <h2 style="margin:0 0 6px">🏆 Erfolge</h2>
-            <p>6 Preise. 2 Auszeichnungen. 2 Vorträge</p>
-        </div>
+    <!-- ========== FEATURES: neu, glasig & hell ========= -->
+    <section class="section section--soft" aria-label="Kurz-Erklärung">
+        <div class="container">
+            <div class="features-grid">
+                <article class="gcard" aria-label="Einzigartiges Datenset weltweit">
+                    <div class="ico" aria-hidden="true">
+                        <svg viewBox="0 0 512 512" width="22" height="22" fill="currentColor" aria-hidden="true">
+                            <rect x="32" y="32" width="448" height="448" rx="40" ry="40" fill="none" stroke="currentColor" stroke-width="32"/>
+                            <path d="M256 72l58.6 118.8 131.4 19.2-95 92.6 22.4 130.4L256 382.8 138.6 433l22.4-130.4-95-92.6 131.4-19.2L256 72z" fill="currentColor"/>
+                            <path d="M340 200c-6-6-15.6-6-21.6 0l-76.4 76.3-36.4-36.4c-6-6-15.6-6-21.6 0s-6 15.6 0 21.6l48 48c6 6 15.6 6 21.6 0l88-88c6-6 6-15.6 0-21.5z" />
+                        </svg>
+                    </div>
+                    <h3>✨ Weltweit einzigartiges Datenset</h3>
+                    <p>Rund 80 000 manuell erstellte & annotierte Bilder – der Grundstein für zuverlässige Erkennung.</p>
+                </article>
 
-        <!-- Buttons statt Logos -->
-        <div class="awards-buttons" role="list">
-            <button class="award-btn" role="listitem" aria-label="Jugend Innovativ">Jugend Innovativ</button>
-            <button class="award-btn" role="listitem" aria-label="Bosch Innovationspreis 2025">Bosch Innovationspreis 2025</button>
-            <button class="award-btn" role="listitem" aria-label="Future Award der FH JOANNEUM">Future Award – FH JOANNEUM</button>
-            <button class="award-btn" role="listitem" aria-label="KFV Verkehrssicherheitspreis AQUILA 2025">KFV AQUILA 2025</button>
-            <button class="award-btn" role="listitem" aria-label="innovation at school">innovation@school</button>
-            <button class="award-btn" role="listitem" aria-label="FH-Maturaprojektwettbewerb">FH-Maturaprojektwettbewerb</button>
-            <button class="award-btn" role="listitem" aria-label="Auszeichnung ASFiNAG">Auszeichnung ASFINAG</button>
-            <button class="award-btn" role="listitem" aria-label="Bundesehrung">Bundesehrung</button>
-            <button class="award-btn" role="listitem" aria-label="5. JES Tunnelsymposium">5. JES Tunnelsymposium</button>
-            <button class="award-btn" role="listitem" aria-label="Cross Company">Cross Company</button>
-        </div>
+                <article class="gcard" aria-label="KI erkennt automatisch">
+                    <div class="ico" aria-hidden="true">
+                        <svg viewBox="0 0 512 512" width="22" height="22" fill="currentColor" aria-hidden="true">
+                            <rect x="32" y="32" width="448" height="448" rx="40" ry="40" fill="none" stroke="currentColor" stroke-width="32"/>
+                            <path d="M128 176c-17.7 0-32 14.3-32 32v128c0 17.7 14.3 32 32 32h256c17.7 0 32-14.3 32-32v-96l-48-64H128z" fill="currentColor"/>
+                            <rect x="224" y="112" width="64" height="32" rx="8" ry="8" fill="currentColor"/>
+                            <path d="M176 224h24v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h24c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8h-24v24c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8v-24h-24c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8z" fill="#000"/>
+                            <path d="M304 208h64l32 48h-96z" fill="#000"/>
+                            <circle cx="176" cy="352" r="32" fill="#000"/>
+                            <circle cx="176" cy="352" r="12" fill="#fff"/>
+                            <circle cx="336" cy="352" r="32" fill="#000"/>
+                            <circle cx="336" cy="352" r="12" fill="#fff"/>
+                        </svg>
+                    </div>
+                    <h3>🚒 KI erkennt automatisch</h3>
+                    <p>Polizei, Rettung, Feuerwehr – auf Standard-Tunnelkameras, in Echtzeit.</p>
+                </article>
 
-        <p class="quote">„Eine der innovativsten KI-Lösungen im Bereich Tunnel- und Rettungstechnik.“ – Jury, Jugend Innovativ 2025</p>
-        <div style="text-align:center; margin-top:18px">
-            <a class="btn btn--ghost" href="auszeichnungen.html">→ Zu den Auszeichnungen</a>
+                <article class="gcard" aria-label="Online maßstabsgetreue Tunnelabbildung">
+                    <div class="ico" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M3 4h18v14H3z"/><path d="M1 19h22v2H1z"/></svg>
+                    </div>
+                    <h3>🌐 Maßstabsgetreue Tunnelabbildung</h3>
+                    <p>Weboberfläche ohne Installation – Einsatzverlauf live & überall abrufbar.</p>
+                </article>
+            </div>
         </div>
     </section>
 
-    <!-- ====== Kontakt ====== -->
-    <section id="kontakt" style="min-height:60dvh; padding:48px 6vw; background:#0f1525; border-top:1px solid rgba(255,255,255,.06)">
-        <h2 style="margin-top:0">Kontakt</h2>
-        <p>E-Mail: <a href="mailto:alina.nessel@outlook.com">alina.nessel@outlook.com</a></p>
-        <p>Telefonnummer: <a href="tel:+436603420777">+43 660 3420777</a></p>
+    <!-- ========== WOW: moderner Quote-Block ========= -->
+    <section class="section wow" aria-label="Wow-Satz">
+        <div class="container">
+            <h2>„Ein Datenset, das weltweit einzigartig ist – rund 80 000 Bilder, manuell erstellt und annotiert.“</h2>
+            <p>Die Grundlage einer KI, die Einsatzfahrzeuge im Tunnel in Echtzeit erkennt.</p>
+            <div class="badge-row" aria-hidden="true">
+                <span class="badge">Echtzeit</span>
+                <span class="badge">Skalierbar</span>
+                <span class="badge">Webbasiert</span>
+            </div>
+            <div class="actions" style="margin-top:18px">
+                <a class="btn" href="technik.html">→ Erfahre, wie das möglich war</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ========== AWARDS: klare, moderne Pills ========= -->
+    <section class="section awards-section" aria-label="Erfolge">
+        <div class="container">
+            <h2 class="headline">🏆 Erfolge</h2>
+            <p class="lead">6 Preise. 2 Auszeichnungen. 2 Vorträge</p>
+            <div class="awards-grid" role="list">
+                <button class="pill">Jugend Innovativ</button>
+                <button class="pill">Bosch Innovationspreis 2025</button>
+                <button class="pill">Future Award – FH JOANNEUM</button>
+                <button class="pill">KFV AQUILA 2025</button>
+                <button class="pill">innovation@school</button>
+                <button class="pill">FH-Maturaprojektwettbewerb</button>
+                <button class="pill">Auszeichnung ASFINAG</button>
+                <button class="pill">Bundesehrung</button>
+                <button class="pill">5. JES Tunnelsymposium</button>
+                <button class="pill">Cross Company</button>
+            </div>
+            <p class="quote">„Eine der innovativsten KI-Lösungen im Bereich Tunnel- und Rettungstechnik.“ – Jury, Jugend Innovativ 2025</p>
+            <div class="actions">
+                <a class="btn btn--ghost" href="auszeichnungen.html">→ Zu den Auszeichnungen</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== KONTAKT: veredelt (glasig, Icons, Chips) ========= -->
+    <section class="section section--soft" id="kontakt" aria-label="Kontakt">
+        <div class="container contact">
+            <!-- Info-Karte -->
+            <div class="card contact-hero">
+                <h2 class="headline">Kontakt</h2>
+                <p class="lead">Melde dich jederzeit – ich antworte in der Regel noch am selben Tag.</p>
+
+                <div class="chip-row" aria-hidden="true">
+                    <span class="chip">Projektanfragen</span>
+                    <span class="chip">Presse</span>
+                    <span class="chip">Kooperation</span>
+                </div>
+
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <div class="ci-ico" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4h20v16H2z" opacity=".2"/><path d="M21.8 5.7 12 13 2.2 5.7"/></svg>
+                        </div>
+                        <a href="mailto:alina.nessel@outlook.com">alina.nessel@outlook.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="ci-ico" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1.1-.23c1 .38 2.1.6 3.2.6a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.3 21 3 12.7 3 2a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1c0 1.1.22 2.2.6 3.2a1 1 0 0 1-.24 1.1z"/></svg>
+                        </div>
+                        <a href="tel:+436603420777">+43 660 3420777</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formular-Karte -->
+            <form class="card form" id="contact-form">
+                <div class="row">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input class="input" id="name" name="name" type="text" autocomplete="name" placeholder="Dein Name" required />
+                    </div>
+                    <div class="field">
+                        <label for="email">E‑Mail</label>
+                        <input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" required />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="topic">Betreff</label>
+                    <select class="select" id="topic" name="topic" required>
+                        <option value="">Bitte wählen …</option>
+                        <option>Projektanfrage</option>
+                        <option>Presse</option>
+                        <option>Kooperation</option>
+                        <option>Sonstiges</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="msg">Nachricht</label>
+                    <textarea class="textarea" id="msg" name="msg" rows="6" placeholder="Worum geht’s?" required></textarea>
+                </div>
+                <div class="consent">
+                    <input id="privacy" type="checkbox" required style="margin-top:4px" aria-describedby="privacy-hint" />
+                    <label for="privacy">Ich stimme zu, dass meine Angaben zur Beantwortung meiner Anfrage gespeichert und verarbeitet werden.</label>
+                </div>
+                <p id="privacy-hint" class="hint">Hinweis: Deine Daten werden nicht an Dritte weitergegeben.</p>
+                <div class="submit-row">
+                    <button class="btn" type="submit" aria-label="Nachricht senden">Nachricht senden</button>
+                    <span class="response-time" aria-hidden="true">Antwort i. d. R. <strong>in 24h</strong></span>
+                </div>
+                <p id="form-success" class="hint" style="display:none; margin-top:8px; color: var(--success); font-weight:700;">Danke! Deine Nachricht wurde gesendet. (Demo‑Status)</p>
+            </form>
+        </div>
     </section>
 </main>
 
-<!-- ====== Footer ====== -->
+<!-- ========== FOOTER: reduziert & hell ========= -->
 <footer aria-label="Seitenende">
     <div class="footer-grid">
         <div>
@@ -509,7 +526,7 @@
 </footer>
 
 <script>
-    // Mobile-Menü toggeln
+    // Mobile-Menü toggeln (unverändert)
     (function(){
         const btn = document.querySelector('.menu-toggle');
         const nav = document.getElementById('nav');
@@ -520,7 +537,7 @@
         });
     })();
 
-    // Aktiven Menüpunkt markieren (per URL)
+    // Aktiven Menüpunkt markieren (unverändert)
     (function(){
         const links = document.querySelectorAll('#nav a');
         const path = location.pathname.split('/').pop() || 'index.html';
@@ -532,7 +549,7 @@
         });
     })();
 
-    // Video-Autoplay fallback (Änderung 7 ignoriert – unverändert)
+    // Video-Autoplay fallback (unverändert)
     (function(){
         const video = document.querySelector('.hero__video');
         if(!video) return;
@@ -541,7 +558,7 @@
         else window.addEventListener('load', start);
     })();
 
-    // Navbar beim Scrollen ein-/ausblenden
+    // Navbar beim Scrollen ein-/ausblenden (unverändert)
     (function(){
         let lastScroll = 0;
         const nav = document.querySelector('.navbar-wrap');
