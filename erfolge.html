@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="./assets/Logo.png" />
+    <title>ATTO – Erfolge</title>
+    <meta name="description" content="Auszeichnungen & Preise von ATTO – mit Galerie, Filter und Wow-Effekten." />
+
+    <!-- Social Preview (OG/Twitter) -->
+    <meta property="og:title" content="ATTO – Erfolge">
+    <meta property="og:description" content="Auszeichnungen & Preise von ATTO – mit Galerie, Filter und Wow-Effekten.">
+    <meta property="og:image" content="assets/og-hero.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        :root{
+            --bg:#0e1320; --bg-2:#121a28; --fg:#eef4fb; --muted:#c7d0de;
+            --border:rgba(255,255,255,.16); --line:rgba(255,255,255,.10);
+            --card:#121a2b; --card-2:#162035; --glass:rgba(255,255,255,.08);
+            --neon1:#4cc9ff; --neon2:#ff7a18; --success:#4ade80;
+            --shadow-1:0 8px 20px rgba(0,0,0,.28); --shadow-2:0 14px 36px rgba(0,0,0,.36);
+            --radius-lg:18px; --radius-xl:22px;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans"; color:var(--fg);
+            background:
+                    radial-gradient(900px 500px at 15% 0%, rgba(139,184,255,.07), transparent 60%),
+                    radial-gradient(900px 500px at 85% 100%, rgba(255,180,119,.06), transparent 60%),
+                    linear-gradient(180deg, var(--bg), var(--bg-2));
+            line-height:1.6;
+        }
+
+        /* NAVBAR (1:1) */
+        .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+        .skip-link:focus{left:16px;top:12px;width:auto;height:auto;padding:10px 14px;background:#000;border-radius:10px;z-index:9999}
+        .navbar-wrap{position:fixed;top:0;left:0;right:0;z-index:1000;backdrop-filter:blur(10px) saturate(120%);background:linear-gradient(180deg,rgba(10,14,22,.55),rgba(10,14,22,.20));border-bottom:1px solid rgba(255,255,255,.10);transition:transform .3s ease,opacity .3s ease;box-shadow:0 8px 20px rgba(0,0,0,.28)}
+        .navbar-wrap.hide{transform:translateY(-100%);opacity:0}
+        .navbar{max-width:1450px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:16px;justify-content:space-between}
+        .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);font-weight:800;letter-spacing:.3px}
+        .brand .logo{height:30px;width:auto;display:block;filter:drop-shadow(0 0 4px rgba(76,201,255,.4))}
+        .nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+        .nav a{--pad:10px;padding:8px var(--pad);border-radius:10px;color:var(--fg);text-decoration:none;font-weight:600;font-size:.98rem;position:relative}
+        .nav a:hover{filter:saturate(1.08)}
+        .nav a::after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:2px;background:linear-gradient(90deg,var(--neon1),var(--neon2));opacity:0;transform:scaleX(.6);transform-origin:center;transition:.18s ease;border-radius:2px}
+        .nav a:hover::after{opacity:.9;transform:scaleX(1)}
+        .nav a[aria-current=page]{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10)}
+        .nav a[aria-current=page]::after{opacity:1;transform:scaleX(1)}
+        .menu-toggle{appearance:none;background:transparent;border:1px solid rgba(255,255,255,.10);color:var(--fg);padding:10px 12px;border-radius:10px;display:none;align-items:center;gap:8px;font-weight:700;cursor:pointer}
+        .menu-toggle svg{display:block}
+        @media (max-width:960px){.menu-toggle{display:flex}.nav{display:none;width:100%;flex-direction:column;align-items:flex-start;padding:10px 4px}.nav.open{display:flex}.nav a{width:100%}}
+
+        header.page-hero h1.title{
+            color:#fff;
+            position:relative;
+            font-weight:900;
+            text-shadow: 0 2px 14px rgba(0,0,0,.35);
+        }
+        header.page-hero h1.title::after{
+            content: attr(data-text);
+            position:absolute; inset:0;
+            color:transparent;
+            -webkit-text-stroke: 2px transparent;
+            background: linear-gradient(90deg, var(--neon1), var(--neon2));
+            -webkit-background-clip: text; background-clip: text;
+            filter: drop-shadow(0 0 18px color-mix(in oklab, var(--neon1) 35%, transparent));
+            pointer-events:none; opacity:.9;
+            mix-blend-mode: screen;
+        }
+
+
+        /* PAGE HERO – mit animierten Partikeln */
+        header.page-hero{position:relative;padding:124px 24px 36px;text-align:center;overflow:hidden}
+        .spark-orbs{position:absolute;inset:0;z-index: 0; pointer-events: none; }
+        .page-hero .eyebrow{display:inline-flex;gap:.6ch;align-items:center;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 .75rem}
+        .page-hero .eyebrow .dot{width:.5rem;height:.5rem;border-radius:999px;background:radial-gradient(circle at 40% 40%,var(--neon1),transparent 60%);box-shadow:0 0 18px var(--neon1),0 0 2px var(--neon1) inset}
+        .page-hero h1{font-size:clamp(2.2rem,1.6rem + 3.2vw,3.6rem);margin:.1rem auto .4rem;font-weight:900;letter-spacing:.02em;text-wrap:balance;text-shadow:0 1px 0 rgba(0,0,0,.3)}
+        .page-hero p{color:var(--muted);max-width:75ch;margin:0 auto}
+
+        /* STATS RIBBON */
+        .stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:22px auto 8px}
+        .stat{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));box-shadow:var(--shadow-1)}
+        .stat .num{font-size:1.15rem;font-weight:900}
+
+        main{padding:20px;margin-top:64px}
+        .section{padding:52px clamp(20px,6vw,80px);border-top:1px solid var(--line)}
+        .container{max-width:1200px;margin-inline:auto}
+
+        /* FILTER-TOOLBAR */
+        .toolbar{position:sticky;top:64px;z-index:900;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:12px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));backdrop-filter:blur(8px) saturate(120%);box-shadow:var(--shadow-1)}
+        .left, .right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+        .pill{appearance:none;border:1px solid var(--border);border-radius:999px;padding:8px 12px;font-weight:800;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));cursor:pointer}
+        .pill[aria-pressed=true]{outline:2px solid color-mix(in oklab, var(--neon1) 55%, white);outline-offset:2px}
+        .search{padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--fg);min-width:220px}
+        .select{padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--fg)}
+        .count{color:var(--muted);font-weight:700}
+
+        /* GRID & AWARD CARD – mit Tilt + Shine */
+        .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+        .award{grid-column:span 6;position:relative;border-radius:var(--radius-xl);border:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));box-shadow:var(--shadow-2);overflow:hidden;isolation:isolate;display:flex;flex-direction:column;min-height:360px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,filter .18s ease;transform-style:preserve-3d}
+        .award.hide{display:none}
+        .award:hover{transform:translateY(-2px);box-shadow:0 22px 48px rgba(0,0,0,.46);border-color:rgba(255,255,255,.22)}
+        .award::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(135deg,color-mix(in oklab,var(--neon1) 50%,transparent),color-mix(in oklab,var(--neon2) 50%,transparent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.28;filter:blur(.4px);pointer-events:none}
+        .shine{position:absolute;inset:-200% -50% auto;height:200%;background:linear-gradient(75deg,transparent 45%, rgba(255,255,255,.12), transparent 55%);transform:translateY(-60%) rotate(8deg);opacity:0;transition:opacity .2s ease}
+        .award:hover .shine{opacity:1}
+
+        .award__media-strip {
+            display: flex;
+            padding: 10px;
+            overflow: auto hidden;
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .thumb {
+            position: relative;
+            flex: 0 0 150px;
+            aspect-ratio: 4/3;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--card-2);
+            cursor: pointer;
+
+            margin-right: -10px; /* Abstand ersetzen */
+        }
+
+        .thumb:last-child {
+            margin-right: 0;
+        }
+
+        .thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.05);transition:transform .25s ease}
+        .thumb:hover img{transform:scale(1.05)}
+
+        .award__body{padding:18px 18px 20px;display:grid;gap:10px}
+        .award__eyebrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.9rem;color:var(--muted)}
+        .tag{padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));font-weight:700}
+        .feat-row{display:flex;gap:8px;flex-wrap:wrap}
+        .feat{padding:6px 10px;border:1px dashed rgba(255,255,255,.22);border-radius:10px;font-weight:800;font-size:.85rem;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
+        .award h3{margin:2px 0 0;font-size:1.35rem;letter-spacing:.3px}
+        .award p{margin:0;color:var(--muted)}
+
+        .award__cta{display:flex;justify-content:flex-start;align-items:center;gap:10px;padding:0 18px 18px}
+        .btn{appearance:none;border:0;cursor:pointer;padding:12px 16px;border-radius:14px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;background:linear-gradient(180deg,color-mix(in oklab,var(--neon1) 22%,#101623),#101623);color:#ecf3ff;box-shadow:0 10px 20px rgba(0,0,0,.35),0 0 16px color-mix(in oklab,var(--neon1) 34%,transparent);transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;position:relative;overflow:hidden}
+        .btn:after{content:"";position:absolute;inset:auto -20% -200% -20%;height:250%;background:linear-gradient(75deg,transparent 45%,rgba(255,255,255,.2),transparent 55%);transform:rotate(8deg);opacity:0;transition:opacity .2s ease}
+        .btn:hover{transform:translateY(-1px);filter:saturate(1.06)}
+        .btn:hover:after{opacity:1}
+        .btn--ghost{background:transparent;border:1px solid rgba(255,255,255,.10);box-shadow:none;color:var(--fg);opacity:.9}
+        .btn--ghost:hover{opacity:1;border-color:color-mix(in oklab,var(--neon1) 30%, rgba(255,255,255,.10))}
+
+        @media (max-width:1100px){.award{grid-column:span 12}}
+
+        /* LIGHTBOX */
+        .lightbox{position:fixed;inset:0;background:rgba(6,8,12,.85);backdrop-filter:blur(6px) saturate(120%);display:none;align-items:center;justify-content:center;z-index:1200}
+        .lightbox.open{display:flex}
+        .lightbox__inner{position:relative;width:min(1000px,92vw);height:min(80vh,78dvh);border:1px solid var(--border);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));box-shadow:var(--shadow-2);overflow:hidden}
+        .lightbox__img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#0b1020}
+        .lightbox__close,.lightbox__prev,.lightbox__next{position:absolute;top:10px;appearance:none;border:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));color:var(--fg);border-radius:12px;padding:10px 12px;cursor:pointer;font-weight:800}
+        .lightbox__close{right:10px}
+        .lightbox__prev{left:10px;top:50%;transform:translateY(-50%)}
+        .lightbox__next{right:10px;top:50%;transform:translateY(-50%)}
+
+        /* FOOTER */
+        footer{padding:50px clamp(20px,6vw,80px);border-top:1px solid var(--line);background:#0d1322;color:var(--muted)}
+        .footer-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:26px}
+        .footer-nav,.social{display:flex;gap:12px;flex-wrap:wrap}
+        .footer-nav a,.social a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:8px;border:1px solid transparent}
+        .footer-nav a:hover,.social a:hover{border-color:var(--border);color:var(--fg)}
+        .copyright{margin-top:18px;font-size:.9rem;color:var(--muted)}
+        @media (max-width:800px){.footer-grid{grid-template-columns:1fr}}
+
+        </style>
+
+        /* THEME: Light Glass Mode – helle, freundliche Awards-Seite, Navbar bleibt dunkel */
+        <style id="light-glass-overrides">
+                                         :root{
+                                             --page-fg: #0f172a;         /* nahezu schwarzblau */
+                                             --page-muted: #475569;      /* slate-600 */
+                                             --page-border: rgba(10, 22, 40, .12);
+                                             --page-glass: rgba(255,255,255,.6);
+                                             --page-glass-2: rgba(255,255,255,.45);
+                                         }
+
+                                         html{ background:#B1B5CE !important; }              /* Root zwingend dunkel */
+                                         body{
+                                             background:
+                                                     radial-gradient(900px 500px at 15% 100%, rgba(177,181,206,.08), transparent 60%),
+                                                     radial-gradient(900px 500px at 85% 100%, rgba(177,181,206,.08), transparent 60%),
+                                                     linear-gradient(180deg, #0e1320 20%, #1b2440 48%, #B1B5CE 720px, #B1B5CE 100%) !important;
+                                             background-repeat:no-repeat, no-repeat, no-repeat;
+                                             background-color:#e9eef7;                         /* Fallback */
+                                         }
+
+                                         /* Navbar bleibt kontrastreich dunkel mit heller Typo */
+        .navbar-wrap, .navbar .brand, .navbar .nav a{ color:#ecf3ff !important; }
+
+        /* Hero-Texts heller, aber dunkle Typo für Lesbarkeit ab dem hellen Bereich */
+        header.page-hero h1{ color: var(--page-fg); }
+        header.page-hero p{ color: var(--page-muted); }
+
+        /* Stats Badge auf hellem Glas */
+        .stat{ background: linear-gradient(180deg, var(--page-glass), var(--page-glass-2)); color: var(--page-fg); border-color: var(--page-border); }
+        .stat .num{ color: var(--page-fg); }
+
+        /* Toolbar auf weißem Glas */
+        .toolbar{ background: linear-gradient(180deg, var(--page-glass), var(--page-glass-2)); border-color: var(--page-border); color: var(--page-fg); }
+        .pill{ background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.7)); border-color: var(--page-border); color: var(--page-fg); }
+        .pill[aria-pressed=true]{ outline-color: color-mix(in oklab, var(--neon1) 55%, white); }
+        .search, .select{ background: rgba(255,255,255,.9); color: var(--page-fg); border-color: var(--page-border); }
+        .count{ color: var(--page-muted); }
+
+        /* Cards: helles Glas mit Neon-Edge */
+        .award{ background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62)); border-color: rgba(10,22,40,.16); box-shadow: 0 14px 36px rgba(16,24,40,.15); }
+        .award::before{ opacity:.35; }
+        .award h3{ color: var(--page-fg); }
+        .award p{ color: var(--page-muted); }
+        .award__body{ color: var(--page-fg); }
+        .thumb{ border-color: rgba(10,22,40,.12); background: #e9eef7; }
+
+        /* Tags / Features auf hellem Hintergrund */
+        .tag{ background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.75)); color: var(--page-fg); border-color: var(--page-border); }
+        .feat{ background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65)); color: var(--page-fg); border-color: rgba(10,22,40,.22); }
+
+        /* Buttons: primary dunkel (Brand), ghost hell mit klarer Kante */
+        .btn{ color:#ecf3ff; }
+        .btn--ghost{ color: var(--page-fg); background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.72)); border-color: rgba(10,22,40,.14); }
+        .btn--ghost:hover{ border-color: color-mix(in oklab, var(--neon1) 30%, rgba(10,22,40,.18)); }
+
+        /* Lightbox bleibt dunkel für Bildwirkung */
+        .lightbox{ background: rgba(6,8,12,.9); }
+
+        /* Footer auf hellem Untergrund etwas dunkler absetzen */
+        footer{ background: #eef2f8; color: var(--page-muted); }
+        .footer-nav a, .social a{ color: #334155; }
+        .footer-nav a:hover, .social a:hover{ color: #0f172a; border-color: rgba(10,22,40,.18); }
+
+        /* Fix: Navigations-Buttons im Viewport fixieren */
+        .lightbox__prev,
+        .lightbox__next{
+            position: fixed;       /* statt absolute im inneren Container */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1300;         /* über dem Lightbox-Inhalt */
+        }
+        .lightbox__prev{ left: 20px; }
+        .lightbox__next{ right: 20px; }
+
+        /* X-Button oben rechts fixieren */
+        .lightbox__close{
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 1300;
+        }
+
+        /* Bessere Usability für die Leiste */
+        .award__media-strip{
+            overflow-x: auto;
+            overflow-y: hidden;
+            cursor: grab;
+            user-select: none;
+        }
+        .award__media-strip.dragging{ cursor: grabbing; }
+
+        /* Wenn Tilt deaktiviert ist (über der Leiste), dann keine Hebe-Animation */
+        .award.no-tilt{ transform: translateY(0) !important; }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- NAVBAR (1:1) -->
+<div class="navbar-wrap" role="navigation" aria-label="Hauptnavigation">
+    <div class="navbar">
+        <a class="brand" href="index.html">
+            <img src="assets/Logo.png" alt="ATTO AI Tracking Tunnel Overview Logo" class="logo" />
+            ATTO - AI Tracking Tunnel Overview
+        </a>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="nav">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+            Menü
+        </button>
+        <nav id="nav" class="nav">
+            <a href="index.html">Start</a>
+            <a href="projekt.html">Projekt</a>
+            <a href="technik.html">Technik</a>
+            <a href="erfolge.html">Erfolge</a>
+            <a href="ueber-mich.html">Über mich</a>
+        </nav>
+    </div>
+</div>
+
+<!-- PAGE HERO -->
+<header class="page-hero" role="banner" aria-label="Auszeichnungen">
+    <canvas class="spark-orbs" id="orbs" aria-hidden="true"></canvas>
+
+    <h1 class="title" data-text="Erfolge">Erfolge</h1>
+    <div class="stats" aria-label="Statistiken">
+        <div class="stat"><span class="num" data-count="6">0</span> Preise</div>
+        <div class="stat"><span class="num" data-count="2">0</span> Auszeichnungen</div>
+        <div class="stat"><span class="num" data-count="2">0</span> Vorträge</div>
+    </div>
+</header>
+
+<main id="main" tabindex="-1">
+    <section class="section" aria-label="Filter & Übersicht">
+        <div class="container">
+            <div class="toolbar" role="region" aria-label="Filterwerkzeuge">
+                <div class="left">
+                    <button class="pill" data-filter="all" aria-pressed="true">Alle</button>
+                    <button class="pill" data-filter="preis">Preise</button>
+                    <button class="pill" data-filter="auszeichnung">Auszeichnungen</button>
+                    <button class="pill" data-filter="vortrag">Vorträge</button>
+                </div>
+                <div class="right">
+                    <input class="search" type="search" placeholder="Suchen… (Titel, Text)" aria-label="Suche" />
+                    <select class="select" id="monthFilter" aria-label="Monat">
+                        <option value="all">Alle Monate</option>
+                        <option>Apr</option>
+                        <option>Mai</option>
+                        <option>Jun</option>
+                        <option>Jul</option>
+                        <option>Okt</option>
+                        <option>Nov</option>
+                    </select>
+                    <span class="count" aria-live="polite"><strong>8</strong> Einträge</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" aria-label="Auszeichnungen Grid">
+        <div class="container">
+            <div class="grid" id="grid">
+                <!-- AWARD CARDS: füge Features via .feat hinzu -->
+
+                <article class="award" data-type="preis" data-month="Jun">
+                    <div class="shine" aria-hidden="true"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – Jugend Innovativ">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild1.JPEG" alt="Jugend Innovativ – Bild 1" data-full="assets/awards/1/Bild1.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild2.JPEG" alt="Jugend Innovativ – Bild 2" data-full="assets/awards/1/Bild2.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild3.JPEG" alt="Jugend Innovativ – Bild 3" data-full="assets/awards/1/Bild3.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild4.JPEG" alt="Jugend Innovativ – Bild 4" data-full="assets/awards/1/Bild4.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild5.JPEG" alt="Jugend Innovativ – Bild 3" data-full="assets/awards/1/Bild5.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild6.JPEG" alt="Jugend Innovativ – Bild 3" data-full="assets/awards/1/Bild6.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild7.JPEG" alt="Jugend Innovativ – Bild 3" data-full="assets/awards/1/Bild7.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild8.JPEG" alt="Jugend Innovativ – Bild 3" data-full="assets/awards/1/Bild8.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild9.JPEG" alt="Jugend Innovativ – Bild 3" data-full="assets/awards/1/Bild9.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild10.JPEG" alt="Jugend Innovativ – Bild 3" data-full="assets/awards/1/Bild10.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild11.JPEG" alt="Jugend Innovativ – Bild 3" data-full="assets/awards/1/Bild11.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/1/Bild12.JPEG" alt="Jugend Innovativ – Bild 3" data-full="assets/awards/1/Bild12.JPEG"></figure>
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">1. Platz</span><span class="tag">5. Juni 2025</span></div>
+                        <h3>Jugend Innovativ</h3>
+                        <p><strong>Platz 1</strong> unter den innovativsten Projekten.</p>
+                        <p> Jugend Innovativ gilt als eine der bekanntesten Innovations- und Ideenplattformen für Jugendliche in Österreich.
+                            Seit dem Schuljahr 1987/88 fördert der Wettbewerb kreative Projektarbeit und stärkt das Innovationspotenzial junger Menschen.
+                            Über die Jahrzehnte haben unzählige Teams ihre Ideen präsentiert.
+                            Die Teilnahme war für mich ein besonderes Erlebnis mit vielen inspirierenden Begegnungen und wertvollen Erfahrungen.</p>
+                    </div>
+                    <div class="award__cta"><a class="btn btn--ghost" href="https://www.jugendinnovativ.at/projekt/lifesaveroverview-ai-supported-emergency-services-coordination">Mehr erfahren</a></div>
+                </article>
+
+                <article class="award" data-type="preis" data-month="Jun">
+                    <div class="shine"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – Bosch Innovationspreis">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/2/Bild1.JPEG" alt="Bosch – Bild 1" data-full="assets/awards/2/Bild1.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/2/Bild2.JPEG" alt="Bosch – Bild 1" data-full="assets/awards/2/Bild2.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/2/Bild3.JPEG" alt="Bosch – Bild 1" data-full="assets/awards/2/Bild3.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/2/Bild4.JPEG" alt="Bosch – Bild 1" data-full="assets/awards/2/Bild4.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/2/Bild5.JPEG" alt="Bosch – Bild 1" data-full="assets/awards/2/Bild5.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/2/Bild6.JPEG" alt="Bosch – Bild 1" data-full="assets/awards/2/Bild6.JPEG"></figure>
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">1. Platz</span><span class="tag">12. Juni 2025</span></div>
+                        <h3>Bosch Innovationspreis</h3>
+                        <p>Ich habe beim Bosch Innovationspreis den <strong>1. Platz</strong> erreicht.</p>
+                        <p>Der Bosch Innovationspreis ist Österreichs größter, unternehmensinitiierter Wettbewerb für Schülerinnen
+                            und Schüler an Höheren Technischen Lehranstalten (HTL).
+                            Seit über 17 Jahren werden Abschluss- bzw. Diplomarbeiten prämiert, die durch Innovation, Praxisbezug und technische Kreativität überzeugen.
+                            Die Teilnahme war für mich ein intensives Erlebnis – herausfordernd, spannend und voller schöner Begegnungen – und am Ende mit dem 1. Platz gekrönt.
+                        </p>
+                    </div>
+                    <div class="award__cta"><a class="btn btn--ghost" href="https://www.bosch-presse.at/news-schuelerinnen-der-htl-klagenfurt-moessingerstrasse-gewinnen-den-bosch-innovationspreis-2025?id=218591&menueid=2244&l=deutsch#text">Mehr erfahren</a></div>
+                </article>
+
+                <article class="award" data-type="preis" data-month="Mai">
+                    <div class="shine"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – Future Award">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/3/Bild1.JPEG" alt="Future Award – Bild 1" data-full="assets/awards/3/Bild1.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/3/Bild2.JPEG" alt="Future Award – Bild 1" data-full="assets/awards/3/Bild2.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/3/Bild3.JPEG" alt="Future Award – Bild 1" data-full="assets/awards/3/Bild3.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/3/Bild4.JPEG" alt="Future Award – Bild 1" data-full="assets/awards/3/Bild4.JPEG"></figure>
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">1. Platz</span><span class="tag">23. Mai 2025</span></div>
+                        <h3>Future Award – FH JOANNEUM</h3>
+                        <p>Ich habe beim Future Award der FH JOANNEUM den <strong>1. Platz</strong> belegt.</p>
+                        <p>Der Future Award prämiert herausragende Vorwissenschaftliche Arbeiten (VWA) und Diplomarbeiten mit Fokus auf innovative, praxisorientierte Themen in den Bereichen Digitalisierung & Künstliche Intelligenz, Umwelt & Energie, Smarte Technologien & Mobilität, Gesundheit & Ernährung sowie Neue Arbeitswelten & Lebensräume.</p>
+                    </div>
+                    <div class="award__cta"><a class="btn btn--ghost" href="https://www.fh-joanneum.at/presse/premiere-fuer-den-future-day-und-ai-fotowettbewerb/">Mehr erfahren</a></div>
+                </article>
+
+                <article class="award" data-type="preis" data-month="Nov">
+                    <div class="shine"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – KFV AQUILA">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/4/img1.jpg" alt="Bilder folgen" data-full="assets/awards/4/img1.jpg"></figure>
+
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">10. November 2025</span></div>
+                        <h3>KFV AQUILA</h3>
+                        <p>Preisverleihung am 10.11.2025</p>
+                    </div>
+                    <div class="award__cta"><a class="btn btn--ghost" href="#">Mehr erfahren</a></div>
+                </article>
+
+                <article class="award" data-type="preis" data-month="Apr">
+                    <div class="shine"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – FH-Maturaprojektwettbewerb">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild1.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild1.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild2.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild2.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild3.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild3.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild4.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild4.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild5.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild5.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild6.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild6.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild7.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild7.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild8.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild8.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild9.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild9.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/5/Bild10.JPEG" alt="FH – Bild 1" data-full="assets/awards/5/Bild10.JPEG"></figure>
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">3. Platz + Sonderpreis</span><span class="tag">25. April 2025</span></div>
+                        <h3>FH-Maturaprojektwettbewerb</h3>
+                        <p>Ich habe den <strong>3. Platz </strong>sowie einen <strong>Sonderpreis</strong> erreicht – die Einzige, die zwei Preise bekommen hat.</p>
+                        <p>
+                            Der Wettbewerb richtet sich an Maturaarbeiten und Vorwissenschaftliche Arbeiten, die SchülerInnen
+                            – zum Beispiel an HTLs – einreichen können.
+                            Es gibt Kategorien wie Technik/IT, Gesundheit/Soziales, Bauwesen, Wirtschaft/Management.</p>
+                    </div>
+                    <div class="award__cta"><a class="btn btn--ghost" href="https://blog.fh-kaernten.at/schulservice/maturaprojekt-wettbewerb-2025/">Mehr erfahren</a></div>
+                </article>
+
+                <article class="award" data-type="preis" data-month="Jun">
+                    <div class="shine"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – innovation@school">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/6/Bild1.JPEG" alt="innovation@school – Bild 1" data-full="assets/awards/6/Bild1.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/6/Bild2.JPEG" alt="innovation@school – Bild 1" data-full="assets/awards/6/Bild2.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/6/Bild3.JPEG" alt="innovation@school – Bild 1" data-full="assets/awards/6/Bild3.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/6/Bild4.JPEG" alt="innovation@school – Bild 1" data-full="assets/awards/6/Bild4.JPEG"></figure>
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">Sonderpreis</span><span class="tag">3. Juni 2025</span></div>
+                        <h3>innovation@school</h3>
+                        <p>Beim Wettbewerb „innovation@school“ wurde meine Arbeit mit einem <strong>Sonderpreis</strong> ausgezeichnet.</p>
+                        <p>Innovation@school ist ein Kärntner Ideenwettbewerb, organisiert von der Volkswirtschaftlichen Gesellschaft Kärnten in Kooperation mit
+                            der Wirtschaftskammer Kärnten, der Privatstiftung Kärntner Sparkasse und der Bildungsdirektion Kärnten.
+                            Der Wettbewerb unterstützt junge Menschen in Schulen dabei, kreative Projektideen aus Bereichen wie Energie & Umwelt,
+                            Technik, Gesundheit oder Tourismus zu entwickeln und teilweise bis zur Umsetzung zu begleiten.</p>
+                    </div>
+                    <div class="award__cta"><a class="btn btn--ghost" href="https://www.advantage.at/artikel/innovation-school-2025-die-sieger-stehen-fest?utm_source=chatgpt.com">Mehr erfahren</a></div>
+                </article>
+
+                <article class="award" data-type="auszeichnung" data-month="Jul">
+                    <div class="shine"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – ASFINAG Auszeichnung">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/7/Bild1.JPEG" alt="ASFINAG – Bild 1" data-full="assets/awards/7/Bild1.JPEG"></figure>
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">Auszeichnung</span><span class="tag">1. Juli 2025</span></div>
+                        <h3>ASFINAG – Auszeichnung</h3>
+                        <p>Ich habe eine offizielle Auszeichnung der ASFINAG für meine Diplomarbeit erhalten.</p>
+                        <p>Mein Projekt wurde prämiert, weil es einen nachweislichen Beitrag zur Erhöhung der Verkehrssicherheit
+                            sowie zur Optimierung der Infrastruktur leistet.
+                            Es setzt neue Maßstäbe im technologischen Einsatz von Künstlicher Intelligenz im Bereich der
+                            Einsatz- und Verkehrskoordination.</p>
+                    </div>
+
+                </article>
+
+                <article class="award" data-type="auszeichnung" data-month="Jun">
+                    <div class="shine"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – Bundesehrung">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/8/Bild1.JPEG" alt="Bundesehrung – Bild 1" data-full="assets/awards/8/Bild1.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/8/Bild2.JPEG" alt="Bundesehrung – Bild 1" data-full="assets/awards/8/Bild2.JPEG"></figure>
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">Auszeichnung</span><span class="tag">18. Juni 2025</span></div>
+                        <h3>Bundesehrung</h3>
+                        <p>Ich habe vom Land Kärnten eine Ehrenurkunde für meine herausragende Leistung im Projekt erhalten.</p>
+                        <p> Die Bildungsdirektion Kärnten würdigt damit den fachlichen Beitrag und die Qualität meiner Arbeit. Die Urkunde wurde mir am 18. Juni 2025 in Klagenfurt verliehen.</p>
+                    </div>
+                </article>
+
+                <article class="award" data-type="vortrag" data-month="Okt">
+                    <div class="shine"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – Tunnelsymposium">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild1.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild1.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild2.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild2.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild3.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild3.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild4.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild4.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild5.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild5.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild6.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild6.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild7.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild7.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild8.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild8.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild9.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild9.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild10.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild10.JPEG"></figure>
+                        <figure class="thumb" role="listitem"><img src="assets/awards/9/Bild11.JPEG" alt="Tunnelsymposium – Bild 1" data-full="assets/awards/9/Bild11.JPEG"></figure>
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">Vortrag</span><span class="tag">16. Oktober 2025</span></div>
+                        <h3> 5. JES Tunnelsymposium in Innsbruck</h3>
+                        <p>Ich habe mein Projekt beim JES Tunnelsymposium vorgestellt.</p>
+                        <p> Das Tunnelsymposium wird von JES Elektrotechnik GmbH organisiert und richtet sich an
+                            Fachleute aus Tunnelbetrieb, Planung, Ausrüstung und Infrastruktur. Während der Veranstaltung
+                            wird ein fachliches Programm mit Vorträgen zu aktuellen Herausforderungen im Tunnelbau und -betrieb geboten —
+                            etwa Themen wie digitale Tunnellösungen, Instandhaltung, Sicherheit und Bauprojekte.</p>
+                        <p>Die Teilnahme war für mich eine spannende Gelegenheit: Ich durfte mein Projekt vor einem Fachpublikum präsentieren, viele spannende Kontakte knüpfen und wertvolle Einblicke gewinnen.</p>
+                    </div>
+                    <div class="award__cta"><a class="btn btn--ghost" href="https://www.linkedin.com/posts/tunnelsafety_tunnelsicherheit-tunnelsafety-innsbruck-activity-7386316860679503872-2GxH/?originalSubdomain=de">Mehr erfahren</a></div>
+                </article>
+
+                <article class="award" data-type="vortrag" data-month="Okt">
+                    <div class="shine"></div>
+                    <div class="award__media-strip" role="list" aria-label="Bilder – CrossCompany">
+                        <figure class="thumb" role="listitem"><img src="assets/awards/10/Bild1.jpg" alt="CrossCompany – Bild 1" data-full="assets/awards/10/Bild1.jpg"></figure>
+                    </div>
+                    <div class="award__body">
+                        <div class="award__eyebrow"><span class="tag">Vortrag</span><span class="tag">20. Oktober 2025</span></div>
+                        <h3>Cross Company Learning Journey in Wien</h3>
+                        <p>Ich habe mein Projekt bei der Cross Company Learning Journey der ASFINAG vorgestellt.</p>
+                        <p>Diese Veranstaltung bringt große Infrastrukturbetriebe wie die ÖBB, den Flughafen Wien und die Wiener Stadtwerke zusammen.
+                            Das Schwerpunktthema Künstliche Intelligenz stand im Mittelpunkt. In diesem Rahmen durfte ich mein Projekt
+                            präsentieren. Anschließend wurden im Workshop neue Ideen für zukünftige Kooperationen im Bereich KI entwickelt.
+                            Außerdem bot der Tag Einblicke in die Autobahnmeisterei Inzersdorf.
+                            </p>
+                    </div>
+                    <div class="award__cta"><a class="btn btn--ghost" href="https://www.linkedin.com/posts/asfinag_zusammenarbeit-infrastrukturbetrieben-activity-7386322216642109440-sIKi/?originalSubdomain=de">Mehr erfahren</a></div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true" aria-label="Bildgalerie (Vollbild)">
+    <div class="lightbox__inner">
+        <img class="lightbox__img" src="" alt="Galeriebild" />
+        <button class="lightbox__close" aria-label="Schließen">✕</button>
+        <button class="lightbox__prev" aria-label="Vorheriges Bild">◀</button>
+        <button class="lightbox__next" aria-label="Nächstes Bild">▶</button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer aria-label="Seitenende">
+    <div class="footer-grid">
+        <div>
+            <strong>Entwickelt von Alina Nessel – KI für Tunnelsicherheit</strong>
+            <p class="copyright">© 2025 Alina Nessel. All rights reserved.</p>
+        </div>
+        <div>
+            <nav class="footer-nav" aria-label="Footer-Menü">
+                <a href="index.html">Startseite</a>
+                <a href="projekt.html">Projekt</a>
+                <a href="technik.html">Technik</a>
+                <a href="kontakt.html">Kontakt</a>
+            </nav>
+            <div class="social" aria-label="Social Links">
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile-Menü
+    (function () {
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('nav');
+        if (!btn || !nav) return;
+        btn.addEventListener('click', () => {
+            const open = nav.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+        });
+    })();
+
+    // Aktiven Menüpunkt markieren
+    (function () {
+        const links = document.querySelectorAll('#nav a');
+        const path = location.pathname.split('/').pop() || 'index.html';
+        links.forEach(a => {
+            const href = a.getAttribute('href');
+            if (href === path || (path === '' && href === 'index.html')) {
+                a.setAttribute('aria-current', 'page');
+            }
+        });
+    })();
+
+    // Navbar scroll behavior
+    (function () {
+        let last = 0;
+        const el = document.querySelector('.navbar-wrap');
+        if (!el) return;
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            if (y > last && y > 100) el.classList.add('hide'); else el.classList.remove('hide');
+            last = y;
+        });
+    })();
+
+    // Hero Spark Orbs (dezente, performante Partikel)
+    (function () {
+        const c = document.getElementById('orbs');
+        if (!c) return;
+        const ctx = c.getContext('2d');
+        let w, h;
+        const orbs = [];
+        const N = 24;
+
+        function resize() {
+            w = c.width = window.innerWidth;
+            h = c.height = 330;
+        }
+
+        function rnd(a, b) {
+            return Math.random() * (b - a) + a;
+        }
+
+        function init() {
+            orbs.length = 0;
+            for (let i = 0; i < N; i++) {
+                orbs.push({x: rnd(0, w), y: rnd(0, h), r: rnd(1.5, 3.2), s: rnd(.2, .6), t: rnd(0, Math.PI * 2)});
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, w, h);
+            for (const o of orbs) {
+                o.t += 0.01 * o.s;
+                o.x += Math.cos(o.t) * 0.3;
+                o.y += Math.sin(o.t * 0.8) * 0.2;
+                if (o.x < 0) o.x = w;
+                if (o.x > w) o.x = 0;
+                if (o.y < 0) o.y = h;
+                if (o.y > h) o.y = 0;
+                const g = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r * 6);
+                g.addColorStop(0, 'rgba(76,201,255,.35)');
+                g.addColorStop(1, 'rgba(76,201,255,0)');
+                ctx.fillStyle = g;
+                ctx.beginPath();
+                ctx.arc(o.x, o.y, o.r * 6, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            requestAnimationFrame(draw);
+        }
+
+        resize();
+        init();
+        draw();
+        window.addEventListener('resize', () => {
+            resize();
+            init();
+        });
+    })();
+
+    // Stats Counter
+    (function () {
+        const nums = document.querySelectorAll('.num');
+        nums.forEach(el => {
+            const target = +el.dataset.count;
+            let v = 0;
+            const step = Math.max(1, Math.ceil(target / 40));
+            const tick = () => {
+                v = Math.min(target, v + step);
+                el.textContent = v;
+                if (v < target) requestAnimationFrame(tick);
+            };
+            tick();
+        });
+    })();
+
+    // Lightbox (klickbare Thumbs, adaptive Größe, Pfeile ausblenden bei 1 Bild)
+    (function () {
+        const box = document.getElementById('lightbox');
+        if (!box) return;
+        const inner = box.querySelector('.lightbox__inner');
+        const img = box.querySelector('.lightbox__img');
+        const closeBtn = box.querySelector('.lightbox__close');
+        const prev = box.querySelector('.lightbox__prev');
+        const next = box.querySelector('.lightbox__next');
+
+        // Alle Cards und dazugehörige Galerien sammeln
+        const awards = [...document.querySelectorAll('.award')];
+        const galleries = awards.map(a => [...a.querySelectorAll('.thumb img')].map(i => i.getAttribute('data-full')));
+
+        let gal = [], idx = 0;
+
+        function fitToViewport(nw, nh) {
+            if (!nw || !nh) return;
+            const maxW = Math.min(window.innerWidth * 0.92, 1000);
+            const maxH = Math.min(window.innerHeight * 0.78, window.innerHeight * 0.80);
+            const ar = nw / nh;
+            let w = maxW, h = w / ar;
+            if (h > maxH) {
+                h = maxH;
+                w = h * ar;
+            }
+            inner.style.width = `${w}px`;
+            inner.style.height = `${h}px`;
+        }
+
+        function updateNav() {
+            const single = gal.length <= 1;
+            prev.style.display = single ? 'none' : '';
+            next.style.display = single ? 'none' : '';
+        }
+
+        function open(src, g, i) {
+            gal = g || [];
+            idx = i || 0;
+            img.src = src;
+            box.classList.add('open');
+            box.setAttribute('aria-hidden', 'false');
+            updateNav();
+        }
+
+        function close() {
+            box.classList.remove('open');
+            box.setAttribute('aria-hidden', 'true');
+            img.src = '';
+            inner.style.width = '';   // auf CSS-Fallback zurück
+            inner.style.height = '';
+        }
+
+        function show(i) {
+            if (!gal.length) return;
+            idx = (i + gal.length) % gal.length;
+            img.src = gal[idx];
+            updateNav();
+        }
+
+
+        // Größe an das tatsächliche Bild anpassen
+        img.addEventListener('load', () => {
+            fitToViewport(img.naturalWidth, img.naturalHeight);
+        });
+        window.addEventListener('resize', () => {
+            if (img.naturalWidth) fitToViewport(img.naturalWidth, img.naturalHeight);
+        });
+
+        // Klick auf Thumbs -> Lightbox öffnen
+        awards.forEach((a, aIdx) => {
+            const imgs = [...a.querySelectorAll('.thumb img')];
+            imgs.forEach((im, iIdx) => {
+                im.addEventListener('click', () => {
+                    const src = im.dataset.full || im.getAttribute('src'); // Fallback
+                    open(src, galleries[aIdx], iIdx);
+                });
+            });
+        });
+
+        // Controls/Interaktion
+        closeBtn.addEventListener('click', close);
+        box.addEventListener('click', e => {
+            if (e.target === box) close();
+        });
+        prev.addEventListener('click', () => show(idx - 1));
+        next.addEventListener('click', () => show(idx + 1));
+        window.addEventListener('keydown', e => {
+            if (!box.classList.contains('open')) return;
+            if (e.key === 'Escape') close();
+            if (e.key === 'ArrowLeft') show(idx - 1);
+            if (e.key === 'ArrowRight') show(idx + 1);
+        });
+    })();
+
+
+    // Filter, Suche, Jahr
+    (function () {
+        const grid = document.getElementById('grid');
+        if (!grid) return;
+        const cards = Array.from(grid.querySelectorAll('.award'));
+        const pills = Array.from(document.querySelectorAll('.toolbar .pill'));
+        const search = document.querySelector('.toolbar .search');
+        const month = document.getElementById('monthFilter');
+        const counter = document.querySelector('.toolbar .count strong');
+
+        let type = 'all';
+        let term = '';
+        let yr = 'all';
+
+        function apply() {
+            let visible = 0;
+            const t = term.trim().toLowerCase();
+            cards.forEach(c => {
+                const matchType = type === 'all' ? true : c.dataset.type === type;
+                const matchMonth = yr === 'all' ? true : c.dataset.month === yr;
+                const text = (c.querySelector('h3').textContent + ' ' + (c.querySelector('p')?.textContent || '')).toLowerCase();
+                const matchText = t === '' ? true : text.includes(t);
+                const ok = matchType && matchMonth && matchText;
+                c.classList.toggle('hide', !ok);
+                if (ok) visible++;
+            });
+            counter.textContent = String(visible);
+        }
+
+        pills.forEach(p => p.addEventListener('click', () => {
+            pills.forEach(x => x.setAttribute('aria-pressed', 'false'));
+            p.setAttribute('aria-pressed', 'true');
+            type = p.dataset.filter;
+            apply();
+        }));
+        search.addEventListener('input', () => {
+            term = search.value;
+            apply();
+        });
+        month.addEventListener('change', () => {
+            yr = month.value;
+            apply();
+        });
+        apply();
+    })();
+
+    // Card Tilt + Shine follow
+    (function () {
+        const cards = document.querySelectorAll('.award');
+        cards.forEach(card => {
+            const shine = card.querySelector('.shine');
+            let rAF = null;
+
+            function onMove(e) {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const rx = (0.5 - y) * 6;
+                const ry = (x - 0.5) * 8;
+                if (rAF) cancelAnimationFrame(rAF);
+                rAF = requestAnimationFrame(() => {
+                    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+                    if (shine) {
+                        shine.style.left = (x * 100 - 50) + '%';
+                        shine.style.top = (y * 100 - 50) + '%';
+                    }
+                });
+            }
+
+            function reset() {
+                card.style.transform = 'translateY(0)';
+            }
+
+            card.addEventListener('mousemove', onMove);
+            card.addEventListener('mouseleave', reset);
+        });
+    })();
+
+    /* Horizontal-Scroll für die Bilderleiste */
+    (function () {
+        const strips = document.querySelectorAll('.award__media-strip');
+
+        strips.forEach(strip => {
+            // Bild-Ziehen im Browser verhindern
+            strip.querySelectorAll('img').forEach(img => {
+                img.setAttribute('draggable', 'false');
+            });
+
+            // Mit Mausrad vertikal -> horizontal scrollen
+            strip.addEventListener('wheel', e => {
+                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                    e.preventDefault();
+                    strip.scrollLeft += e.deltaY;
+                }
+            }, {passive: false});
+
+            // Click-and-drag / Touch-drag
+            let isDown = false;
+            let startX = 0;
+            let startLeft = 0;
+            const card = strip.closest('.award');
+
+            const onDown = x => {
+                isDown = true;
+                startX = x;
+                startLeft = strip.scrollLeft;
+                strip.classList.add('dragging');
+                if (card) card.classList.add('no-tilt'); // Tilt stoppen
+            };
+
+            const onMove = x => {
+                if (!isDown) return;
+                const walk = x - startX;
+                strip.scrollLeft = startLeft - walk;
+            };
+
+            const onUp = () => {
+                isDown = false;
+                strip.classList.remove('dragging');
+                if (card) card.classList.remove('no-tilt');
+            };
+
+            // Maus
+            strip.addEventListener('mousedown', e => onDown(e.pageX));
+            window.addEventListener('mousemove', e => onMove(e.pageX));
+            window.addEventListener('mouseup', onUp);
+
+            // Touch
+            strip.addEventListener('touchstart', e => onDown(e.touches[0].pageX), {passive: true});
+            window.addEventListener('touchmove', e => onMove(e.touches[0].pageX), {passive: false});
+            window.addEventListener('touchend', onUp);
+            window.addEventListener('touchcancel', onUp);
+        });
+    })();
+
+
+        (function () {
+        const cards = document.querySelectorAll('.award');
+        cards.forEach(card => {
+        // visuell neutral
+        card.classList.add('no-tilt');
+
+        // vorhandene Tilt-Handler zuverlässig ausbremsen
+        const kill = e => {e.stopImmediatePropagation();};
+        card.addEventListener('mousemove',  kill, true);   // capture: true
+        card.addEventListener('mouseenter', kill, true);
+        card.addEventListener('mouseleave', kill, true);
+    });
+    })();
+
+
+</script>
+</body>
+</html>
