@@ -6,7 +6,6 @@
   <link rel="icon" type="image/png" href="./assets/Logo.png" />
   <title>Tunnel Trettnig</title>
   <style>
-    /* ====== Grundlayout ====== */
     :root {
       --bg: #f0f0f0;
       --tunnel: #1a1c1c;
@@ -25,7 +24,7 @@
       justify-content: flex-start;
       gap: 12px;
       background-color: var(--bg);
-      overflow: hidden; /* Kein Scrollen, wie beschrieben */
+      overflow-y: auto;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
@@ -36,15 +35,16 @@
     }
 
     .stage {
-      position: relative; /* für Overlay-Positionierung */
+      position: relative;
       width: min(95vw, 1150px);
-      /* Die Höhe ergibt sich aus dem SVG-ViewBox-Verhältnis 1140:700 */
       aspect-ratio: 1140 / 700;
       background: var(--tunnel-bg);
       border-radius: 10px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.15);
       overflow: hidden;
+      flex: 0 0 auto;
     }
+
 
     svg {
       width: 100%;
@@ -53,12 +53,11 @@
     }
 
     .tunnel { fill: var(--tunnel); }
-
-    /* ====== Kameras ====== */
+    
     #camera-container, #label-container {
       position: absolute;
-      inset: 0; /* deckt die Bühne ab */
-      pointer-events: none; /* Overlay soll keine Mausereignisse abfangen */
+      inset: 0; 
+      pointer-events: none; 
       transform-origin: 0 0;
     }
 
@@ -76,7 +75,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 4px; /* kleine Schrift für Innen */
+      font-size: 4px;
       font-weight: bold;
       color: #000;
       position: relative;
@@ -105,10 +104,10 @@
     .cameraRight .trapezoid { left: 15px; transform: rotate(90deg); }
     .cameraLeft  .trapezoid { left: -15px; transform: rotate(270deg); }
 
-    /* ====== Wegweiser / Labels ====== */
+    
     .label {
       position: absolute;
-      font-size: 18px; /* feste Basisgröße, skaliert dann mit dem Overlay */
+      font-size: 18px; 
       font-weight: 700;
       color: #fff;
       display: flex;
@@ -121,7 +120,7 @@
 
     .querschlag {
       position: absolute;
-      font-size: 14px; /* feste Basisgröße */
+      font-size: 14px; 
       font-weight: 700;
       color: #fff;
       transform: rotate(76deg);
@@ -129,7 +128,7 @@
     }
 
 
-    /* Hilfsgitter optional einblendbar */
+    
     .grid { display: none; }
     .grid line { stroke: rgba(255,255,255,0.08); stroke-width: 1; }
   </style>
@@ -138,9 +137,7 @@
 <h1>Tunnel Trettnig</h1>
 
 <div class="stage" id="stage">
-  <!-- Basisszene als SVG, Maße aus der Vorlage (1140 × 700) -->
   <svg id="tunnelTrettnig" viewBox="0 0 1140 700" xmlns="http://www.w3.org/2000/svg" aria-label="Tunnel-Layout">
-    <!-- optionales Gitter zum Prüfen der Koordinaten -->
     <g class="grid">
       <defs>
         <pattern id="dotgrid" width="50" height="50" patternUnits="userSpaceOnUse">
@@ -150,34 +147,26 @@
       </defs>
       <rect x="0" y="0" width="1140" height="700" fill="url(#dotgrid)" />
     </g>
-
-    <!-- Tunnelwände (zwei große Blöcke) -->
+    
     <rect x="200" y="100" width="700" height="250" class="tunnel" />
     <rect x="275" y="350" width="700" height="250" class="tunnel" />
-
-    <!-- Querschlag-Markierung im Tunnel (zwei weiße Linien) -->
+    
     <line x1="537.78" y1="200" x2="605.78" y2="500" stroke="white" stroke-width="3" />
     <line x1="567.78" y1="200" x2="635.78" y2="500" stroke="white" stroke-width="3" />
-
-
-    <!-- Straße Richtung Italien (oben) -->
+    
     <rect x="-31" y="175" width="1203" height="100" fill="var(--road)" />
     <line x1="-31" y1="175" x2="1203" y2="175" stroke="white" stroke-width="3" shape-rendering="crispEdges" />
     <line x1="-31" y1="275" x2="1203" y2="275" stroke="white" stroke-width="3" shape-rendering="crispEdges" />
-
-    <!-- Fahrbahnmarkierungen Italien (gekürzt; Muster wiederholt) -->
+    
     <g id="marks-it" stroke="white" stroke-width="3"></g>
-
-    <!-- Straße Richtung Wien (unten) -->
+    
     <rect x="-31" y="425" width="1203" height="100" fill="var(--road)" />
     <line x1="-31" y1="425" x2="1203" y2="425" stroke="white" stroke-width="3" shape-rendering="crispEdges" />
     <line x1="-31" y1="525" x2="1203" y2="525" stroke="white" stroke-width="3" shape-rendering="crispEdges" />
-
-    <!-- Fahrbahnmarkierungen Wien (gekürzt; Muster wiederholt) -->
+    
     <g id="marks-wien" stroke="white" stroke-width="3"></g>
   </svg>
-
-  <!-- Overlays -->
+  
   <div id="camera-container" aria-hidden="true"></div>
   <div id="label-container" aria-hidden="true">
     <div class="label italy-sign"  aria-label="Richtung Italien">Italien →</div>
@@ -187,8 +176,6 @@
 </div>
 
 <script>
-  // ====== Daten aus der Vorlage ======
-  // Kamerakoordinaten im 1140×700-Koordinatensystem
   const cameras = [
     { x: 185.6,  y: 530, type: 'Right', number: '6001' },
     { x: 275,    y: 430, type: 'Right', number: '2001' },
@@ -206,8 +193,7 @@
     { x: 866.91, y: 180, type: 'Left',  number: '1001' },
     { x: 1019.2, y: 160, type: 'Left',  number: '5001' }
   ];
-
-  // Fahrbahnmarkierungen generieren (alle 29.13 px, 10 px lang)
+  
   function buildLaneMarks(groupId, y, startX = 210, repeat = 30, gap = 29.13, len = 10) {
     const g = document.getElementById(groupId);
     g.innerHTML = '';
@@ -221,12 +207,10 @@
       g.appendChild(line);
     }
   }
-
-  // Erstaufbau der Markierungen (im nativen Koordinatensystem)
+  
   buildLaneMarks('marks-it', 225, 0, 40, 29.13, 10);
   buildLaneMarks('marks-wien', 475, 0, 40, 29.13, 10);
-
-  // ====== Responsive Positionierung der Overlays ======
+  
   function positionCameras() {
     const container = document.getElementById('camera-container');
     container.innerHTML = '';
@@ -234,8 +218,7 @@
     cameras.forEach(cam => {
       const cameraDiv = document.createElement('div');
       cameraDiv.className = `camera-container camera${cam.type}`;
-
-      // native SVG-Koordinaten verwenden (1140 x 700)
+      
       cameraDiv.style.left = `${cam.x}px`;
       cameraDiv.style.top  = `${cam.y}px`;
 
@@ -251,17 +234,14 @@
 
 
   function positionLabels() {
-    // Italien links oben (ungefähr 20,130)
     const italy = document.querySelector('.italy-sign');
     italy.style.left = `20px`;
     italy.style.top  = `130px`;
-
-    // Wien rechts unten (ungefähr 1040,383)
+    
     const wien = document.querySelector('.vienna-sign');
     wien.style.left = `1040px`;
     wien.style.top  = `383px`;
-
-    // Querschlag Beschriftung (ungefähr 548,335)
+    
     const q = document.querySelector('.querschlag');
     q.style.left = `548px`;
     q.style.top  = `335px`;
