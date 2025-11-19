@@ -54,9 +54,6 @@
             line-height:1.6;
         }
 
-        .skip-link{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
-        .skip-link:focus{ left:16px; top:12px; width:auto; height:auto; padding:10px 14px; background:#000; border-radius:10px; z-index:9999; }
-
         .navbar-wrap{ position:fixed; top:0px; left:0; right:0; z-index:1000; backdrop-filter: blur(10px) saturate(120%); background:linear-gradient(180deg, rgba(10,14,22,.55), rgba(10,14,22,.20)); border-bottom:1px solid rgba(255,255,255,.10); transition: transform 0.3s ease, opacity 0.3s ease; box-shadow: 0 8px 20px rgba(0,0,0,.28); }
         .navbar-wrap.hide { transform: translateY(-100%); opacity: 0; }
         .navbar{ max-width:1450px; margin:0 auto; padding:12px 18px; display:flex; align-items:center; gap:16px; justify-content:space-between; }
@@ -122,9 +119,7 @@
             font-size: 1.2em;
         }
 
-        .no-break {
-            white-space: nowrap;
-        }
+        .no-break {white-space: nowrap;}
 
         .hero__sub{
             font-size: clamp(1.05rem, .98rem + .6vw, 1.35rem);
@@ -151,7 +146,6 @@
                 padding-bottom: clamp(20px, 5vw, 36px);
             }
 
-            /* Hero-Inhalt untereinander statt nebeneinander */
             .hero__inner{
                 width:min(900px, 94vw);
                 margin-inline:auto;
@@ -161,7 +155,6 @@
                 gap: clamp(16px, 5vw, 28px);
             }
 
-            /* Textblock bleibt schön links ausgerichtet, mit Seitenabstand */
             .hero__left{
                 width:100%;
                 max-width:700px;
@@ -170,8 +163,6 @@
                 margin-top: 30px;
             }
 
-
-            /* Video unter dem Text, zentriert und nicht breiter als das Fenster */
             .hero__card{
                 width:100%;
                 max-width:700px;
@@ -182,7 +173,6 @@
                 object-fit: cover;
             }
 
-            /* Video selbst soll sich anpassen und nichts überragen */
             .giflike{
                 width:100%;
                 height:auto;
@@ -190,7 +180,6 @@
                 object-fit: cover;
             }
         }
-
 
         .giflike{
             display:block;
@@ -276,22 +265,6 @@
             transform: translateY(0) scale(.99);
         }
 
-        .btnhero2{
-            appearance:none;
-            border:0;
-            cursor:pointer;
-            padding:14px 20px;
-            border-radius:14px;
-            font-weight:700;
-            text-decoration:none;
-            display:inline-flex;
-            align-items:center;
-            gap:.6rem;
-            background:linear-gradient(180deg, color-mix(in oklab, var(--blau) 40%, #1F2E60), #172247);
-            color:#ecf3ff;
-            box-shadow:0 10px 20px rgba(0,0,0,.35), 0 0 16px color-mix(in oklab, var(--blau) 64%, transparent);
-            transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
-
         .btn{ appearance:none; border:0; cursor:pointer; padding:14px 20px; border-radius:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:.6rem; background:linear-gradient(180deg, color-mix(in oklab, var(--neon1) 22%, #101623), #101623); color:#ecf3ff; box-shadow:0 10px 20px rgba(0,0,0,.35), 0 0 16px color-mix(in oklab, var(--neon1) 34%, transparent); transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
         .btn:hover{ transform: translateY(-1px); filter:saturate(1.06) }
         .btn:active{ transform: translateY(0) scale(.99) }
@@ -323,7 +296,6 @@
         }
         .lead{ margin:0 0 26px; color:var(--muted); max-width:75ch; }
 
-
         .features-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:36px; }
         .gcard{
             position:relative; overflow:hidden; border-radius:var(--radius-lg);
@@ -333,8 +305,8 @@
             padding:20px; min-height:160px;
             transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
             box-shadow:
-
                     0 0 50px rgba(84,120,225,0.1);
+
         }
 
         .gcard .ico{
@@ -344,26 +316,18 @@
             place-items:center;
             border-radius:12px;
             margin-bottom:10px;
-            margin-left:-7px;
+            margin-left:-5px;
             background: radial-gradient(closest-side, rgba(76,201,255,.35), transparent 70%);
         }
-        .gcard h3{ margin:2px 0 6px; font-size:1.34rem; }
-        .gcard p{ font-size: 1.15rem;margin:0; color:var(--muted); }
-        .hero__sub{
-            font-size: clamp(1.05rem, .98rem + .6vw, 1.35rem);
-            color: var(--muted);
-            margin: 0 0 1.2rem 0;
-            max-width: 50ch;
-        }
+        .gcard h3{ margin:2px 0px 6px; font-size:1.34rem; }
+        .gcard p{ font-size: 1.15rem;margin:0 3px 10px; color:var(--muted); }
         @media (max-width:960px){ .features-grid{ grid-template-columns:1fr; } }
-
 
         .wow{ text-align:center;
             background: #0F1A2F }
         .wow h2{ margin:0 0 15px; font-size: clamp(1.8rem,1.1rem + 2.8vw,3rem); }
         .wow p{ margin:0 auto 48px; color:var(--muted); max-width:760px; font-size: 1.35rem;}
 
-        /* Visualisierung */
         .section_visual {position: relative;padding: clamp(80px, 8vw, 120px) clamp(20px, 6vw, 800px);overflow: hidden;}
         .section--soft_visual {
             background:
@@ -385,29 +349,25 @@
 
         .visual {display: grid;grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);gap: clamp(250px, 5vw, 250px);align-items: center;perspective: 1400px;}
 
-
-
         @media (max-width: 960px){
 
-            /* Keine 3D-Perspektive mehr fürs Layout */
             .visual {
                 display:flex;
                 flex-direction:column;
                 align-items:center;
                 gap: clamp(20px, 6vw, 32px);
-                perspective: none !important;   /* WICHTIG */
+                perspective: none !important;
             }
 
             .device {
                 width: 100%;
                 max-width: min(350px, 100vw);
-                margin: -60px 20px auto;
+                margin: -60px 10px auto;
                 aspect-ratio: 16 / 9;
                 border-radius: 18px;
                 align-items:center;
-                /* 3D-Effekt wirklich komplett aus */
-                transform: none !important;       /* überschreibt garantiert */
-                transform-style: flat !important; /* Figur verhält sich 2D */
+                transform: none !important;
+                transform-style: flat !important;
             }
 
             .device video{
@@ -424,8 +384,6 @@
                 margin:0 auto;
             }
         }
-
-
 
         .device {
             margin-left: 20px;
@@ -445,8 +403,6 @@
             transform: rotateY(20deg) rotateX(16deg);
             transform-origin: center;
             transform-style: preserve-3d;}
-
-
 
         .device::after {
             content: "";
@@ -491,7 +447,6 @@
             text-shadow: 0 0 18px rgba(15,23,42,0.9);
         }
 
-
         .visual__content .actions{
             margin-top: 26px;
             justify-content: flex-start;
@@ -535,18 +490,8 @@
             color:#FFFFFF;
         }
 
-        /* Footer */
-        footer{ padding:50px clamp(20px,6vw,80px); border-top:1px solid var(--line); background:#0d1322; color:var(--muted); }
-        .footer-grid{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr; gap:26px; }
-        .footer-nav, .social{ display:flex; gap:12px; flex-wrap:wrap; }
-        .footer-nav a, .social a{ color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:8px; border:1px solid transparent; }
-        .footer-nav a:hover, .social a:hover{ border-color:var(--border); color:var(--fg); }
-        .copyright{ margin-top:18px; font-size:.9rem; color:var(--muted); }
-        @media (max-width:800px){ .footer-grid{ grid-template-columns:1fr; } }
-
         @media (max-width:960px){ .visual{ grid-template-columns:1fr; } .contact{ grid-template-columns:1fr; } }
 
-        /* awards */
         .awards-section{ text-align:center; background: #0F1A2F; }
         .awards-section .headlineaw{ margin:0 0 15px; font-size: clamp(1.8rem,1.1rem + 2.8vw,3rem); }
         .awards-section .lead{ text-align:center; margin:0 auto 26px;color:var(--muted); font-size: 1.35rem; }
@@ -581,12 +526,12 @@
             display: inline-block;
             padding: 1px 0.1px 20px 10px;
             background: linear-gradient(180deg,
-                    #9bb8ff 0%,
-                    #5478ff 25%,
-                    #2a4abf 55%,
-                    #0d1c5c 80%,
-                    #091132 100%),
-                    linear-gradient(115deg,
+            #9bb8ff 0%,
+            #5478ff 25%,
+            #2a4abf 55%,
+            #0d1c5c 80%,
+            #091132 100%),
+            linear-gradient(115deg,
                     transparent 40%,
                     rgba(170, 210, 255, 0.95) 50%,
                     transparent 60%);
@@ -620,16 +565,16 @@
 
             pointer-events:none;
             background:
-                    /* oben links */
+                /* oben links */
                     linear-gradient(var(--corner-color),var(--corner-color)) left top/var(--corner-len) var(--corner-thick) no-repeat,
                     linear-gradient(var(--corner-color),var(--corner-color)) left top/var(--corner-thick) var(--corner-len) no-repeat,
-                    /* oben rechts */
+                        /* oben rechts */
                     linear-gradient(var(--corner-color),var(--corner-color)) right top/var(--corner-len) var(--corner-thick) no-repeat,
                     linear-gradient(var(--corner-color),var(--corner-color)) right top/var(--corner-thick) var(--corner-len) no-repeat,
-                    /* unten links */
+                        /* unten links */
                     linear-gradient(var(--corner-color),var(--corner-color)) left bottom/var(--corner-len) var(--corner-thick) no-repeat,
                     linear-gradient(var(--corner-color),var(--corner-color)) left bottom/var(--corner-thick) var(--corner-len) no-repeat,
-                    /* unten rechts */
+                        /* unten rechts */
                     linear-gradient(var(--corner-color),var(--corner-color)) right bottom/var(--corner-len) var(--corner-thick) no-repeat,
                     linear-gradient(var(--corner-color),var(--corner-color)) right bottom/var(--corner-thick) var(--corner-len) no-repeat;
             opacity:.85;
@@ -664,6 +609,191 @@
             50%   { transform: translate3d(-0.8px, 1.0px, 0) scale(0.998); }
             75%   { transform: translate3d(0.9px, 0.6px, 0) scale(1.001); }
             100%  { transform: translate3d(0,0,0) scale(1); }
+        }
+
+        .site-footer{
+            padding: 32px clamp(20px, 6vw, 56px) 24px;
+            background: #0B1323;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .footer-inner nav{
+            justify-self: end;
+            margin-right: 50px;
+        }
+
+        .footer-list{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            column-gap: 24px;
+            row-gap: 4px;
+
+            justify-content: end;
+            text-align: right;
+        }
+
+        .footer-list a{
+            color: var(--muted);
+            text-decoration: none;
+            padding: 3px 0;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color .16s ease, transform .16s ease, text-shadow .16s ease;
+        }
+
+        .footer-list a::before{
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--neon1), var(--blau));
+            opacity: .65;
+        }
+
+        .footer-list a:hover{
+            color: var(--fg);
+            transform: translateY(-1px);
+            text-shadow: 0 0 12px rgba(56,189,248,.35);
+        }
+
+        .footer-meta{
+            font-size: 0.9rem;
+        }
+
+        .footer-meta p{
+            margin: 0 0 6px;
+        }
+
+        .footer-meta a{
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .footer-meta a:hover{
+            color: var(--fg);
+        }
+
+        .footer-bottom{
+            max-width: 1200px;
+            margin: -30px auto 0;
+            padding-top: 14px;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.86rem;
+        }
+
+        .footer-bottom small{
+            opacity: .9;
+        }
+
+        .footer-bottom a{
+            opacity: .9;
+            font-size: 11.5px;
+        }
+
+        .dings{
+            opacity: .9;
+            font-size: 13px;
+        }
+
+        .footer-bottom-links{
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom-links a{
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .footer-bottom-links a:hover{
+            color: var(--fg);
+        }
+
+        @media (max-width: 900px){
+            .footer-inner{
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 640px){
+            .footer-inner{
+                grid-template-columns: 1fr;
+            }
+            .footer-bottom{
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .site-footer .footer-list{
+            list-style: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+            gap: 6px 26px !important;
+            text-align: right !important;
+        }
+
+        .site-footer .footer-list li{
+            width: 50% !important;
+            display: flex !important;
+            justify-content: flex-end !important;
+        }
+
+        .site-footer .footer-list a{
+            color: var(--muted);
+            text-decoration: none;
+            padding: 3px 0;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color .16s ease, transform .16s ease, text-shadow .16s ease;
+        }
+
+        .site-footer .footer-list a::before{
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--neon1), var(--blau));
+            opacity: .65;
+        }
+
+        .site-footer .footer-list a:hover{
+            color: var(--fg);
+            transform: translateY(-1px);
+            text-shadow: 0 0 12px rgba(56,189,248,.35);
+        }
+
+
+        @media (max-width: 640px){
+            .site-footer .footer-list{
+                justify-content: flex-start !important;
+            }
+            .site-footer .footer-list li{
+                width: 100% !important;
+                justify-content: flex-start !important;
+                text-align: left !important;
+            }
         }
     </style>
 </head>
@@ -716,8 +846,6 @@
             <a class="btnhero" href="projekt.html">Mehr über das Projekt</a>
         </div>
         <figure class="hero__card" aria-label="Hero-Bild">
-            <!-- Hier dein Bild – nimm DEIN vorhandenes Hintergrundbild -->
-            <!-- Pfad ggf. anpassen (z. B. assets/test.png oder assets/og-hero.jpg) -->
             <video
                     class="giflike"
                     autoplay
@@ -750,14 +878,12 @@
                 </p>
                 <div class="actions">
                     <a class="btn" href="tunneltrettnig.html">Zum Tunnel Trettnig</a>
-                    <a class="btn btn--ghost" href="technik.html">Details zur KI</a>
+                    <a class="btn btn--ghost" href="projekt.html#KI">Details zur KI</a>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <!-- ========== FEATURES: neu, glasig & hell ========= -->
     <section class="section_features section--soft_features" aria-label="Kurz-Erklärung">
         <div class="container">
             <div class="features-grid">
@@ -769,8 +895,8 @@
                             <path d="M340 200c-6-6-15.6-6-21.6 0l-76.4 76.3-36.4-36.4c-6-6-15.6-6-21.6 0s-6 15.6 0 21.6l48 48c6 6 15.6 6 21.6 0l88-88c6-6 6-15.6 0-21.5z" />
                         </svg>
                     </div>
-                    <h3>✨ 1. Datenset weltweit</h3>
-                    <p>Einzigartiges Datenset welches österreichische Einsatzfahrzeuge erkennt. Rund 80 000 Bilder manuell erstellte & annotierte – der Grundstein für zuverlässige Erkennung.</p>
+                    <h3>✨ Weltweit erstes Datenset</h3>
+                    <p>Damit eine KI Objekte erkennen kann, braucht sie Beispiele, auf denen klar eingezeichnet ist, was sie erkennen soll. Weil es weltweit kein Datenset mit österreichischen Einsatzfahrzeugen gab, musste es selbst erstellt werden: rund 80 000 Bilder – alle manuell aufgenommen und annotiert.</p>
                 </article>
 
                 <article class="gcard" aria-label="KI erkennt automatisch">
@@ -788,7 +914,7 @@
                         </svg>
                     </div>
                     <h3>🚒 KI erkennt automatisch</h3>
-                    <p>Polizei, Rettung, Feuerwehr – auf Standard-Tunnelkameras, in Echtzeit.</p>
+                    <p>Statt teurer Spezialhardware für die Erkennung wurde ein System entwickelt, das Feuerwehr, Rettung und Polizei allein mit den vorhandenen Überwachungskameras live erkennt. So wird aus gewöhnlichen Tunnelkameras ein intelligentes System, das Einsatzfahrzeuge erkennt.</p>
                 </article>
 
                 <article class="gcard" aria-label="Online maßstabsgetreue Tunnelabbildung">
@@ -796,25 +922,25 @@
                         <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M3 4h18v14H3z"/><path d="M1 19h22v2H1z"/></svg>
                     </div>
                     <h3>🌐 Maßstabsgetreue Tunnelabbildung</h3>
-                    <p>Weboberfläche ohne Installation – Einsatzverlauf live & überall abrufbar.</p>
+                    <p>Mit der maßstabsgetreuen Weboberfläche genügt ein kurzer Blick aufs Handy
+                        und die Einsatzkräfte erhalten einen Überblick über den gesamten Tunnel –
+                        einen Überblick, den sie zuvor nie hatten. Fehlpositionierungen entfallen,
+                        und genau diese eingesparten Minuten entscheiden im Ernstfall über Leben und Tod.</p>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- ========== WOW: moderner Quote-Block ========= -->
     <section class="section wow" aria-label="Wow-Satz">
         <div class="container">
-            <h2>„Mit einem Datenset, das weltweit einzigartig ist – rund 80 000 Bilder, manuell erstellt und annotiert.“</h2>
+            <h2>„Mit einem Datenset, das weltweit einzigartig ist – rund 80 000 Bilder, manuell erstellt und annotiert.“</h2>
             <p>Die Grundlage einer KI, die Einsatzfahrzeuge im Tunnel erkennt.</p>
             <div class="actions" style="margin-top:18px">
-                <a class="btnuntn" href="technik.html">→ Erfahre, wie das möglich war</a>
+                <a class="btnuntn" href="projekt.html">→ Erfahre, wie das möglich war</a>
             </div>
         </div>
     </section>
 
-
-    <!-- ========== AWARDS: klare, moderne Pills ========= -->
     <section class="section_awards awards-section" aria-label="Erfolge">
         <div class="container">
             <h2 class="headlineaw">🏆 Erfolge</h2>
@@ -826,7 +952,7 @@
                 <a class="pill" href="erfolge.html#Aquila">KFV AQUILA 2025</a>
                 <a class="pill" href="erfolge.html#IS">innovation@school</a>
                 <a class="pill" href="erfolge.html#FM">FH-Maturaprojektwettbewerb</a>
-                <a class="pill" href="erfolge.html#AA">Auszeichnung ASFINAG</a>
+                <a class="pill" href="erfolge.html#AA">Auszeichnung ASFiNAG</a>
                 <a class="pill" href="erfolge.html#Bundesehrung">Bundesehrung</a>
                 <a class="pill" href="erfolge.html#Tunnelsymposium">5. JES Tunnelsymposium</a>
                 <a class="pill" href="erfolge.html#CrossCompany">Cross Company</a>
@@ -837,35 +963,31 @@
             </div>
         </div>
     </section>
-
-    <!-- ========== KONTAKT: veredelt (glasig, Icons, Chips) ========= -->
-
 </main>
 
-<!-- ========== FOOTER: reduziert & hell ========= -->
-<footer aria-label="Seitenende">
-    <div class="footer-grid">
-        <div>
-            <strong>Entwickelt von Alina Nessel – KI für Tunnelsicherheit</strong>
-            <p class="copyright">© 2025 Alina Nessel. All rights reserved.</p>
+<footer class="site-footer" aria-label="Seitenfuß">
+    <div class="footer-bottom">
+        <div class="footer-meta">
+            <p class="dings">
+                Für Rückfragen, Kooperationen oder Präsentationen:<br>
+                <a href="mailto:alina.nessel@outlook.com">alina.nessel@outlook.com</a>
+            </p>
         </div>
-        <div>
-            <nav class="footer-nav" aria-label="Footer-Menü">
-                <a href="index.html">Startseite</a>
-                <a href="projekt.html">Projekt</a>
-                <a href="technik.html">Technik</a>
-                <a href="kontakt.html">Kontakt</a>
-            </nav>
-            <div class="social" aria-label="Social Links">
-                <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-            </div>
+        <small>© 2025 Alina Nessel – ATTO. Alle Rechte vorbehalten.</small>
+        <div class="footer-list">
+            <a class="li" href="index.html">Startseite</a>
+            <a class="li" href="projekt.html">Projekt</a>
+            <a class="li" href="erfolge.html">Erfolge</a>
+            <a class="li" href="ueber-mich.html">Über mich</a>
+        </div>
+        <div class="footer-bottom-links">
+            <a href="impressum.html">Impressum</a>
         </div>
     </div>
 </footer>
 
+
 <script>
-    // Mobile-Menü toggeln (unverändert)
     (function(){
         const btn = document.querySelector('.menu-toggle');
         const nav = document.getElementById('nav');
@@ -876,7 +998,7 @@
         });
     })();
 
-    // Aktiven Menüpunkt markieren (unverändert)
+
     (function(){
         const links = document.querySelectorAll('#nav a');
         const path = location.pathname.split('/').pop() || 'index.html';
@@ -888,7 +1010,7 @@
         });
     })();
 
-    // Video-Autoplay fallback (unverändert)
+
     (function(){
         const video = document.querySelector('.hero__video');
         if(!video) return;
@@ -897,7 +1019,7 @@
         else window.addEventListener('load', start);
     })();
 
-    // Navbar beim Scrollen ein-/ausblenden (unverändert)
+
     (function(){
         let lastScroll = 0;
         const nav = document.querySelector('.navbar-wrap');
@@ -916,13 +1038,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="./assets/Logo.png" />
+    <title>ATTO – Über mich</title>
+    <meta name="description" content="Über mich – Kontakt und Kurzinfos zu Alina Nessel, ATTO – Ai Tracking Tunnel Overview." />
+
+    <meta property="og:title" content="ATTO – Über mich">
+    <meta property="og:description" content="Über mich – Kontakt und Kurzinfos zu Alina Nessel, ATTO – Ai Tracking Tunnel Overview.">
+    <meta property="og:image" content="assets/og-hero.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        :root{
+            --bg:#0e1320; --bg-2:#121a28; --fg:#eef4fb;
+            --muted:#c7d0de;
+            --border:rgba(255,255,255,.16); --line:rgba(255,255,255,.10);
+            --card:#121a2b; --card-2:#162035; --glass:rgba(255,255,255,.08);
+            --neon1:#4cc9ff; --neon2:#ff7a18; --success:#4ade80; --rot: #ff3000;
+            --blau: #5478FF;
+            --shadow-1:0 8px 20px rgba(0,0,0,.28); --shadow-2:0 14px 36px rgba(0,0,0,.36);
+            --radius-lg:18px; --radius-xl:22px;
+
+            --page-fg: #0f172a;
+            --page-muted: #475569;
+            --page-border: rgba(10, 22, 40, .12);
+            --page-glass: rgba(255,255,255,.6);
+            --page-glass-2: rgba(255,255,255,.45);
+        }
+
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans";
+            color:var(--fg);
+            background:
+                    radial-gradient(900px 500px at 15% 0%, rgba(139,184,255,.07), transparent 60%),
+                    radial-gradient(900px 500px at 85% 100%, rgba(255,180,119,.06), transparent 60%),
+                    linear-gradient(180deg, var(--bg), var(--bg-2));
+            line-height:1.6;
+        }
+
+        .navbar-wrap{
+            position:fixed;top:0;left:0;right:0;z-index:1000;
+            backdrop-filter:blur(10px) saturate(120%);
+            background:linear-gradient(180deg,rgba(10,14,22,.55),rgba(10,14,22,.20));
+            border-bottom:1px solid rgba(255,255,255,.10);
+            transition:transform .3s ease,opacity .3s ease;
+            box-shadow:0 8px 20px rgba(0,0,0,.28)
+        }
+        .navbar-wrap.hide{transform:translateY(-100%);opacity:0}
+        .navbar{
+            max-width:1450px;margin:0 auto;
+            padding:12px 18px;
+            display:flex;align-items:center;gap:16px;justify-content:space-between
+        }
+        .brand{
+            display:flex;align-items:center;gap:10px;
+            text-decoration:none;color:var(--fg);
+            font-weight:800;letter-spacing:.3px
+        }
+        .brand .logo{
+            height:30px;width:auto;display:block;
+            filter:drop-shadow(0 0 4px rgba(76,201,255,.4))
+        }
+        .nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+        .nav a{
+            --pad:10px;
+            padding:8px var(--pad);
+            border-radius:10px;
+            color:var(--fg);
+            text-decoration:none;
+            font-weight:600;
+            font-size:.98rem;
+            position:relative
+        }
+        .nav a:hover{filter:saturate(1.08)}
+        .nav a::after{
+            content:"";
+            position:absolute;
+            left:10px; right:10px; bottom:4px;
+            height:2px;
+            background: linear-gradient(90deg, var(--neon1)15%, var(--rot));
+            opacity:0;
+            transform: scaleX(.6);
+            transform-origin:center;
+            transition: .18s ease;
+            border-radius:2px;
+        }
+        .nav a:hover::after{opacity:.9;transform:scaleX(1)}
+        .nav a[aria-current=page]{
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(255,255,255,.10)
+        }
+        .nav a[aria-current=page]::after{opacity:1;transform:scaleX(1)}
+        .menu-toggle{
+            appearance:none;background:transparent;border:1px solid rgba(255,255,255,.10);
+            color:var(--fg);padding:10px 12px;border-radius:10px;
+            display:none;align-items:center;gap:8px;
+            font-weight:700;cursor:pointer
+        }
+        .menu-toggle svg{display:block}
+        @media (max-width:960px){
+            .menu-toggle{display:flex}
+            .nav{
+                display:none;width:100%;
+                flex-direction:column;align-items:flex-start;
+                padding:10px 4px
+            }
+            .nav.open{display:flex}
+            .nav a{width:100%}
+        }
+
+        .hero--soft::before {
+            content: "";
+            position: absolute;
+            inset: -160px;
+            background:
+                    radial-gradient(circle at 0 0, rgba(56,189,248,0.28), transparent 55%),
+                    radial-gradient(circle at 100% 100%, rgba(56,189,248,0.18), transparent 55%);
+            opacity: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .titleHero{
+            font-size: clamp(5.2rem, 4.4rem + 6.7vw, 6.2rem);
+            line-height:1.05;
+            margin: -500px 0 .6rem 0;
+            font-weight: 700;
+            letter-spacing: .01em;
+
+            font-family: "Arial", "Helvetica Neue", system-ui, sans-serif;
+            position: relative;
+            color: transparent;
+            display: inline-block;
+            padding: 1px 0.1px 20px 10px;
+            background: linear-gradient(180deg,
+            #9bb8ff 0%,
+            #5478ff 25%,
+            #2a4abf 55%,
+            #0d1c5c 80%,
+            #091132 100%),
+            linear-gradient(115deg,
+                    transparent 40%,
+                    rgba(170, 210, 255, 0.95) 50%,
+                    transparent 60%);
+            background-size: 100% 100%, 250% 100%;
+            background-position: center, -160% 0;
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-stroke: 1.15px rgba(140,180,255,.55);
+
+            text-shadow:
+                    0 0 10px rgba(70,110,255,.40),
+                    0 0 26px rgba(50,90,240,.32),
+                    0 10px 34px rgba(0,0,50,.85),
+                    0 0 80px rgba(60,110,255,.22);
+
+            letter-spacing: .035em;
+            font-weight: 900;
+            line-height: 1.02;
+            isolation: isolate;
+            animation: blScan 4.8s ease-in-out infinite;
+        }
+
+        .titleHero::after{
+            content:"";
+            position:absolute;
+            --corner-len: 28px;
+            --corner-thick: 4px;
+            --corner-pad: -8px;
+            --corner-color: #5a7dff;
+            --corner-glow: rgba(70,110,255,.55);
+            inset: calc(50% - (var(--corner-len)/2));
+
+            pointer-events:none;
+            opacity:.85;
+            filter: drop-shadow(0 0 10px var(--corner-glow));
+            transform-origin: center;
+            will-change: inset, transform;
+            animation:
+                    cornersFly 1.25s cubic-bezier(.9,.8,.2,1) forwards,
+                    cornersLive 2s ease-in-out .25s infinite;
+        }
+
+        header.page-hero{
+            position: relative;
+            min-height: 100dvh;
+            text-align: center;
+            overflow: hidden;
+            background: #0F1A2F;
+        }
+
+        .spark-orbs{
+            position:absolute;
+            inset:0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-content{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            z-index:1;
+        }
+
+        .hero-left{
+            flex: 1.2;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:flex-start;
+            text-align:left;
+            margin-top: 5vw;
+        }
+
+        .hero-left-inner{
+            max-width: 597px;
+        }
+
+        .hero-tagline{
+            margin-top: 18px;
+            margin-left: 1vw;
+            font-size: 1.05rem;
+            color: var(--muted);
+
+        }
+
+        .hero-contact-card{
+            margin-top: 22px;
+            margin-left: .5vw;
+            background: linear-gradient(180deg, rgba(15,23,42,0.95), rgba(15,23,42,0.8));
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,255,.45);
+            padding: 16px 18px 14px;
+            box-shadow: 0 14px 40px rgba(15,23,42,.85);
+        }
+
+        .hero-contact-label{
+            font-size: 1.05rem;
+            font-weight: bolder;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            opacity: .78;
+            margin: 0 0 6px;
+        }
+
+        .hero-contact-text{
+            margin: 0 0 10px;
+            font-size: .94rem;
+            color: var(--muted);
+        }
+
+        .contact-list{
+            list-style:none;
+            margin:0 0 14px;
+            padding:0;
+        }
+
+        .contact-list li{
+            margin-bottom:4px;
+            font-size:.95rem;
+        }
+
+        .contact-label{
+            display:block;
+            font-size:.9rem;
+            text-transform:uppercase;
+            letter-spacing:.08em;
+            opacity:.75;
+            margin-top: 1vw;
+        }
+
+        .contact-list a{
+            color:var(--fg);
+            text-decoration:none;
+        }
+
+        .contact-list a:hover{
+            text-decoration:underline;
+        }
+
+        .btn-contact{
+            appearance:none;
+            border:0;
+            cursor:pointer;
+            padding:9px 13px;
+            border-radius:12px;
+            font-weight:500;
+            text-decoration:none;
+            display:inline-flex;
+            align-items:center;
+            gap:.6rem;
+            font-size:.9rem;
+
+            background: linear-gradient(180deg, #1D4ED8, #172554);
+            color:#FFFFFF;
+            box-shadow:
+                    0 14px 30px rgba(15,23,42,.9),
+                    0 0 26px rgba(37,99,235,.55);
+            transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, background .18s ease;
+        }
+
+        .btn-contact span{
+            font-size:1.1rem;
+        }
+
+        .btn-contact:hover{
+            background: linear-gradient(180deg, #2563EB, #1E3A8A);
+            transform: translateY(-1px);
+            filter: saturate(1.05);
+            box-shadow:
+                    0 20px 40px rgba(15,23,42,1),
+                    0 0 34px rgba(37,99,235,.65);
+        }
+
+        .btn-contact:active{
+            transform: translateY(0) scale(.99);
+        }
+
+        .hero-right{
+            flex:0.9;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .page-hero .hero-photo{
+            position: relative;
+            margin: 70px auto 32px;
+            max-width: 400px;
+            border-radius: 26px;
+            z-index: 1;
+        }
+
+        .page-hero .hero-photo::before{
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: rgba(76,201,255,.55);
+            box-shadow:
+                    0 0 40px rgba(76,201,255,.8),
+                    0 0 80px rgba(37,99,235,.9);
+            z-index: -1;
+        }
+
+        .page-hero .hero-photo img{
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: inherit;
+        }
+
+        @media(max-width: 900px){
+            .hero-content{
+                flex-direction: column;
+                text-align: center;
+                padding-top: 120px;
+            }
+            .hero-left{
+                margin-left: 0;
+                align-items:center;
+                text-align:center;
+            }
+            .hero-left-inner{
+                max-width: 520px;
+            }
+            .hero-contact-card{
+                text-align:left;
+                width:100%;
+                max-width:380px;
+                margin-inline:auto;
+            }
+        }
+
+        .site-footer{
+            padding: 32px clamp(20px, 6vw, 56px) 24px;
+            background: #0B1323;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .footer-meta{
+            font-size: 0.9rem;
+        }
+
+        .footer-meta p{
+            margin: 0 0 6px;
+        }
+
+        .footer-meta a{
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .footer-meta a:hover{
+            color: var(--fg);
+        }
+
+        .footer-bottom{
+            max-width: 1200px;
+            margin: -30px auto 0;
+            padding-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.86rem;
+        }
+
+        .footer-bottom small{
+            opacity: .9;
+        }
+
+        .footer-bottom a{
+            opacity: .9;
+            font-size: 11.5px;
+        }
+
+        .dings{
+            opacity: .9;
+            font-size: 13px;
+        }
+
+        .footer-bottom-links{
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom-links a{
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .footer-bottom-links a:hover{
+            color: var(--fg);
+        }
+
+
+        @media (max-width: 640px){
+            .footer-bottom{
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .site-footer .footer-list{
+            list-style: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+            gap: 6px 26px !important;
+            text-align: right !important;
+        }
+
+        .site-footer .footer-list li{
+            width: 50% !important;
+            display: flex !important;
+            justify-content: flex-end !important;
+        }
+
+        .site-footer .footer-list a{
+            color: var(--muted);
+            text-decoration: none;
+            padding: 3px 0;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color .16s ease, transform .16s ease, text-shadow .16s ease;
+        }
+
+        .site-footer .footer-list a::before{
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--neon1), var(--blau));
+            opacity: .65;
+        }
+
+        .site-footer .footer-list a:hover{
+            color: var(--fg);
+            transform: translateY(-1px);
+            text-shadow: 0 0 12px rgba(56,189,248,.35);
+        }
+
+
+        @media (max-width: 640px){
+            .site-footer .footer-list{
+                justify-content: flex-start !important;
+            }
+            .site-footer .footer-list li{
+                width: 100% !important;
+                justify-content: flex-start !important;
+                text-align: left !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar-wrap" role="navigation" aria-label="Hauptnavigation">
+    <div class="navbar">
+        <a class="brand" href="index.html">
+            <img src="assets/Logo.png" alt="ATTO Ai Tracking Tunnel Overview Logo" class="logo" />
+            ATTO - Ai Tracking Tunnel Overview
+        </a>
+
+        <button class="menu-toggle" aria-expanded="false" aria-controls="nav">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+            </svg>
+            Menü
+        </button>
+
+        <nav id="nav" class="nav">
+            <a href="index.html">Start</a>
+            <a href="projekt.html">Projekt</a>
+            <a href="erfolge.html">Erfolge</a>
+            <a href="ueber-mich.html">Über mich</a>
+        </nav>
+    </div>
+</div>
+
+<header class="page-hero hero--soft" role="banner" aria-label="Über mich">
+    <canvas class="spark-orbs" id="orbs" aria-hidden="true"></canvas>
+
+    <div class="hero-content">
+        <div class="hero-left">
+            <div class="hero-left-inner">
+                <h1 class="titleHero" data-text="Über mich">Über mich</h1>
+
+                <p class="hero-tagline">Ich bin Alina Nessel und arbeite an ATTO – AI Tracking Tunnel Overview. </p>
+                <p class="hero-tagline">
+                    Mit diesem Projekt möchte ich Einsatzkräften einen bislang unerreichten Überblick innerhalb des Tunnels verschaffen, den Einsatzablauf erheblich beschleunigen und dadurch im Ernstfall eine schnellere und effektivere Lebensrettung ermöglichen.
+                </p>
+
+                <div class="hero-contact-card" aria-label="Kontakt zu Alina Nessel">
+                    <p class="hero-contact-label">Kontakt</p>
+                    <p class="hero-contact-text">
+                        Du kannst mich bei Fragen zum Projekt, für Kooperationen oder Präsentationen jederzeit per E-Mail erreichen.
+                    </p>
+                    <ul class="contact-list">
+                        <li>
+                            <span class="contact-label">E-Mail</span>
+                            <a href="mailto:alina.nessel@outlook.com">alina.nessel@outlook.com</a>
+                        </li>
+                    </ul>
+                    <a class="btn-contact" href="mailto:alina.nessel@outlook.com">
+                        <span>✉</span> E-Mail schreiben
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-photo">
+                <img src="assets/hero/Ich.jpeg" alt="Porträtfoto von Alina Nessel">
+            </div>
+        </div>
+    </div>
+</header>
+
+<footer class="site-footer" aria-label="Seitenfuß">
+    <div class="footer-bottom">
+        <div class="footer-meta">
+            <p class="dings">
+                Für Rückfragen, Kooperationen oder Präsentationen:<br>
+                <a href="mailto:alina.nessel@outlook.com">alina.nessel@outlook.com</a>
+            </p>
+        </div>
+        <small>© 2025 Alina Nessel – ATTO. Alle Rechte vorbehalten.</small>
+        <div class="footer-list">
+            <a class="li" href="index.html">Startseite</a>
+            <a class="li" href="projekt.html">Projekt</a>
+            <a class="li" href="erfolge.html">Erfolge</a>
+            <a class="li" href="ueber-mich.html">Über mich</a>
+        </div>
+        <div class="footer-bottom-links">
+            <a href="impressum.html">Impressum</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    (function () {
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('nav');
+        if (!btn || !nav) return;
+        btn.addEventListener('click', () => {
+            const open = nav.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+        });
+    })();
+
+    (function () {
+        const links = document.querySelectorAll('#nav a');
+        const path = location.pathname.split('/').pop() || 'index.html';
+        links.forEach(a => {
+            const href = a.getAttribute('href');
+            if (href === path || (path === '' && href === 'index.html')) {
+                a.setAttribute('aria-current', 'page');
+            }
+        });
+    })();
+
+    (function () {
+        let last = 0;
+        const el = document.querySelector('.navbar-wrap');
+        if (!el) return;
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            if (y > last && y > 100) el.classList.add('hide'); else el.classList.remove('hide');
+            last = y;
+        });
+    })();
+
+    (function () {
+        const c = document.getElementById('orbs');
+        if (!c) return;
+        const ctx = c.getContext('2d');
+        let w, h;
+        const orbs = [];
+        const N = 30;
+
+        function resize() {
+            w = c.width = window.innerWidth;
+            const hero = document.querySelector('.page-hero');
+            h = c.height = hero.offsetHeight;
+        }
+
+        function rnd(a, b) { return Math.random() * (b - a) + a; }
+
+        function init() {
+            orbs.length = 0;
+            for (let i = 0; i < N; i++) {
+                orbs.push({
+                    x: rnd(0, w),
+                    y: rnd(0, h),
+                    r: rnd(1.5, 3.2),
+                    s: rnd(.2, .6),
+                    t: rnd(0, Math.PI * 2)
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, w, h);
+            for (const o of orbs) {
+                o.t += 0.01 * o.s;
+                o.x += Math.cos(o.t) * 0.3;
+                o.y += Math.sin(o.t * 0.8) * 0.2;
+                if (o.x < 0) o.x = w;
+                if (o.x > w) o.x = 0;
+                if (o.y < 0) o.y = h;
+                if (o.y > h) o.y = 0;
+
+                const g = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r * 6);
+                g.addColorStop(0, 'rgba(42,74,191,1)');
+                g.addColorStop(1, 'rgba(84,120,225,0)');
+                ctx.fillStyle = g;
+                ctx.beginPath();
+                ctx.arc(o.x, o.y, o.r * 6, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            requestAnimationFrame(draw);
+        }
+
+        resize();
+        init();
+        draw();
+        window.addEventListener('resize', () => {
+            resize();
+            init();
+        });
+    })();
+</script>
+</body>
+</html>
