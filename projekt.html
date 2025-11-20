@@ -376,7 +376,6 @@
 
         @media (max-width: 640px){
 
-            /* Footer unten als Spalte, mittig auf der Seite */
             .footer-bottom{
                 flex-direction: column;
                 align-items: center;
@@ -385,8 +384,6 @@
                 gap: 10px;
             }
 
-            /* Alle Blöcke bekommen eine schmale, zentrierte Spalte,
-               IN der der Text links bleibt */
             .footer-meta,
             .footer-bottom small,
             .footer-list,
@@ -396,8 +393,6 @@
                 margin: 0 auto;
                 text-align: left;
             }
-
-            /* Textgrößen wie von dir gewünscht */
             .footer-bottom small,
             .dings{
                 opacity: .9;
@@ -409,7 +404,6 @@
                 font-size: 2vw;
             }
 
-            /* Link-Liste: untereinander, links in der schmalen Spalte */
             .site-footer .footer-list{
                 display: flex !important;
                 justify-content: flex-start !important;
@@ -425,8 +419,6 @@
                 background: linear-gradient(135deg, var(--neon1), var(--blau));
                 opacity: .65;
             }
-
-            /* Impressum-Link unter der Liste, auch links in der Spalte */
             .footer-bottom-links{
                 display: flex;
                 justify-content: flex-start;
@@ -784,18 +776,14 @@
         }
 
 
-        /* >>> Nur für kleine Fenster / Mobile <<< */
         @media (max-width: 900px) {
-
-            /* --- HERO: Titel & Text zentrieren, mehr Abstand nach oben, Bild anpassen --- */
-
             header.page-hero {
-                text-align: center;         /* Text im Hero zentrieren */
-                padding-top: 150px;         /* etwas mehr Abstand nach oben */
+                text-align: center;
+                padding-top: 120px;
             }
 
             .page-hero-inner {
-                align-items: center;        /* Inhalt im Flex-Container zentrieren */
+                align-items: center;
             }
 
             .hero-copy {
@@ -804,17 +792,17 @@
             }
 
             .titleHero {
-                margin: 0 0 0.8rem 0;       /* kein großer negativer Margin oben bei klein */
+                margin: 0 0 0 0;
                 font-size: 20vw;
 
             }
 
             .stats {
-                justify-content: center;    /* Zahlenreihe zentrieren */
+                justify-content: center;
             }
 
             .hero-tabs {
-                justify-content: center;    /* Buttons zentrieren */
+                justify-content: center;
             }
 
             .hero-visual {
@@ -823,78 +811,52 @@
             }
 
             .hero-tablet {
-                width: 100%;                /* passt sich der Fensterbreite an */
+                width: 100%;
                 height: auto;
-                max-width: 420px;           /* ungefähr wie deine bisherige mobile Größe */
-            }
-
-
-
-            /* --- STORY-SECTIONS (Problem, Lösung, Ergebnis): Inhalt mittig --- */
-
-            /* h2 bleibt links, weil sie außerhalb der .grid steht */
-
-            .story .grid {
-                /* nur die Elemente IN der Grid zentrieren, nicht die Überschrift */
-
+                max-width: 420px;
             }
 
             .story__text {
                 margin-left: auto;
                 margin-right: auto;
-
             }
 
             .story__media,
             .story__media2 {
-                align-items: center;        /* Bilder/Videos mittig im Container */
+                align-items: center;
             }
 
             .story__img,
             .story__img2 {
                 margin-left: auto;
-                margin-right: auto;         /* Figur selbst mittig */
+                margin-right: auto;
             }
 
-
-
-            /* --- Lösung & andere Grids mit mehreren Bildern: Abstände nach unten kleiner --- */
-
-            /* Bilder, die aktuell sehr großen Bottom-Margin haben */
             .story__img--small,
             .story__img--small2,
             .story__img--small4 {
-                margin-bottom: 1px;        /* ähnlich groß wie der Abstand nebeneinander */
-
+                margin-bottom: 1px;
             }
 
             .story__img--smalli2,
             .story__img--smalli3,
             .story__img--smalli {
-                margin-top: 10px;        /* ähnlich groß wie der Abstand nebeneinander */
+                margin-top: 10px;
 
             }
 
-
-            /* Galerie-Kacheln haben dann überall ähnliche Abstände */
             .story__gallery {
-                gap: 12px;                  /* horizontale + vertikale Abstände gleich */
+                gap: 12px;
             }
 
-
-
-            /* --- Ergebnis-Section: Text-Abstand im Kasten verringern & Medien größer --- */
-
-            /* Der starke Abstand nach unten im Textfeld soll auf klein wegfallen */
             .text1 p {
-                margin-bottom: 16px;        /* statt ~210px */
+                margin-bottom: 16px;
             }
 
             .text2 p {
-                margin-bottom: 16px;        /* statt ~210px */
+                margin-bottom: 16px;
             }
 
-            /* Sticker-Bilder im Ergebnis: gleiche Breite wie die anderen Bilder */
             .story__img2--sticker {
                 width: 100%;
                 height: auto;
@@ -902,13 +864,11 @@
                 margin-top: -25vw;
             }
 
-            /* Video im Ergebnis: nicht schmal + nicht überbreit, einfach normal 100% */
             .story__text,
             .story__media2 {
                 grid-column: span 12;
             }
 
-            /* Medien in der Ergebnis-Section zentrieren */
             .story__media2 {
                 align-items: center;
             }
@@ -929,8 +889,6 @@
                 transform: translateX(-50%);
             }
         }
-
-
     </style>
 </head>
 <body>
