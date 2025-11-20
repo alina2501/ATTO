@@ -509,31 +509,35 @@
 
             }
 
-            .stats{
-                justify-content: center;  /* die 3 Punkte schön mittig */
-            }
-
-
-
             /* --- Navigations-Section: Filter-Buttons & Suchfeld --- */
 
             .section .toolbar{
                 flex-direction: column;
                 align-items: stretch;
                 gap: 10px;
+                margin-bottom: -20vw;
             }
 
             .toolbar .left{
-                justify-content: center;
                 flex-wrap: nowrap;        /* alles in einer Zeile */
                 overflow-x: auto;         /* falls es doch knapp wird, kann man horizontal scrollen */
                 padding-bottom: 4px;
+
+
             }
 
             .toolbar .pill{
-                padding: 6px 10px;        /* kleiner machen */
-                font-size: 0.78rem;       /* Schrift etwas verkleinern */
+                padding: 4px 8px;        /* kleiner machen */
+                font-size: 0.68rem;       /* Schrift etwas verkleinern */
                 white-space: nowrap;      /* nichts umbrechen */
+                margin-top: 1vw;
+                margin-left: 1vw;
+            }
+
+            .pill[aria-pressed=true]
+            {outline:1.5px solid color-mix(in oklab, var(--neon1) 55%, white);
+                outline-offset:1.5px;
+
             }
 
             .toolbar .right{
@@ -545,14 +549,17 @@
             .toolbar .search{
                 width: 100%;              /* füllt den ganzen Container */
                 flex: 1 1 100%;
+                font-size: 0.68rem;
             }
 
             .toolbar .select{
                 flex: 0 0 auto;
+                font-size: 0.68rem;
             }
 
             .toolbar .count{
                 margin-left: auto;
+                font-size: 0.8rem;
             }
 
 
@@ -561,16 +568,35 @@
 
             .award__media-strip{
                 padding: 8px;
-                scrollbar-width: auto;    /* Scroll-Leiste auf Mobile wieder sichtbarer machen */
-            }
+                scrollbar-width: thin;    /* Scroll-Leiste auf Mobile wieder sichtbarer machen */
 
-            .award__media-strip .thumb{
-                flex: 0 0 calc(33.333% - 8px); /* 3 Bilder nebeneinander in der Vorschau */
-                margin-right: 8px;             /* Abstand etwas kleiner */
             }
 
             .award__media-strip .thumb:last-child{
                 margin-right: 0;
+
+            }
+
+            .award__media-strip .thumb:first-child{
+                margin-left: 1vw;
+            }
+
+            .thumb {
+
+                position: relative;
+                flex: 0 0 26vw;
+                aspect-ratio: 4/3;
+                border-radius: 8px;
+                overflow: hidden;
+                cursor: pointer;
+                margin-right: -7vw;
+            }
+
+            .thumb img {
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                display:block;
             }
 
         }
