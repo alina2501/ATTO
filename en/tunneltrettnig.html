@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../assets/Logo.png" />
+  <title>Tunnel Trettnig</title>
+  <style>
+    /* --- Language Modal – Grundlayout --- */
+    .language-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      font-family: inherit;
+    }
+
+    .language-modal.is-open {
+      display: flex;
+    }
+
+    .language-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    /* Card im ATTO-Look */
+    .language-modal__content {
+      position: relative;
+      background: #2a4abf;          /* dunkler Hintergrund wie ATTO */
+      color: #ffffff;
+      padding: 2rem 2.5rem;
+      border-radius: 1.25rem;
+      max-width: 420px;
+      width: calc(100% - 3rem);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .language-modal__title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .language-modal__subtitle {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Buttons im Pill-Style */
+    .language-modal__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.70rem;
+      justify-content: center;
+    }
+
+    .language-modal__buttons button {
+      border-radius: 999px;
+      padding: 0.6rem 1.4rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    /* Du kannst die Farben an dein ATTO-Branding anpassen */
+
+    .language-modal__buttons button[data-lang="de"],
+    .language-modal__buttons button[data-lang="en"],
+    .language-modal__buttons button[data-lang="fr"] {
+      background: rgba(0,0,0,0.2);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .language-modal__buttons button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    :root {
+      --bg: #f0f0f0;
+      --tunnel: #1a1c1c;
+      --tunnel-bg: #626565;
+      --road: #a9a9a9;
+      --line: #ffffff;
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+      background-color: var(--bg);
+      overflow-y: auto;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    h1 {
+      margin: 16px 12px 0 12px;
+      font-size: clamp(16px, 2.2vw, 24px);
+      font-weight: 600;
+    }
+
+    .stage {
+      position: relative;
+      width: min(95vw, 1150px);
+      aspect-ratio: 1140 / 700;
+      background: var(--tunnel-bg);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .tunnel { fill: var(--tunnel); }
+
+    #camera-container, #label-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transform-origin: 0 0;
+    }
+
+    .camera-container {
+      position: absolute;
+      width: 20px;
+      height: 10px;
+    }
+
+    .camera {
+      background-color: #fff;
+      outline: 0.5px solid #000;
+      width: 20px;
+      height: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4px;
+      font-weight: bold;
+      color: #000;
+      position: relative;
+      border-radius: 1px;
+    }
+
+    .camera-number {
+      margin-left: 1.5px;
+      font-size: 6px;
+      font-weight: bold;
+      color: #000;
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+    }
+
+    .trapezoid {
+      width: 10px;
+      height: 0;
+      border-top: 10px solid #000;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      position: absolute;
+      bottom: 0;
+    }
+    .cameraRight .trapezoid { left: 15px; transform: rotate(90deg); }
+    .cameraLeft  .trapezoid { left: -15px; transform: rotate(270deg); }
+
+
+    .label {
+      position: absolute;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+      white-space: nowrap;
+    }
+
+
+    .querschlag {
+      position: absolute;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      transform: rotate(77deg);
+      transform-origin: center;
+      white-space: nowrap;
+    }
+
+
+
+    .grid { display: none; }
+    .grid line { stroke: rgba(255,255,255,0.08); stroke-width: 1; }
+  </style>
+</head>
+<body>
+<div class="language-modal" id="language-modal">
+  <div class="language-modal__backdrop"></div>
+  <div class="language-modal__content">
+    <h2 class="language-modal__title">
+      Choose language
+    </h2>
+    <p class="language-modal__subtitle">
+      Your selection will be saved and applied to all pages.
+    </p>
+
+    <div class="language-modal__buttons">
+      <button type="button" data-lang="en">
+        English
+      </button>
+      <button type="button" data-lang="de">
+        Deutsch
+      </button>
+      <button type="button" data-lang="fr">
+        Français
+      </button>
+    </div>
+  </div>
+</div>
+
+<h1>Tunnel Trettnig</h1>
+
+<div class="stage" id="stage">
+  <svg id="tunnelTrettnig" viewBox="0 0 1140 700" xmlns="http://www.w3.org/2000/svg" aria-label="Tunnel-Layout">
+    <g class="grid">
+      <defs>
+        <pattern id="dotgrid" width="50" height="50" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="50" />
+          <line x1="0" y1="0" x2="50" y2="0" />
+        </pattern>
+      </defs>
+      <rect x="0" y="0" width="1140" height="700" fill="url(#dotgrid)" />
+    </g>
+
+    <rect x="200" y="100" width="700" height="250" class="tunnel" />
+    <rect x="275" y="350" width="700" height="250" class="tunnel" />
+
+    <line x1="537.78" y1="200" x2="605.78" y2="500" stroke="white" stroke-width="3" />
+    <line x1="567.78" y1="200" x2="635.78" y2="500" stroke="white" stroke-width="3" />
+
+    <rect x="-31" y="175" width="1203" height="100" fill="var(--road)" />
+    <line x1="-31" y1="175" x2="1203" y2="175" stroke="white" stroke-width="3" shape-rendering="crispEdges" />
+    <line x1="-31" y1="275" x2="1203" y2="275" stroke="white" stroke-width="3" shape-rendering="crispEdges" />
+
+    <g id="marks-it" stroke="white" stroke-width="3"></g>
+
+    <rect x="-31" y="425" width="1203" height="100" fill="var(--road)" />
+    <line x1="-31" y1="425" x2="1203" y2="425" stroke="white" stroke-width="3" shape-rendering="crispEdges" />
+    <line x1="-31" y1="525" x2="1203" y2="525" stroke="white" stroke-width="3" shape-rendering="crispEdges" />
+
+    <g id="marks-wien" stroke="white" stroke-width="3"></g>
+  </svg>
+
+  <div id="camera-container" aria-hidden="true"></div>
+  <div id="label-container" aria-hidden="true">
+    <div class="label italy-sign"  aria-label="Richtung Italien">← Italy</div>
+    <div class="label vienna-sign" aria-label="Richtung Wien">Vienna →</div>
+    <div class="querschlag" aria-label="Querschlag">cross-passage</div>
+  </div>
+</div>
+
+<script src="../lang.js"></script>
+<script>
+  const cameras = [
+    { x: 185.6,  y: 530, type: 'Right', number: '6001' },
+    { x: 275,    y: 430, type: 'Right', number: '2001' },
+    { x: 394.2,  y: 430, type: 'Right', number: '2002' },
+    { x: 543.2,  y: 430, type: 'Right', number: '2003' },
+    { x: 693.69, y: 430, type: 'Right', number: '2004' },
+    { x: 812.89, y: 430, type: 'Right', number: '2005' },
+    { x: 902.29, y: 430, type: 'Right', number: '2006' },
+    { x: 1113.57,y: 530, type: 'Left',  number: '5002' },
+    { x: 222,    y: 180, type: 'Left',  number: '1006' },
+    { x: 332,    y: 180, type: 'Left',  number: '1005' },
+    { x: 421.4,  y: 180, type: 'Left',  number: '1004' },
+    { x: 583.81, y: 180, type: 'Left',  number: '1003' },
+    { x: 717.91, y: 180, type: 'Left',  number: '1002' },
+    { x: 866.91, y: 180, type: 'Left',  number: '1001' },
+    { x: 1019.2, y: 160, type: 'Left',  number: '5001' }
+  ];
+
+  function buildLaneMarks(groupId, y, startX = 210, repeat = 30, gap = 29.13, len = 10) {
+    const g = document.getElementById(groupId);
+    g.innerHTML = '';
+    for (let i = 0; i < repeat; i++) {
+      const x1 = startX + i * gap;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1);
+      line.setAttribute('y1', y);
+      line.setAttribute('x2', x1 + len);
+      line.setAttribute('y2', y);
+      g.appendChild(line);
+    }
+  }
+
+  buildLaneMarks('marks-it', 225, 0, 40, 29.13, 10);
+  buildLaneMarks('marks-wien', 475, 0, 40, 29.13, 10);
+
+  function positionCameras() {
+    const container = document.getElementById('camera-container');
+    container.innerHTML = '';
+
+    cameras.forEach(cam => {
+      const cameraDiv = document.createElement('div');
+      cameraDiv.className = `camera-container camera${cam.type}`;
+
+      cameraDiv.style.left = `${cam.x}px`;
+      cameraDiv.style.top  = `${cam.y}px`;
+
+      cameraDiv.innerHTML = `
+        <div class="camera">
+          <div class="trapezoid"></div>
+          <div class="camera-number">${cam.number}</div>
+        </div>
+      `;
+      container.appendChild(cameraDiv);
+    });
+  }
+
+
+  function positionLabels() {
+    const italy = document.querySelector('.italy-sign');
+    italy.style.left = `20px`;
+    italy.style.top  = `130px`;
+
+    const wien = document.querySelector('.vienna-sign');
+    wien.style.left = `1040px`;
+    wien.style.top  = `383px`;
+
+    const q = document.querySelector('.querschlag');
+    q.style.left = `550px`;
+    q.style.top  = `342px`;
+  }
+
+  function applyOverlayScale() {
+    const svg = document.getElementById('tunnelTrettnig');
+    const rect = svg.getBoundingClientRect();
+    const scaleX = rect.width / 1140;
+    const scaleY = rect.height / 700;
+
+    const cam = document.getElementById('camera-container');
+    const lab = document.getElementById('label-container');
+
+    cam.style.transform = `scale(${scaleX}, ${scaleY})`;
+    lab.style.transform = `scale(${scaleX}, ${scaleY})`;
+  }
+
+
+  function onResize() {
+    positionCameras();
+    positionLabels();
+    applyOverlayScale();
+  }
+
+  window.addEventListener('load', onResize);
+  window.addEventListener('resize', onResize);
+
+</script>
+</body>
+</html>

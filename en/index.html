@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="../assets/Logo.png" />
+    <title>ATTO</title>
+    <meta name="description" content="Echtzeit-Erkennung von Einsatzfahrzeugen im Tunnel – eine KI, die Leben rettet." />
+
+    <meta property="og:title" content="ATTO – Ai Tracking Tunnel Overview">
+    <meta property="og:description" content="Echtzeit-Erkennung von Einsatzfahrzeugen im Tunnel – eine KI, die Leben rettet.">
+    <meta property="og:image" content="../assets/og-hero.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        /* --- Language Modal – Grundlayout --- */
+        .language-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            font-family: inherit;
+        }
+
+        .language-modal.is-open {
+            display: flex;
+        }
+
+        .language-modal__backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        /* Card im ATTO-Look */
+        .language-modal__content {
+            position: relative;
+            background: #2a4abf;          /* dunkler Hintergrund wie ATTO */
+            color: #ffffff;
+            padding: 2rem 2.5rem;
+            border-radius: 1.25rem;
+            max-width: 420px;
+            width: calc(100% - 3rem);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .language-modal__title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .language-modal__subtitle {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Buttons im Pill-Style */
+        .language-modal__buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.70rem;
+            justify-content: center;
+        }
+
+        .language-modal__buttons button {
+            border-radius: 999px;
+            padding: 0.6rem 1.4rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+        }
+
+        /* Du kannst die Farben an dein ATTO-Branding anpassen */
+
+        .language-modal__buttons button[data-lang="de"],
+        .language-modal__buttons button[data-lang="en"],
+        .language-modal__buttons button[data-lang="fr"] {
+            background: rgba(0,0,0,0.2);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .language-modal__buttons button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        :root{
+            --bg:         #0e1320;
+            --bg-2:       #121a28;
+            --glass:      rgba(255,255,255,.08);
+            --fg:         #eef4fb;
+            --muted:      #c7d0de;
+            --border:     rgba(255,255,255,.16);
+            --line:       rgba(255,255,255,.10);
+            --elev1:      rgba(255,255,255,.06);
+            --elev2:      rgba(255,255,255,.10);
+
+            --card:       #121a2b;
+            --card-2:     #162035;
+
+            --blau:       #5478FF;
+            --neon1:      #4cc9ff;
+            --neon2:      #ff7a18;
+            --rot:        #ff3000;
+            --success:    #4ade80;
+
+            --shadow-1:   0 8px 20px rgba(0,0,0,.28);
+            --shadow-2:   0 14px 36px rgba(0,0,0,.36);
+
+            --radius-lg:  18px;
+            --radius-xl:  22px;
+        }
+
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+            color:var(--fg);
+            background:
+                    radial-gradient(900px 500px at 15% 0%, rgba(139,184,255,.07), transparent 60%),
+                    radial-gradient(900px 500px at 85% 100%, rgba(255,180,119,.06), transparent 60%),
+                    linear-gradient(180deg, var(--bg), var(--bg-2));
+            line-height:1.6;
+        }
+
+        .navbar-wrap{ position:fixed; top:0px; left:0; right:0; z-index:1000; backdrop-filter: blur(10px) saturate(120%); background:linear-gradient(180deg, rgba(10,14,22,.55), rgba(10,14,22,.20)); border-bottom:1px solid rgba(255,255,255,.10); transition: transform 0.3s ease, opacity 0.3s ease; box-shadow: 0 8px 20px rgba(0,0,0,.28); }
+        .navbar-wrap.hide { transform: translateY(-100%); opacity: 0; }
+        .navbar{ max-width:1450px; margin:0 auto; padding:12px 18px; display:flex; align-items:center; gap:16px; justify-content:space-between; }
+        .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--fg); font-weight:800; letter-spacing:.3px;}
+        .brand .logo{ height:30px; width:auto; display:block; filter: drop-shadow(0 0 4px rgba(76,201,255,0.4)); }
+
+        .nav{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+        .nav a{ --pad:10px; padding:8px var(--pad); border-radius:10px; color:var(--fg); text-decoration:none; font-weight:600; font-size:0.98rem; position:relative; }
+        .nav a:hover{ filter:saturate(1.08) }
+        .nav a::after{ content:""; position:absolute; left:10px; right:10px; bottom:4px; height:2px; background: linear-gradient(90deg, var(--neon1)15%, var(--rot)); opacity:0; transform: scaleX(.6); transform-origin:center; transition: .18s ease; border-radius:2px; }
+        .nav a:hover::after{ opacity:.9; transform: scaleX(1) }
+        .nav a[aria-current="page"]{ background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); }
+        .nav a[aria-current="page"]::after{ opacity:1; transform:scaleX(1) }
+
+        .menu-toggle{ appearance:none; background:transparent; border:1px solid rgba(255,255,255,.10); color:var(--fg); padding:10px 12px; border-radius:10px; display:none; align-items:center; gap:8px; font-weight:700; cursor:pointer; }
+        .menu-toggle svg{ display:block }
+        @media (max-width:960px){ .menu-toggle{ display:flex } .nav{ display:none; width:100%; flex-direction:column; align-items:flex-start; padding:10px 4px } .nav.open{ display:flex } .nav a{ width:100% } }
+
+        .hero{
+            position:relative;
+            min-height: 100dvh;
+            display:flex;
+            align-items:center;
+            background:
+                    linear-gradient(180deg, rgba(93,93,93,.5), rgba(6,8,12,.8)),
+                    url("../assets/test.png") center/cover no-repeat;
+        }
+        .hero__inner{
+            width:min(1400px, 92vw);
+            margin-inline:auto;
+            display:grid;
+            grid-template-columns: minmax(0,1fr) minmax(0,1.3fr);
+            gap: clamp(18px, 5vw, 44px);
+            align-items:center;
+        }
+        .hero__left{
+            padding: clamp(10px, 2vw, 20px);
+        }
+        .hero__title{
+            font-size: clamp(5.2rem, 4.4rem + 6.7vw, 11.2rem);
+            line-height:1.05;
+            margin: 0 0 .6rem 0;
+            font-weight: 700;
+            letter-spacing: .01em;
+        }
+        .hero__title2{
+            font-size: clamp(2.2rem, 1.6rem + 0.8vw, 4.2rem);
+            line-height:1.05;
+            margin: 0 0 .6rem 0;
+            font-weight: 700;
+            letter-spacing: .01em;
+        }
+        .atto-mark{
+            background: linear-gradient(180deg,
+            #9bb8ff 0%,
+            #5478ff 25%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .no-break {white-space: nowrap;}
+
+        .hero__sub{
+            font-size: clamp(1.05rem, .98rem + .6vw, 1.35rem);
+            color: var(--muted);
+            margin: 0 0 1.2rem 0;
+            max-width: 50ch;
+        }
+        .hero__card{
+            width:100%;
+            margin:0;
+            position:relative;
+            overflow:hidden;
+            border-radius: 18px;
+            border:1px solid rgba(255,255,255,.08);
+            background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+            box-shadow: var(--shadow-2);
+            aspect-ratio: 16/9;
+        }
+
+        @media (max-width: 960px){
+            .hero{
+                min-height:auto;
+                padding-top: clamp(70px, 8vw, 90px);
+                padding-bottom: clamp(20px, 5vw, 36px);
+            }
+
+            .hero__inner{
+                width:min(900px, 94vw);
+                margin-inline:auto;
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+                gap: clamp(16px, 5vw, 28px);
+            }
+
+            .hero__left{
+                width:100%;
+                max-width:700px;
+                padding: clamp(10px, 4vw, 24px);
+                text-align: center;
+                margin-top: 30px;
+            }
+
+            .hero__card{
+                width:100%;
+                max-width:700px;
+                margin:0 auto;
+                aspect-ratio: 16 / 9;
+                height:auto;
+                border-radius: 18px;
+                object-fit: cover;
+            }
+
+            .giflike{
+                width:100%;
+                height:auto;
+                border-radius: 18px;
+                object-fit: cover;
+            }
+        }
+
+        .giflike{
+            display:block;
+            width:100%;
+            height:100%;
+            border-radius: 18px;
+            object-fit: cover;
+            background:#000;
+            pointer-events: none;
+            aspect-ratio: 16 / 9;
+        }
+
+        .actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content: center; }
+
+        .btnuntn{
+            background: linear-gradient(180deg, #1D4ED8, #172554);
+            border-radius: 14px;
+            padding: 13px 24px;
+            color:#FFFFFF;
+            font-weight: 600;
+            font-size: 17px;
+            box-shadow:
+                    0 14px 30px rgba(15,23,42,.9),
+                    0 0 26px rgba(37,99,235,.55);
+            transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, background .18s ease;
+            appearance:none;
+            border:0;
+            cursor:pointer;
+            text-decoration:none;
+            display:inline-flex;
+            align-items:center;
+            gap:.6rem;
+
+        }
+
+        .btnextra{background: linear-gradient(180deg, #1D4ED8, #172554);
+            border-radius: 14px;
+            padding: 13px 24px;
+            color:#FFFFFF;
+            font-weight: 600;
+            box-shadow:
+                    0 14px 30px rgba(15,23,42,.9),
+                    0 0 26px rgba(37,99,235,.55);
+            transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, background .18s ease;
+            appearance:none;
+            border:0;
+            cursor:pointer;
+            text-decoration:none;
+            display:inline-flex;
+            align-items:center;
+            gap:.6rem;}
+
+        .btnhero{
+            background: linear-gradient(180deg, #1D4ED8, #172554);
+            border-radius: 14px;
+            padding: 13px 24px;
+            color:#FFFFFF;
+            font-weight: 700;
+            box-shadow:
+                    0 14px 30px rgba(15,23,42,.9),
+                    0 0 26px rgba(37,99,235,.55);
+            transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, background .18s ease;
+            appearance:none;
+            border:0;
+            cursor:pointer;
+            text-decoration:none;
+            display:inline-flex;
+            align-items:center;
+            gap:.6rem;
+
+        }
+
+        .btnhero:hover{
+            background: linear-gradient(180deg, #2563EB, #1E3A8A);
+            transform: translateY(-1px);
+            filter: saturate(1.05);
+            box-shadow:
+                    0 20px 40px rgba(15,23,42,1),
+                    0 0 34px rgba(37,99,235,.65);
+        }
+
+        .btnhero:active{
+            transform: translateY(0) scale(.99);
+        }
+
+        .btn{ appearance:none; border:0; cursor:pointer; padding:14px 20px; border-radius:14px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:.6rem; background:linear-gradient(180deg, color-mix(in oklab, var(--neon1) 22%, #101623), #101623); color:#ecf3ff; box-shadow:0 10px 20px rgba(0,0,0,.35), 0 0 16px color-mix(in oklab, var(--neon1) 34%, transparent); transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+        .btn:hover{ transform: translateY(-1px); filter:saturate(1.06) }
+        .btn:active{ transform: translateY(0) scale(.99) }
+        .btn--ghost{ background:transparent; border:1px solid rgba(255,255,255,.10); box-shadow:none; color:var(--fg); opacity:.9; }
+        .btn--ghost:hover{ opacity:1; border-color:color-mix(in oklab, var(--neon1) 30%, rgba(255,255,255,.10)); }
+
+        .wheel{ position:absolute; left:50%; top:6px; width:2px; height:6px; background:var(--muted); border-radius:1px; translate:-50% 0; animation: wheel 1.8s ease-in-out infinite; }
+        @keyframes wheel{ 100%{opacity:.1; transform: translateY(0)} 35%{opacity:1; transform: translateY(6px)} 0%{opacity:0; transform: translateY(10px)} }
+
+        @media (prefers-reduced-motion: reduce){ .hero__panel::before, .wheel{ animation:none } .btn, .btn:hover, .btn:active{ transition:none } }
+        main{ overflow-x:hidden; }
+
+        .section{ padding:72px clamp(20px,6vw,80px); border-top:1px solid var(--line); }
+
+        .section_awards{ padding:72px clamp(20px,6vw,80px); margin-top: -80px;}
+
+        .section_features{ padding:72px clamp(20px,6vw,80px); border-top:1px solid var(--line); }
+
+        .section--soft_features {
+            background:#091B31;
+            position: relative;
+            z-index: 0;
+        }
+
+        .container{ max-width:1400px; margin-inline:auto; }
+        .headline{
+            margin:0 0 16px; font-weight:800; letter-spacing:.2px; text-wrap:balance;
+            font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.3rem);
+        }
+        .lead{ margin:0 0 26px; color:var(--muted); max-width:75ch; }
+
+        .features-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:36px; }
+        .gcard{
+            position:relative; overflow:hidden; border-radius:var(--radius-lg);
+            background:  #0F1A2F;
+            border:1px solid var(--border);
+            backdrop-filter: blur(8px) saturate(120%);
+            padding:20px; min-height:160px;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+            box-shadow:
+                    0 0 50px rgba(84,120,225,0.1);
+
+        }
+
+        .gcard .ico{
+            width:50px;
+            height:50px;
+            display:grid;
+            place-items:center;
+            border-radius:12px;
+            margin-bottom:10px;
+            margin-left:-5px;
+            background: radial-gradient(closest-side, rgba(76,201,255,.35), transparent 70%);
+        }
+        .gcard h3{ margin:2px 0px 6px; font-size:1.34rem; }
+        .gcard p{ font-size: 1.15rem;margin:0 3px 10px; color:var(--muted); }
+        @media (max-width:960px){ .features-grid{ grid-template-columns:1fr; } }
+
+        .wow{ text-align:center;
+            background: #0F1A2F }
+        .wow h2{ margin:0 0 15px; font-size: clamp(1.8rem,1.1rem + 2.8vw,3rem); }
+        .wow p{ margin:0 auto 48px; color:var(--muted); max-width:760px; font-size: 1.35rem;}
+
+        .section_visual {position: relative;padding: clamp(80px, 8vw, 120px) clamp(20px, 6vw, 800px);overflow: hidden;}
+        .section--soft_visual {
+            background:
+                    radial-gradient(circle at 0% 0%, #020617 0%, #020617 18%, #020617 26%, #020617 40%),
+                    linear-gradient(180deg, #020617 0%, #020617 16%, #020617 32%, #020617 100%);
+        }
+        .section--soft_visual::before {
+            content: "";
+            position: absolute;
+            inset: -160px;
+            background:
+                    radial-gradient(circle at 0 0, rgba(56,189,248,0.28), transparent 55%),
+                    radial-gradient(circle at 100% 100%, rgba(56,189,248,0.18), transparent 55%);
+            opacity: 1;
+            pointer-events: none;
+            z-index: 0;}
+
+        .container_visual {max-width: 1600px;margin-inline: auto;position: relative;z-index: 1;}
+
+        .visual {display: grid;grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);gap: clamp(250px, 5vw, 250px);align-items: center;perspective: 1400px;}
+
+        @media (max-width: 960px){
+
+            .visual {
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+                gap: clamp(20px, 6vw, 32px);
+                perspective: none !important;
+            }
+
+            .device {
+                width: 100%;
+                max-width: min(350px, 100vw);
+                margin: -60px 10px auto;
+                aspect-ratio: 16 / 9;
+                border-radius: 18px;
+                align-items:center;
+                transform: none !important;
+                transform-style: flat !important;
+            }
+
+            .device video{
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                border-radius:18px;
+                display:block;
+            }
+
+            .visual__content{
+                width:100%;
+                max-width:700px;
+                margin:0 auto;
+            }
+        }
+
+        .device {
+            margin-left: 20px;
+            width: 750px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 22px;
+            border: 1px solid rgba(148,163,184,.45);
+            background:
+                    radial-gradient(140% 220% at 0% 0%, rgba(76,201,255,.22),
+                    transparent 55%), radial-gradient(140% 220% at 100% 100%,
+                    rgba(15,23,42,.96), #020617);
+            aspect-ratio: 16 / 10.5;
+            box-shadow:
+                    0 36px 110px rgba(15,23,42,.95),
+                    0 0 80px rgba(56,189,248,.35);
+            transform: rotateY(20deg) rotateX(16deg);
+            transform-origin: center;
+            transform-style: preserve-3d;}
+
+        .device::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                    radial-gradient(circle at 14% 0%, rgba(148,163,184,.28), transparent 60%);
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+        }
+
+        .device video{width:100%;height:100%;object-fit:cover;display:block;border-radius: 18px;transform: translate3d(0,0,0);}
+
+        .visual__content .headline {
+            font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.4rem);
+            color: #F9FAFF;
+
+            letter-spacing: 0.02em;
+            text-shadow:
+                    0 0 16px rgba(15,23,42,0.9),
+                    0 0 26px rgba(56,189,248,0.55);
+            position: relative;
+        }
+
+        .visual__content .headline::after {
+            content: "";
+            display: block;
+            width: 130px;
+            height: 2px;
+            border-radius: 999px;
+            margin-top: 14px;
+            background: linear-gradient(90deg, rgba(84,189,248,0.9),var(--blau), transparent);
+            opacity: 0.95;
+        }
+
+        .visual__content .lead {
+            color: #C7D2FE;
+            font-size: 1.25rem;
+            max-width: 36rem;
+            line-height: 1.8;
+            margin: 0;
+            text-shadow: 0 0 18px rgba(15,23,42,0.9);
+        }
+
+        .visual__content .actions{
+            margin-top: 26px;
+            justify-content: flex-start;
+            gap: 14px;
+        }
+
+        .visual__content .btn{
+            background: linear-gradient(180deg, #1D4ED8, #172554);
+            border-radius: 14px;
+            padding: 13px 24px;
+            color:#FFFFFF;
+            font-weight: 700;
+            box-shadow:
+                    0 14px 30px rgba(15,23,42,.9),
+                    0 0 26px rgba(37,99,235,.55);
+            transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, background .18s ease;
+        }
+
+        .visual__content .btn:hover{
+            background: linear-gradient(180deg, #2563EB, #1E3A8A);
+            transform: translateY(-1px);
+            filter: saturate(1.05);
+            box-shadow:
+                    0 20px 40px rgba(15,23,42,1),
+                    0 0 34px rgba(37,99,235,.65);
+        }
+
+        .visual__content .btn:active{
+            transform: translateY(0) scale(.99);
+        }
+
+        .visual__content .btn.btn--ghost{
+            background: transparent;
+            border: 1px solid rgba(148,163,184,.75);
+            color:#E2E8F0;
+            box-shadow: none;
+        }
+
+        .visual__content .btn.btn--ghost:hover{
+            border-color:#FFFFFF;
+            color:#FFFFFF;
+        }
+
+        @media (max-width:960px){ .visual{ grid-template-columns:1fr; } .contact{ grid-template-columns:1fr; } }
+
+        .awards-section{ text-align:center; background: #0F1A2F; }
+        .awards-section .headlineaw{ margin:0 0 15px; font-size: clamp(1.8rem,1.1rem + 2.8vw,3rem); }
+        .awards-section .lead{ text-align:center; margin:0 auto 26px;color:var(--muted); font-size: 1.35rem; }
+        .awards-grid{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+        .pill{
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            appearance:none;
+            font-weight:700;
+            background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.06)),
+            linear-gradient(90deg, color-mix(in oklab, #2a4abf , transparent), color-mix(in oklab, #ff0000 30%, transparent));
+            background-blend-mode: overlay, normal;
+            color:#eef4fb;
+            box-shadow:0 8px 20px rgba(0,0,0,.28);
+            transition: transform .18s ease, filter .18s ease, box-shadow .18s ease; }
+        .pill:hover{
+            transform:translateY(-2px);
+            filter:saturate(1.04);
+            box-shadow:0 12px 24px rgba(0,0,0,.35); }
+
+        .quote{text-align:center;color:var(--muted); font-size: 1.25rem;font-style:italic;margin:30px auto 40px}
+        .awards-section .actions{ display:flex; justify-content:center; margin-top:24px }
+
+        .atto--bluelightAI{
+            font-family: "Arial", "Helvetica Neue", system-ui, sans-serif;
+            position: relative;
+            color: transparent;
+            display: inline-block;
+            padding: 1px 0.1px 20px 10px;
+            background: linear-gradient(180deg,
+            #9bb8ff 0%,
+            #5478ff 25%,
+            #2a4abf 55%,
+            #0d1c5c 80%,
+            #091132 100%),
+            linear-gradient(115deg,
+                    transparent 40%,
+                    rgba(170, 210, 255, 0.95) 50%,
+                    transparent 60%);
+            background-size: 100% 100%, 250% 100%;
+            background-position: center, -160% 0;
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-stroke: 1.15px rgba(140,180,255,.55);
+
+            text-shadow:
+                    0 0 10px rgba(70,110,255,.40),
+                    0 0 26px rgba(50,90,240,.32),
+                    0 10px 34px rgba(0,0,50,.85),
+                    0 0 80px rgba(60,110,255,.22);
+
+            letter-spacing: .035em;
+            font-weight: 900;
+            line-height: 1.02;
+            isolation: isolate;
+            animation: blScan 4.8s ease-in-out infinite;
+        }
+
+        .atto--bluelightAI::after{
+            content:"";
+            position:absolute;
+            --corner-len: 28px;
+            --corner-thick: 4px;
+            --corner-pad: -8px;
+            --corner-color: #5a7dff;
+            --corner-glow: rgba(70,110,255,.55);
+            inset: calc(50% - (var(--corner-len)/2));
+
+            pointer-events:none;
+            background:
+                /* oben links */
+                    linear-gradient(var(--corner-color),var(--corner-color)) left top/var(--corner-len) var(--corner-thick) no-repeat,
+                    linear-gradient(var(--corner-color),var(--corner-color)) left top/var(--corner-thick) var(--corner-len) no-repeat,
+                        /* oben rechts */
+                    linear-gradient(var(--corner-color),var(--corner-color)) right top/var(--corner-len) var(--corner-thick) no-repeat,
+                    linear-gradient(var(--corner-color),var(--corner-color)) right top/var(--corner-thick) var(--corner-len) no-repeat,
+                        /* unten links */
+                    linear-gradient(var(--corner-color),var(--corner-color)) left bottom/var(--corner-len) var(--corner-thick) no-repeat,
+                    linear-gradient(var(--corner-color),var(--corner-color)) left bottom/var(--corner-thick) var(--corner-len) no-repeat,
+                        /* unten rechts */
+                    linear-gradient(var(--corner-color),var(--corner-color)) right bottom/var(--corner-len) var(--corner-thick) no-repeat,
+                    linear-gradient(var(--corner-color),var(--corner-color)) right bottom/var(--corner-thick) var(--corner-len) no-repeat;
+            opacity:.85;
+            filter: drop-shadow(0 0 10px var(--corner-glow));
+            transform-origin: center;
+            will-change: inset, transform;
+            animation:
+                    cornersFly 1.25s cubic-bezier(.9,.8,.2,1) forwards,
+                    cornersLive 2s ease-in-out .25s infinite;
+        }
+
+        @keyframes cornersFly{
+            /* Start*/
+            0%{
+                inset: calc(50% - (var(--corner-len)/2));
+            }
+            45%{
+                top: var(--corner-pad);
+                bottom: var(--corner-pad);
+                left: calc(50% - (var(--corner-len)/2));
+                right: calc(50% - (var(--corner-len)/2));
+            }
+            /*Endposition */
+            100%{
+                inset: var(--corner-pad);
+            }
+        }
+        /* bewegen der ecken zum schluss */
+        @keyframes cornersLive{
+            0%    { transform: translate3d(0,0,0) scale(1); }
+            25%   { transform: translate3d(1.2px, -0.8px, 0) scale(1.002); }
+            50%   { transform: translate3d(-0.8px, 1.0px, 0) scale(0.998); }
+            75%   { transform: translate3d(0.9px, 0.6px, 0) scale(1.001); }
+            100%  { transform: translate3d(0,0,0) scale(1); }
+        }
+
+        .site-footer{
+            padding: 32px clamp(20px, 6vw, 56px) 24px;
+            background: #0B1323;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .footer-inner nav{
+            justify-self: end;
+            margin-right: 50px;
+        }
+
+        .footer-list{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            column-gap: 24px;
+            row-gap: 4px;
+
+            justify-content: end;
+            text-align: right;
+        }
+
+        .footer-list a{
+            color: var(--muted);
+            text-decoration: none;
+            padding: 3px 0;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color .16s ease, transform .16s ease, text-shadow .16s ease;
+        }
+
+        .footer-list a::before{
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--neon1), var(--blau));
+            opacity: .65;
+        }
+
+        .footer-list a:hover{
+            color: var(--fg);
+            transform: translateY(-1px);
+            text-shadow: 0 0 12px rgba(56,189,248,.35);
+        }
+
+        .footer-meta{
+            font-size: 0.9rem;
+        }
+
+        .footer-meta p{
+            margin: 0 0 6px;
+        }
+
+        .footer-meta a{
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .footer-meta a:hover{
+            color: var(--fg);
+        }
+
+        .footer-bottom{
+            max-width: 1200px;
+            margin: -30px auto 0;
+            padding-top: 14px;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.86rem;
+        }
+
+        .footer-bottom small{
+            opacity: .9;
+        }
+
+        .footer-bottom a{
+            opacity: .9;
+            font-size: 11.5px;
+        }
+
+        .dings{
+            opacity: .9;
+            font-size: 13px;
+        }
+
+        .footer-bottom-links{
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom-links a{
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        .footer-bottom-links a:hover{
+            color: var(--fg);
+        }
+
+        @media (max-width: 900px){
+            .footer-inner{
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 640px){
+            .footer-inner{
+                grid-template-columns: 1fr;
+            }
+            .footer-bottom{
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .site-footer .footer-list{
+            list-style: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: flex-end !important;
+            gap: 6px 26px !important;
+            text-align: right !important;
+        }
+
+        .site-footer .footer-list li{
+            width: 50% !important;
+            display: flex !important;
+            justify-content: flex-end !important;
+        }
+
+        .site-footer .footer-list a{
+            color: var(--muted);
+            text-decoration: none;
+            padding: 3px 0;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color .16s ease, transform .16s ease, text-shadow .16s ease;
+        }
+
+        .site-footer .footer-list a::before{
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--neon1), var(--blau));
+            opacity: .65;
+        }
+
+        .site-footer .footer-list a:hover{
+            color: var(--fg);
+            transform: translateY(-1px);
+            text-shadow: 0 0 12px rgba(56,189,248,.35);
+        }
+
+
+        @media (max-width: 640px){
+            .site-footer .footer-list{
+                justify-content: flex-start !important;
+            }
+            .site-footer .footer-list li{
+                width: 100% !important;
+                justify-content: flex-start !important;
+                text-align: left !important;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="language-modal" id="language-modal">
+    <div class="language-modal__backdrop"></div>
+    <div class="language-modal__content">
+        <h2 class="language-modal__title">
+            Choose language
+        </h2>
+        <p class="language-modal__subtitle">
+            Your selection will be saved and applied to all pages.
+        </p>
+
+        <div class="language-modal__buttons">
+            <button type="button" data-lang="en">
+                English
+            </button>
+            <button type="button" data-lang="de">
+                Deutsch
+            </button>
+            <button type="button" data-lang="fr">
+                Français
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="navbar-wrap" role="navigation" aria-label="Hauptnavigation">
+    <div class="navbar">
+        <a class="brand" href="../en/index.html">
+            <img src="../../assets/Logo.png" alt="ATTO Ai Tracking Tunnel Overview Logo" class="logo" />
+            ATTO - Ai Tracking Tunnel Overview
+        </a>
+
+        <button class="menu-toggle" aria-expanded="false" aria-controls="nav">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+            </svg>
+            Menu
+        </button>
+
+        <nav id="nav" class="nav">
+            <a href="../en/index.html">Home</a>
+            <a href="../en/project.html">Project</a>
+            <a href="../en/awards.html">Achievements</a>
+            <a href="../en/about.html">About Me</a>
+        </nav>
+    </div>
+</div>
+
+<header class="hero" role="banner" aria-label="ATTO Ai Tracking Tunnel Overview – Hero">
+    <div class="hero__inner">
+        <div class="hero__left">
+            <h1 class="hero__title atto--bluelightAI">ATTO</h1>
+            <p></p>
+            <h1 class="hero__title2">
+                <span class="no-break">
+                    <span class="atto-mark">A</span>i
+                </span>
+                <span class="no-break">
+                    <span class="atto-mark">T</span>racking
+                </span>
+                <span class="no-break">
+                    <span class="atto-mark">T</span>unnel
+                </span>
+                <span class="no-break">
+                    <span class="atto-mark">O</span>verview
+                </span>
+            </h1>
+            <p class="hero__sub">
+                Real-time detection of emergency vehicles inside highway tunnels – AI that helps save lives.
+            </p>
+            <a class="btnhero" href="../en/project.html">Learn more about the project</a>
+        </div>
+        <figure class="hero__card" aria-label="Hero-Bild">
+            <video
+                    class="giflike"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="auto"
+                    poster="../assets/Poster.png"
+                    controlslist="nodownload noplaybackrate noremoteplayback"
+                    disablepictureinpicture
+                    aria-label="Kurzer Demo-Loop">
+                <source src="../assets/TunnelErkennung.mp4" type="video/mp4">
+            </video>
+        </figure>
+    </div>
+</header>
+
+<main id="main">
+    <section class="section_visual section--soft_visual" aria-label="Visualisierung">
+        <div class="container_visual visual">
+            <div class="device" aria-label="Screenshot/Mockup der Live-Oberfläche">
+                <video src="../assets/tunnel.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <div class="visual__content">
+                <h3 class="headline">This is the overview</h3>
+                <p class="lead">
+                    As an emergency vehicle drives through the tunnel, the AI automatically detects it. The vehicle then appears on the website in a precise, to-scale visualization, allowing the entire operation to be monitored in real time. This gives all emergency services a clear and immediate overview at any moment.
+                </p>
+                <div class="actions">
+                    <a class="btn" href="../en/tunneltrettnig.html">Go to Tunnel Trettnig</a>
+                    <a class="btn btn--ghost" href="../en/project.html#KI">AI Details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section_features section--soft_features" aria-label="Kurz-Erklärung">
+        <div class="container">
+            <div class="features-grid">
+                <article class="gcard" aria-label="Einzigartiges Datenset weltweit">
+                    <div class="ico" aria-hidden="true">
+                        <svg viewBox="0 0 512 512" width="32" height="32" fill="currentColor" aria-hidden="true">
+                            <rect x="32" y="32" width="448" height="448" rx="40" ry="40" fill="none" stroke="currentColor" stroke-width="32"/>
+                            <path d="M256 72l58.6 118.8 131.4 19.2-95 92.6 22.4 130.4L256 382.8 138.6 433l22.4-130.4-95-92.6 131.4-19.2L256 72z" fill="currentColor"/>
+                            <path d="M340 200c-6-6-15.6-6-21.6 0l-76.4 76.3-36.4-36.4c-6-6-15.6-6-21.6 0s-6 15.6 0 21.6l48 48c6 6 15.6 6 21.6 0l88-88c6-6 6-15.6 0-21.5z" />
+                        </svg>
+                    </div>
+                    <h3>✨ World’s first dataset</h3>
+                    <p>For an AI to recognize objects, it needs clear, annotated examples. Since no dataset of Austrian emergency vehicles existed anywhere in the world, one had to be created from scratch: around 80,000 images – all manually captured and annotated.</p>
+                </article>
+
+                <article class="gcard" aria-label="KI erkennt automatisch">
+                    <div class="ico" aria-hidden="true">
+                        <svg viewBox="0 0 512 512" width="32" height="32" fill="currentColor" aria-hidden="true">
+                            <rect x="32" y="32" width="448" height="448" rx="40" ry="40" fill="none" stroke="currentColor" stroke-width="32"/>
+                            <path d="M128 176c-17.7 0-32 14.3-32 32v128c0 17.7 14.3 32 32 32h256c17.7 0 32-14.3 32-32v-96l-48-64H128z" fill="currentColor"/>
+                            <rect x="224" y="112" width="64" height="32" rx="8" ry="8" fill="currentColor"/>
+                            <path d="M176 224h24v-24c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v24h24c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8h-24v24c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8v-24h-24c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8z" fill="#000"/>
+                            <path d="M304 208h64l32 48h-96z" fill="#000"/>
+                            <circle cx="176" cy="352" r="32" fill="#000"/>
+                            <circle cx="176" cy="352" r="12" fill="#fff"/>
+                            <circle cx="336" cy="352" r="32" fill="#000"/>
+                            <circle cx="336" cy="352" r="12" fill="#fff"/>
+                        </svg>
+                    </div>
+                    <h3>🚒 Automatic recognition by AI</h3>
+                    <p>Instead of relying on expensive specialized hardware, a system was developed that detects fire, ambulance, and police vehicles live using only the existing tunnel surveillance cameras. This transforms ordinary tunnel cameras into an intelligent system capable of identifying emergency vehicles.</p>
+                </article>
+
+                <article class="gcard" aria-label="Online maßstabsgetreue Tunnelabbildung">
+                    <div class="ico" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true"><path d="M3 4h18v14H3z"/><path d="M1 19h22v2H1z"/></svg>
+                    </div>
+                    <h3>🌐 True-to-scale tunnel visualization</h3>
+                    <p>The precise, to-scale interface means a quick glance at a phone is enough for emergency responders to understand the situation across the entire tunnel – a level of clarity they never had before. Wrong positioning becomes a thing of the past, and those saved minutes can mean the difference between life and death.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section wow" aria-label="Wow-Satz">
+        <div class="container">
+            <h2>„A globally unique dataset – around 80,000 manually created and annotated images.“</h2>
+            <p>The foundation of an AI capable of recognizing emergency vehicles in tunnels.</p>
+            <div class="actions" style="margin-top:18px">
+                <a class="btnuntn" href="../en/project.html">→ Discover how this was achieved</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section_awards awards-section" aria-label="Erfolge">
+        <div class="container">
+            <h2 class="headlineaw">🏆 Achievements</h2>
+            <p class="lead">6 awards. 2 special recognitions. 2 presentations.</p>
+            <div class="awards-grid" role="list">
+                <a class="pill" href="../en/../en/awards.html#JI">Jugend Innovativ</a>
+                <a class="pill" href="../en/awards.html#Bosch">Bosch Innovationspreis 2025</a>
+                <a class="pill" href="../en/awards.html#FA">Future Award – FH JOANNEUM</a>
+                <a class="pill" href="../en/awards.html#Aquila">KFV AQUILA 2025</a>
+                <a class="pill" href="../en/awards.html#IS">innovation@school</a>
+                <a class="pill" href="../en/awards.html#FM">FH-Maturaprojektwettbewerb</a>
+                <a class="pill" href="../en/awards.html#AA">Recognition ASFiNAG</a>
+                <a class="pill" href="../en/awards.html#Ehrung">Honor by the State of Carinthia</a>
+                <a class="pill" href="../en/awards.html#Tunnelsymposium">5. JES Tunnelsymposium</a>
+                <a class="pill" href="../en/awards.html#CrossCompany">Cross Company</a>
+            </div>
+            <p class="quote">One of the most innovative AI solutions in tunnel and rescue technology.” – Jury, Jugend Innovativ 2025</p>
+            <div class="actions">
+                <a class="btnextra" href="../en/awards.html#">→ See all achievements</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer" aria-label="Seitenfuß">
+    <div class="footer-bottom">
+        <div class="footer-meta">
+            <p class="dings">
+                For inquiries, collaborations, or presentations:<br>
+                <a href="mailto:alina.nessel@outlook.com">alina.nessel@outlook.com</a>
+            </p>
+        </div>
+        <small>© 2025 Alina Nessel – ATTO. All rights reserved.</small>
+        <div class="footer-list">
+            <a class="li" href="../en/index.html">Home</a>
+            <a class="li" href="../en/project.html">Project</a>
+            <a class="li" href="../en/awards.html">Achievements</a>
+            <a class="li" href="../en/about.html">About Me</a>
+        </div>
+        <div class="footer-bottom-links">
+            <a href="../impressum.html">Imprint</a>
+        </div>
+    </div>
+</footer>
+
+
+<script src="../lang.js"></script>
+<script>
+    (function(){
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('nav');
+        if(!btn || !nav) return;
+        btn.addEventListener('click', () => {
+            const open = nav.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+        });
+    })();
+
+
+    (function () {
+        const links = document.querySelectorAll('#nav a');
+        const path = location.pathname.split('/').pop() || 'index.html';
+
+        links.forEach(a => {
+            const href = a.getAttribute('href');
+            const file = href.split('/').pop(); // nur Dateiname vergleichen
+
+            if (file === path || (path === '' && file === 'index.html')) {
+                a.setAttribute('aria-current', 'page');
+            }
+        });
+    })();
+
+
+    (function(){
+        const video = document.querySelector('.hero__video');
+        if(!video) return;
+        const start = () => video.play().catch(() => { video.remove(); });
+        if (document.readyState === 'complete') start();
+        else window.addEventListener('load', start);
+    })();
+
+
+    (function(){
+        let lastScroll = 0;
+        const nav = document.querySelector('.navbar-wrap');
+        if (!nav) return;
+
+        window.addEventListener('scroll', () => {
+            const current = window.scrollY;
+            if (current > lastScroll && current > 100) {
+                nav.classList.add('hide');
+            } else {
+                nav.classList.remove('hide');
+            }
+            lastScroll = current;
+        });
+    })();
+</script>
+</body>
+</html>
