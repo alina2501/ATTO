@@ -77,28 +77,39 @@
 
 
     function currentPath() {
-        // z.B. "/", "/index.html", "/ATTO/index.html",
-        // "/fr/index.html", "/ATTO/fr/index.html", "file:///C:/.../index.html"
-        let path = window.location.pathname;
+    // z.B. "/", "/index.html", "/ATTO/", "/ATTO/index.html",
+    // "/fr/", "/fr/index.html", "/ATTO/fr/", "/ATTO/fr/index.html"
+    let path = window.location.pathname;
 
-        // Dateiname ermitteln (letztes Stück nach "/")
-        const segments = path.split("/").filter(Boolean);
-        const file = segments.pop() || "index.html"; // z.B. "index.html"
+    const segments = path.split("/").filter(Boolean);
 
-        // schauen, ob wir in einem Sprachordner sind
-        const hasFr = path.includes("/fr/");
-        const hasEn = path.includes("/en/");
+    // Standard-Dateiname
+    let file = "index.html";
 
-        if (hasFr) {
-            return "./fr/" + file;     // -> "./fr/index.html"
+    if (segments.length > 0) {
+        const last = segments[segments.length - 1];
+
+        // Wenn das letzte Segment wie eine Datei aussieht (enthält einen Punkt),
+        // dann verwenden wir es als Dateinamen – sonst nehmen wir index.html
+        if (last.includes(".")) {
+            file = last;
         }
-        if (hasEn) {
-            return "./en/" + file;     // -> "./en/index.html"
-        }
-
-        // alles andere behandeln wir als deutsche Root-Seiten
-        return "./" + file;            // -> "./index.html", "./projekt.html", ...
     }
+
+    const hasFr = path.includes("/fr/");
+    const hasEn = path.includes("/en/");
+
+    if (hasFr) {
+        return "./fr/" + file;     // -> "./fr/index.html"
+    }
+    if (hasEn) {
+        return "./en/" + file;     // -> "./en/index.html"
+    }
+
+    // alles andere behandeln wir als deutsche Root-Seiten
+    return "./" + file;            // -> "./index.html", "./projekt.html", ...
+}
+
 
     function resolveTarget(lang) {
         const path = currentPath();
@@ -169,3 +180,4 @@
         initModal();
     });
 })();
+
